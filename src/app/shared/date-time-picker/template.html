@@ -1,0 +1,14 @@
+<mat-form-field [formGroup]="controlContainer.control" fxFlex="100" appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <input matInput
+        [ngxMatDatetimePicker]="picker"
+        [formControlName]="controlName"
+        [min]="minDate"
+        (focus)="picker.open()"
+        onkeypress="return false"
+        [required]="required"
+    >
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker [stepMinute]="stepMinute" [hideTime]="hideTime" [defaultTime]="defaultTime"></ngx-mat-datetime-picker>
+    <div class="custom-mat-error" [id]="controlName" *ngIf="error">{{error}}</div>
+</mat-form-field>

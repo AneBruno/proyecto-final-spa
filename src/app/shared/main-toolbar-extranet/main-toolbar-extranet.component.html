@@ -1,0 +1,34 @@
+<div>
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px" class="principal mat-elevation-z3">
+        <a routerLink="/app/extranet/solicitudes-cobro/listar" fxFlex.xs="25" fxFlex.sm="25" fxFlex.lt-lg="10" fxFlex.lg="6" fxLayout="column" class="logo">
+            <img src="../../../assets/images/logo_negocio.svg" alt="logo">
+        </a>
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1px" fxHide.lt-md>
+            <div *ngFor="let item of accessGroups" class="menu-option">
+                <button mat-button [matMenuTriggerFor]="menu">
+                    {{item.nombre}}
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <a routerLink="/app/{{access.uri}}" *ngFor="let access of item.hijos" mat-menu-item>
+                        {{access.nombre}}
+                    </a>
+                </mat-menu>
+                
+            </div>
+        </div>
+    
+        <app-user-section [extranet]="true" fxHide.lt-md></app-user-section>
+
+        <div fxFlex.xs="50" fxFlex.sm="50" fxHide.gt-sm>
+            <div *ngIf="currentSection!=null" class="current-section">
+                {{currentSection.key}} <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+        </div>
+        <div fxFlex.xs="25" fxFlex.sm="25" fxHide.gt-sm>
+            <button mat-icon-button aria-label="Menu" id="menu" (click)="openMobileMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>    
+        </div>
+    </mat-toolbar>
+</div>

@@ -1,0 +1,33 @@
+<app-form-section>    
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombre" matInput required />
+            <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Cantidad de Días - Alerta 1</mat-label>
+            <input formControlName="cantidad_dias_alerta_1" matInput />
+            <mat-error *ngIf="error('cantidad_dias_alerta_1')">{{error('cantidad_dias_alerta_1')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Cantidad de Días - Alerta 2</mat-label>
+            <input formControlName="cantidad_dias_alerta_2" matInput />
+            <mat-error *ngIf="error('cantidad_dias_alerta_2')">{{error('cantidad_dias_alerta_2')}}</mat-error>
+        </mat-form-field>
+        
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()">
+                Guardar
+            </button>
+            <button mat-flat-button routerLink="/app/clientes/tipos-eventos">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</app-form-section>

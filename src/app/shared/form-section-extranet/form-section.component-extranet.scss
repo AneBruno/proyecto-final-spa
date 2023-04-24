@@ -1,0 +1,41 @@
+:host {
+    background-image: url('/assets/images/background-bottom-extranet.svg');
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-color:#1DA9780F;
+    display: block;
+    background-attachment: fixed;
+}
+
+section {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    min-height: calc(100vh - 88px);
+
+}
+
+.form-container {
+    padding: 0px 37px;
+    background: transparent !important;
+    
+    display: block;
+    margin: 0;
+    width: 100%;
+    max-width: 1374px;
+    box-sizing:border-box;
+    padding-bottom: 25px;
+    @media only screen and (max-width: 768px) {
+        padding: 0 20px;
+        padding-bottom: 15px;
+    }
+}
+
+.title{
+    font-weight: 700 !important;
+    font-size: 32px !important;
+    color: #383840;
+    padding-bottom: 0px;
+    width: 100%;
+
+}

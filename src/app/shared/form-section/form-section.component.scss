@@ -1,0 +1,21 @@
+:host {
+    /*min-height: 1000px;*/
+    background-image: url('/assets/images/form-background.png');
+    background-attachment: fixed;
+    /*display: block;*/
+}
+section {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    min-height: 1000px;
+}
+
+.form-container {
+    padding: 0px 28px 10px;
+    background: #ffffff;
+
+    display: block;
+    margin: 0 auto;
+    max-width: 50%;
+}

@@ -1,0 +1,96 @@
+<div class="table-sticky-wrapper">
+    <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource" matSort [ngClass]="{
+        'hide-headers': hideHeaders
+    }">
+
+        <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}" [stickyEnd]="column.sticky==='end'">
+            <ng-container *ngIf="column.iconColumn === ''">
+                <th 
+                mat-header-cell 
+                *matHeaderCellDef
+                mat-sort-header 
+                [ngStyle]="{'text-align': column.align, width: column.width}"
+                >{{column.title}}</th>
+            </ng-container>
+            <ng-container *ngIf="column.iconColumn !== ''">
+                <th 
+                mat-header-cell 
+                *matHeaderCellDef
+                mat-sort-header 
+                [ngStyle]="{'text-align': column.align, width: column.width, color : column.titleColor}"
+                >
+                    <div>
+                        <mat-icon>{{column.iconColumn}}</mat-icon>{{column.title}}
+                    </div>
+                </th>
+            </ng-container>
+
+            <td mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
+                <ng-container *ngIf="column.type==='text'||column.type===undefined">
+                    {{column.valueFn(row) || row[column.name]  || null}}
+                </ng-container>
+                <ng-container *ngIf="column.type==='menu'">
+                    <button mat-icon-button type="button" color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" (click)="clickMenu(row)">
+                        <mat-icon aria-hidden="false">more_vert</mat-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="column.type==='button'">
+                    <button mat-icon-button color="primary" type="button">
+                        <mat-icon aria-hidden="false" (click)="column.click(row)">{{ column.icon }}</mat-icon>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="column.type==='checkbox'">
+                    <mat-checkbox
+                        (change)="onRowChecked($event, row)"
+                    ></mat-checkbox>
+                </ng-container>
+                <ng-container *ngIf="column.type==='input'">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <input matInput type="text" [(ngModel)]="row[column.name]" (change)="column.onChangeInput(row)" [disabled]="column.isDisabled(row)">
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="column.type==='numberInput'">
+                    <mat-form-field appearance="outline" style="width: 100%;" [ngStyle]="{'text-align': column.textAlign}">
+                        <input matInput type="text" 
+                            [(ngModel)]="row[column.name]"  
+                            autocomplete="off" 
+                            app-input-numeric 
+                            (change)="column.onChangeInput(row)" 
+                            [disabled]="column.isDisabled(row)"
+                            [required]="column.required"
+                        >
+                        <mat-error *ngIf="column.errorMessageFn(row[column.name])">{{column.errorMessageFn(row[column.name])}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
+                
+                <ng-container *ngIf="column.type==='select'">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-select [(ngModel)]="row[column.name]" [disabled]="column.isDisabled(row)" [required]="column.required" (selectionChange)="column.onChangeSelect(row)">
+                            <mat-option *ngFor="let option of column.selectOptions" [value]="option.value">{{option.text}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="column.errorMessageFn(row[column.name])">{{column.errorMessageFn(row[column.name])}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
+
+                <ng-container *ngIf="column.type==='datePicker'">
+                    <mat-form-field appearance="fill" fxFlex.xs="100">
+                        <input matInput [min]="column.minDate" [matDatepicker]="picker" (focus)="picker.open()" [(ngModel)]="row[column.name]" [disabled]="column.isDisabled(row)" [required]="column.required">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="column.errorMessageFn(row[column.name])">{{column.errorMessageFn(row[column.name])}}</mat-error>
+                    </mat-form-field>
+                </ng-container>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+    </table>
+</div>
+
+<mat-menu #menu="matMenu">
+    <ng-template matMenuContent let-aliasMenuItems="row">
+        <button *ngFor="let menuItem of menuItems" mat-menu-item (click)="menuItem.click(aliasMenuItems)">{{ menuItem.label}}</button>
+    </ng-template>
+</mat-menu>

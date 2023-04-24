@@ -1,0 +1,19 @@
+.mat-menu-item.padded {
+    padding-left: 40px;
+}
+
+.mat-menu-item {
+    font-weight: 500;
+    color:#383840;
+    background-color:rgba(196,196,196,0.1);
+}
+
+.mat-menu-item.main-level {
+    border-top: solid 2px rgba(196,196,196,0.1);
+    background-color:#ffffff;
+    color:#006937;
+}
+
+.mat-menu-item.main-level mat-icon {
+    color:#006937;
+}

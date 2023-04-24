@@ -1,0 +1,51 @@
+<!doctype html>
+<html  lang="es" translate="no">
+    <head>
+        <meta charset="utf-8">
+        <title>NdG - Gestión Comercial</title>
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Alef:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        <style>
+            .spacer { flex: 1 1; }
+            .sidenav-container {
+                min-height: 1000px;
+            }
+            .sidenav-filtros {
+                width: calc(100% - 56px);
+                max-width: 320px;
+                padding: 20px;
+            }
+            .mat-tooltip {
+                white-space: pre-line;
+            }
+            @media only screen and (min-width: 768px) {
+                [ mobile   ] { display: none    !important; }
+                [ nomobile ] { display: inherit !important; }
+            }
+            @media only screen and (max-width: 768px) {
+                [ mobile   ] { display: inherit !important; }
+                [ nomobile ] { display: none    !important; }
+
+                .buscador mat-dialog-container {
+                    position: fixed;
+                    top     : 0;
+                    left    : 0;
+                    right   : 0;
+                    bottom  : 0;
+                    width   : unset !important;
+                    height  : unset !important;
+                    padding : 0 !important;
+                }
+            }
+        </style>
+    </head>
+    <body class="mat-typography">
+        <app-root></app-root>
+    </body>
+</html>

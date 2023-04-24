@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field appearance="{{appearance}}">
+        <mat-label>{{label}}</mat-label>
+        <input type="text"
+            placeholder="{{placeholder}}"
+            matInput
+            [(ngModel)]="value"
+            [matAutocomplete]="auto"
+            (keyup)="keyup()"
+            >
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="emitOptionSelected()" [displayWith]="displayWithFn">
+            <mat-option *ngIf="labelForAll" value="">{{labelForAll}}</mat-option>
+            <mat-option *ngFor="let row of data" [value]="row[valueColumn]"><mat-icon *ngIf="hasIcon">{{getIcon(row)}}</mat-icon>{{row[labelColumn]}}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div>

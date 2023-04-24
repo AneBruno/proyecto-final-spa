@@ -1,0 +1,92 @@
+@import "./src/assets/scss/mixin.scss";
+@import "./src/assets/scss/variables.scss";
+
+:host ::ng-deep mat-sidenav-container {
+    height: 100%;
+}
+
+:host {
+    
+
+
+    .example-spacer {
+        flex: 1 1 auto;
+    }
+
+    @media screen and (min-width: 960px) {
+        & mat-toolbar {
+            z-index: 50;
+        }
+    }
+    
+    @media screen and (max-width: 599px) {
+        & mat-toolbar {
+            z-index: 0;
+        }
+    }
+
+    & mat-toolbar.principal {
+        padding-top    :  2px !important;
+        padding-bottom :  2px !important;
+        padding: 2px 37px !important;
+        height         : 88px !important;
+        position       : relative;
+        z-index        : 4;
+        background     : #ffffff;
+        box-shadow: 0px 5px 30px rgba(128, 128, 132, 0.1);
+
+        & #menu {
+            float: right;
+        }
+
+        & .menu-option .mat-button {
+            font-size: 12px;
+        }
+
+        & .profile-section {     
+            text-align: right;
+            font-size: 12px;
+            line-height: 18px;
+            
+            .user-name {
+                font-weight: 500;
+            }
+        
+            .user-role {
+                color: #9DAAB6;
+            }
+        
+            .profile-button {
+                border-radius: 50%;
+                width: 35px;
+                height: 35px;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+            }
+        }
+
+        .current-section {
+            text-align: center;
+            font-size: 16px;
+            color: #9DAAB6 !important;
+
+            & mat-icon {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    & mat-toolbar.secundario {
+        //$list: $primary, $primary-dark;
+        $list: $primary, $primary-dark;
+        @include gradient(to top, $list);
+        height: auto !important;
+
+        & * {
+            font-size: 16px;
+            color: white;
+        }
+    }
+}

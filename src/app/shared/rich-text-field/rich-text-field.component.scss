@@ -1,0 +1,16 @@
+.ckeditor-container {
+    margin-top: 1.25em;
+    
+    .label {
+        color: #78797c;
+    }
+    
+    ckeditor {
+        margin-top: 1vh;
+        background-color: white;
+        
+        ::ng-deep .ck-editor__editable_inline {
+            min-height: 10vh;
+        }
+    }
+}

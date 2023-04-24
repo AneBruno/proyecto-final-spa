@@ -1,0 +1,35 @@
+table {width:100%;}
+[toolbar] { margin: 20px 10px; }
+
+.menu-wrapper {
+    padding: 10px 25px;
+}
+.sidenav-container {
+    min-height: 1000px;
+}
+.sidenav-filtros {
+    width: calc(100% - 56px);
+    max-width: 320px;
+    padding: 20px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-cell {
+  padding-right: 10px;
+}
+
+.mat-header-cell {
+  padding-right: 10px;
+}
+
+.empresa-pill {
+  margin: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  max-width: 150px;
+}
+

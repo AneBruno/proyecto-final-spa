@@ -1,0 +1,118 @@
+
+.contenido{
+    margin : 20px;
+    padding: 16px;
+
+
+
+
+    .tituloYBotones{
+        
+        display: flex;
+        justify-content: space-between;
+        line-height: normal;
+
+        
+        .titulo{
+            font-size: 30px;
+            color: #383840;
+        }
+
+        .botones{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+
+            button{
+                height: 30px;
+                line-height: unset;
+            }
+        }
+        
+    
+    }
+
+    .camposSolicitud{
+        margin-top: 30px;
+        flex-direction: column;
+        box-sizing: border-box;
+        display: flex;
+    }
+
+    .divPagos{
+        line-height: normal;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        align-items: center;
+
+
+            button{
+                height: 30px;
+                line-height: unset;
+            }
+        
+        
+        .titulo{
+            font-size: 30px;
+            color: #383840;
+        }
+    }
+
+    .table{
+        margin-top: 30px;
+    }
+
+    .divEnviar{
+        display: flex;
+        margin-top: 14px;
+        justify-content: flex-start;
+    }
+
+    .divMontos{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 100%;
+        margin-right: 110px;
+        margin-top: 70px;
+        
+        .lineaMonto{
+            width: 100%; 
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+
+            .tituloMonto{
+                width: 62px;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .monto{
+                width : 200px
+            }
+        }
+    }
+
+}
+
+
+::ng-deep .mat-dialog-container{
+    width: 510px !important;
+    text-align: center;
+    /*.mat-dialog-actions {
+        justify-content: center !important;
+
+    }*/
+
+}
+
+.buttonCancelar{
+    background: transparent;
+    border: 2px solid #1DA97859;
+    color: #1DA978;
+
+}

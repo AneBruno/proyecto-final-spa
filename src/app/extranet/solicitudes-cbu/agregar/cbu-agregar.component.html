@@ -1,0 +1,61 @@
+<app-form-section-extranet>
+    <app-section-title-extranet>
+        {{title}}
+    </app-section-title-extranet>
+    <mat-divider></mat-divider>
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()">
+        
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>Empresa</mat-label>
+            <mat-select formControlName="cuit" required (valueChange)="changeEmpresa($event)">
+                <mat-option *ngFor="let row of empresas" [value]="row.CUIT">{{row.Empresa}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('cuit').getError('required')">Obligatorio</mat-error>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="mail" matInput required/>
+            <mat-error *ngIf="form.get('mail').getError('required')">Obligatorio</mat-error>
+            <mat-error *ngIf="form.get('mail').getError('email')">Formato de email inválido</mat-error>
+        </mat-form-field>
+
+        <div class="half-fields">        
+            <mat-form-field appearance="outline" class="half-field">
+                <mat-label>Banco</mat-label>
+                <input formControlName="banco" matInput required/>
+                <mat-error *ngIf="form.get('banco').getError('required')">Obligatorio</mat-error>
+    
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" class="half-field">
+                <mat-label>CBU</mat-label>
+                <input formControlName="cbu" matInput required (keydown)="keyDownCbu($event)" (change)="changeCbu($event)" maxlength="22" autocomplete="off"/>
+                <mat-error *ngIf="form.get('cbu').getError('required')">Obligatorio</mat-error>
+                <mat-error *ngIf="form.get('cbu').getError('cbu')">Debe tener 22 dígitos</mat-error>
+            </mat-form-field>
+
+        </div>
+        
+        
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button type="submit" mat-flat-button color="primary" class="button buttonGuardar" [disabled]="formEnviado">
+                <div>
+                    <mat-icon>add_circle_outline</mat-icon>
+                    <span>
+                        Guardar
+                    </span>
+                </div>
+            </button>
+            <button type="button" mat-flat-button class="button buttonCancelar" [disabled]="formEnviado" routerLink="/app/extranet/solicitudes-cobro/agregar">
+                <div>
+                    <mat-icon>arrow_back</mat-icon>
+                    <span>
+                        Cancelar
+                    </span>
+                </div>
+            </button>
+        </div>
+    </form>
+</app-form-section-extranet >    

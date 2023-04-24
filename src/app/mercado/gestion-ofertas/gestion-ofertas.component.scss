@@ -1,0 +1,85 @@
+table {width:100%;}
+[toolbar] { margin: 20px 10px; }
+
+.menu-wrapper {
+    padding: 10px 25px;
+}
+.sidenav-container {
+    width:100%;
+}
+.sidenav-filtros {
+    width: calc(100% - 56px);
+    max-width: 320px;
+    padding: 20px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+body {  max-width:100%; }
+
+
+.posicion-card {
+    padding-left: 0;
+    padding-right: 0;
+
+    .mat-card-title, .empresas-chips {
+        padding: 16px;
+        margin: 0;
+    }
+    
+    .posicion-datos {
+        padding: 16px;
+        background-color: whitesmoke;
+        display: block;
+
+    }
+}
+
+.posicion-datos [row] {
+    display: block;
+    overflow: auto;
+}
+.posicion-datos [info] {
+    display: block;
+    margin-right:10px;
+    margin-bottom: 10px;
+    min-width: 300px;
+    float:left;
+    font-size: 16px;
+
+    [label] {
+        font-weight: bold;
+        margin-right:10px;
+    }
+}
+
+.ordenes-card {
+    padding-left: 0;
+    padding-right: 0;
+    display: block;
+
+    .mat-card-title {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 45px;
+    }
+
+}
+
+.mat-card-title {
+    border-bottom: solid 1px #ddd;
+}
+
+.disabled {
+    pointer-events:none;
+    opacity:.5;
+}
+
+.boton-agregar-orden {
+    float: right;
+}
+
+.titulo-ordenes {
+    float: left;
+}

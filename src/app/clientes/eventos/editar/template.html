@@ -1,0 +1,134 @@
+<app-form-section>
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Título</mat-label>
+            <input formControlName="titulo" matInput required />
+            <mat-error *ngIf="error('titulo')">{{error('titulo')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100" readonly>
+            <mat-label>Tipo de evento</mat-label>
+            <mat-select formControlName="tipo_evento_id" required>
+                <mat-option *ngFor="let row of tipos_evento" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('tipo_evento_id')">{{error('tipo_evento_id')}}</mat-error>
+        </mat-form-field>
+
+        <app-chips-field
+            [title]="'Usuarios asignados'"
+            [fieldName]="'responsables'"
+            [labelColumnFn]="usuariosLabelFn"
+            [dataUrl]="'/usuarios'"
+            [error]="error('responsables')"
+            aria-required="true"
+        ></app-chips-field>
+
+        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
+            <mat-label>Vencimiento</mat-label>
+            <input formControlName="fecha_vencimiento" matInput required (focus)="picker.open()" [matDatepicker]="picker" [min]="tomorrowDate">
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="error('fecha_vencimiento')">{{errorObligatorio('fecha_vencimiento')}}</mat-error>
+        </mat-form-field>
+
+        <app-date-time-picker  fxFlex.lg="50" fxFlex.xs="100"
+            [label]="'Alerta 1'"
+            [controlName]="'fecha_alerta_1'"
+            [defaultTime]="[9]"
+            [minDate]="todayDate"
+        ></app-date-time-picker>
+
+        <app-date-time-picker  fxFlex.lg="50" fxFlex.xs="100"
+            [label]="'Alerta 2'"
+            [controlName]="'fecha_alerta_2'"
+            [defaultTime]="[10]"
+            [minDate]="todayDate"
+            [defaultTime]="todayDate"
+        ></app-date-time-picker>
+
+        <app-chips-field
+            [title]="'Empresas'"
+            [fieldName]="'empresas'"
+            [labelColumn]="'razon_social'"
+            [dataUrl]="'/clientes/empresas'"
+        ></app-chips-field>
+
+        <app-chips-field
+            [title]="'Contactos'"
+            [fieldName]="'contactos'"
+            [labelColumnFn]="contactosLabelFn"
+            [dataUrl]="'/clientes/contactos'"
+            [searchParamForList]="'nombre_empresa'"
+        ></app-chips-field>
+
+        <app-chips-field
+            [title]="'Órdenes'"
+            [fieldName]="'ordenes'"
+            [placeHolder]="'Click para agregar...'"
+            [labelColumnFn]="ordenesLabelFn"
+            [readonly]="true"
+            (click)="abrirBuscadorOrdenes()"
+        ></app-chips-field>
+
+        <app-chips-field
+            [title]="'Archivos adjuntos'"
+            [fieldName]="'archivos'"
+            [placeHolder]="'Click para agregar...'"
+            [labelColumnFn]="archivosLabelFn"
+            [readonly]="true"
+            (click)="fileInput.click()"
+            [chipLinkFn]="archivosLinkFn"
+        ></app-chips-field>
+        <input [disabled]="modoConsulta" #fileInput type="file" (change)="onFileChange($event)" style="display:none;" multiple />
+
+        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
+            <mat-label>Descripción</mat-label>
+            <textarea formControlName="descripcion" matInput></textarea>
+            <mat-error *ngIf="error('descripcion')">{{error('descripcion')}}</mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="id">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Creador</mat-label>
+                <input [value]="form.get('usuario_creador').value.nombreCompleto" matInput readonly />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha Creación</mat-label>
+                <input [value]="getFechaCreacion()" matInput readonly />
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado" required>
+                    <mat-option [value]="'ABIERTO'">ABIERTO</mat-option>
+                    <mat-option [value]="'CERRADO'">CERRADO</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('estado')">{{error('estado')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="form.get('estado').value==='CERRADO'" appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
+                <mat-label>Resolución</mat-label>
+                <textarea formControlName="resolucion" matInput></textarea>
+                <mat-error *ngIf="error('resolucion')">{{error('resolucion')}}</mat-error>
+            </mat-form-field>
+
+            <!-- app-rich-text-field [label]="'Rich editor'" [form]="form" [controlName]="'resolucion'"></app-rich-text-field -->
+
+        </ng-container>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()" *ngIf="puedeEditar">
+                Guardar
+            </button>
+            <button mat-flat-button routerLink="/app/clientes/eventos">
+                <ng-container *ngIf="!modoConsulta">Cancelar</ng-container>
+                <ng-container *ngIf="modoConsulta">Volver</ng-container>
+            </button>
+        </div>
+    </form>
+</app-form-section>

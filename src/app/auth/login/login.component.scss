@@ -1,0 +1,17 @@
+:host {
+    & > section {
+        height: 100%;
+        position: relative;
+        background-position: center center;
+        background-size: cover;
+        background-image: url('/assets/images/background.jpg');
+
+        & > div {
+            height: inherit;
+        }
+    }
+
+    & #logo {
+        width: 100%;
+    }
+}

@@ -1,0 +1,19 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="width:100%;">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node">
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <a class="mat-menu-item padded" matTreeNodeToggle style="width:100%;" (click)="onNodeClick(node)">
+            {{node.name}}
+        </a>
+    </mat-tree-node>
+    
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+        <a class="mat-menu-item main-level" matTreeNodeToggle style="width:100%;">
+            {{node.name}} -
+            <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_less' : 'expand_more'}}
+            </mat-icon>
+        </a>
+    </mat-tree-node>
+</mat-tree>

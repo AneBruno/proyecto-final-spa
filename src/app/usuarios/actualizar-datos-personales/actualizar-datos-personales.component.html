@@ -1,0 +1,18 @@
+<usuarios-editar 
+    [allowAvatarChange]="true"
+    [id]="id"
+    [disabledFields]="{
+        email: true, 
+        rol_id: true, 
+        oficina_id: true,
+        aprobacion_cbu : true,
+        aprobacion_gerencia_comercial : true,
+        aprobacion_dpto_creditos : true,
+        aprobacion_dpto_finanzas : true,
+        confirmacion_pagos : true
+    }"
+    [mostrarLogout]="true"
+    (clickSave)="onClickSave($event)"
+    (clickCancelar)="onClickCancelar()"
+></usuarios-editar>
+

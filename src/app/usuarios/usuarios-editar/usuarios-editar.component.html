@@ -1,0 +1,89 @@
+<app-form-section fxLayoutAlign="column" fxLayoutAlign="stretch stretch" fxFill>
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="stretch start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div class="section-avatar" fxLayout="column" fxLayoutAlign="center center" fxFlex.lg="40" fxFlex.xs="100">
+            <div class="wrapper">
+                <img class="avatar" [src]="urlImagen" />
+            </div>
+            <app-file-upload-button
+                *ngIf="allowAvatarChange"
+                [label]="'Reemplazar foto'"
+            ></app-file-upload-button>
+            <a *ngIf="mostrarLogout" type="button" mat-button (click)="clickLogout()">
+                <mat-icon class="logout-icon" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
+                <span>Cerrar sesión</span>
+            </a>
+        </div>
+        <div class="section-data" fxFlex.lg="60" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input formControlName="nombre" matInput required />
+                <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Apellido</mat-label>
+                <input formControlName="apellido" matInput required />
+                <mat-error *ngIf="error('apellido')">{{error('apellido')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input formControlName="telefono" matInput />
+                <mat-error *ngIf="error('telefono')">{{error('telefono')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" required>
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput />
+                <mat-error *ngIf="error('email')">{{error('email')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" required>
+                <mat-label>Rol</mat-label>
+                <mat-select formControlName="rol_id">
+                    <mat-option *ngFor="let row of roles$ | async" [value]="row.id">
+                        {{row.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('rol_id')">{{error('rol_id')}}</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Oficina</mat-label>
+                <mat-select formControlName="oficina_id">
+                    <mat-option [value]="null"><b>Ninguna</b></mat-option>
+                    <mat-option *ngFor="let row of oficinas$ | async" [value]="row.id">
+                        {{row.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('oficina_id')">{{error('oficina_id')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Suscripción a emails</mat-label>
+                <mat-select formControlName="suscripto_notificaciones">
+                    <mat-option [value]="1">Si</mat-option>
+                    <mat-option [value]="0">No</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('suscripto_notificaciones')">{{error('suscripto_notificaciones')}}</mat-error>
+            </mat-form-field>
+
+            <span style="font-size: 17px; margin-top: 30px;">Saldos</span>
+            <div class="checks">
+
+                <mat-checkbox formControlName="aprobacion_cbu">Aprobación Solicitudes de CBU</mat-checkbox>
+                <mat-checkbox formControlName="aprobacion_gerencia_comercial">Aprobación gerencia comercial</mat-checkbox>
+                <mat-checkbox formControlName="aprobacion_dpto_creditos">Aprobación crediticia</mat-checkbox>
+                <mat-checkbox formControlName="aprobacion_dpto_finanzas">Aprobación financiera</mat-checkbox>
+                <mat-checkbox formControlName="confirmacion_pagos">Confirmación de pago</mat-checkbox>
+            </div>
+
+            <app-buttons-bar fxLayout="row" fxLayoutGap="15px" style="margin-top: 35px;">
+                <button type="submit" mat-flat-button color="primary">
+                    Guardar
+                </button>
+                <button *ngIf="mostrarBotonCancelar" type="button" mat-flat-button (click)="onClickCancelar()">
+                    Cancelar
+                </button>
+            </app-buttons-bar>
+        </div>
+    </form>
+</app-form-section>

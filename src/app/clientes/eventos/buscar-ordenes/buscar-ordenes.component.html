@@ -1,0 +1,74 @@
+<div  mat-dialog-content style="height: 100%">
+    <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
+        <titulo>Agregar una Orden</titulo>
+        <botones>
+            <button style="border: none; background: none;"></button> <!-- Un 'iman' para atraer el foco. -->
+            <div style="width:10px; display: inline-block"></div>
+            <button mat-icon-button color="primary" (click)="onClickCerrar()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </botones>
+        <filtros fxLayout="column">
+            <h3>Filtros</h3>
+            <app-server-autocomplete
+                label="Productos"
+                labelForAll="TODOS"
+                dataUrl="/productos"
+                [dataParams]="filtroProductosOpciones"
+                [(value)]="dataSource.filtros.producto_id"
+                (optionSelected)="dataSource.refreshData();"
+                [listIconFn]="filtroProductosIconoFn"
+            ></app-server-autocomplete>
+    
+            <mat-form-field appearance="legacy">
+                <mat-label>Fecha Desde</mat-label>
+                <input
+                    #filtroFechaDesde matInput [matDatepicker]="pickerFechaDesde"
+                    [max]="fechaHasta"
+                    (focus)="pickerFechaDesde.open()"
+                    [(ngModel)]="fechaDesde"
+                    (dateChange)="actualizarDatos()">
+                <mat-datepicker-toggle matSuffix [for]="pickerFechaDesde"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFechaDesde></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field appearance="legacy">
+                <mat-label>Fecha Hasta</mat-label>
+                <input
+                    #filtroFechaHasta matInput [matDatepicker]="pickerFechaHasta"
+                    [min]="fechaDesde"
+                    (focus)="pickerFechaHasta.open()"
+                    [(ngModel)]="fechaHasta"
+                    (dateChange)="actualizarDatos()">
+                <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFechaHasta></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field appearance="legacy" >
+                <mat-label>Estado</mat-label>
+                <mat-select multiple [(ngModel)]="dataSource.filtros.estado_id" (selectionChange)="dataSource.refreshData()">
+                    <mat-option *ngFor="let row of estados" [value]="row.id">{{row.nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+    
+        </filtros>
+        <contenido>
+            <mat-toolbar style="display: flex; justify-content: flex-end;">
+                <button mat-flat-button color="primary" [disabled]="!puedeAgregar" (click)="onClickAgregarSeleccionadas()">Agregar Seleccionadas</button>
+            </mat-toolbar>
+            <app-table 
+                #tablaOrdenes 
+                style="width:100%" 
+                [hideHeaders]="true"
+                [dataSource]="dataSource"
+                (rowCheckChange)="onRowCheckChange($event)"
+            ></app-table>
+    
+            <mat-paginator [length]="dataSource.total"
+                [pageSize]="dataSource.limit"
+                (page)="dataSource.setPageIndex($event.pageIndex)">
+            </mat-paginator>
+        </contenido>
+    </app-listado-filtrado>
+</div>

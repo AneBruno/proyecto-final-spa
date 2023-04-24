@@ -1,0 +1,205 @@
+<app-toolbar>
+    <button mat-icon-button fxLayout="row" fxLayoutAlign="center center" [routerLink]="desdePanel ? '/app/mercado/panel' : '/app/mercado/posiciones'">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <span>{{title}}</span>
+</app-toolbar>
+<mat-card>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+
+            <mat-form-field appearance="fill" fxFlex.lg="30" fxFlex.xs="100">
+                <mat-label>Producto</mat-label>
+                <input formControlName="producto_nombre" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto" (keyup)="producto_id_keyup($event)" required />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="producto_id_selected($event)" panelWidth="400px">
+                    <mat-option *ngFor="let row of productos" [value]="row.nombre" [attr.data-id]="row.id">
+                        <mat-icon *ngIf="row.uso_frecuente">star_outlined</mat-icon>
+                        <mat-icon *ngIf="!row.uso_frecuente"></mat-icon>
+                        {{row.nombre}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="error('producto_id')">{{error('producto_id')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="30" fxFlex.xs="100">
+                <mat-label>Calidades</mat-label>
+                <input formControlName="calidad_nombre" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto3" (keyup)="calidad_id_keyup($event)" required />
+                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="calidad_id_selected($event)">
+                    <mat-option *ngFor="let row of calidades" [value]="row.nombre" [attr.data-id]="row.id">
+                        {{row.nombre}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="error('calidad_id')">{{error('calidad_id')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" fxFlex="100">
+                <mat-label>Observación de calidad</mat-label>
+                <input formControlName="calidad_observaciones" matInput />
+                <mat-error *ngIf="error('calidad_observaciones')">{{error('calidad_observaciones')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <br>
+        <div class="checkboxes" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center" fxLayoutGap="14px" fxLayoutAlign.xs="start stretch">
+            <div checkbox>
+                <mat-checkbox formControlName="posicion_excepcional">Posicion excepcional</mat-checkbox>
+            </div>
+            <div checkbox>
+                <mat-checkbox formControlName="a_trabajar">Posicion trabajar</mat-checkbox>
+            </div>
+            <div checkbox>
+                <mat-checkbox formControlName="volumen_limitado">Volumen limitado</mat-checkbox>
+            </div>
+        </div>
+        <br>
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex="100">
+                <mat-label>Cosecha</mat-label>
+                <mat-select formControlName="cosecha_id" required>
+                    <mat-option [value]="null">Seleccione...</mat-option>
+                    <mat-option *ngFor="let row of cosechas" [value]="row.id">{{row.descripcion}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('cosecha_id')">{{error('cosecha_id')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex.lg="15" fxFlex.xs="100">
+                <mat-label>Entrega</mat-label>
+                <mat-select formControlName="entrega" required>
+                    <mat-option [value]="'DISPONIBLE'">Disponible</mat-option>
+                    <mat-option [value]="'LIMIT'">Limit</mat-option>
+                    <mat-option [value]="'CONTRACTUAL'">Contractual</mat-option>
+                    <mat-option [value]="'FORWARD'">Forward</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('entrega')">{{error('entrega')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex.lg="25">
+                <mat-label>Fecha entrega desde: </mat-label>
+                <input matInput [min]="minDate" [matDatepicker]="picker1" formControlName="fecha_entrega_inicio" (focus)="picker1.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="error('fecha_entrega_inicio')">{{error('fecha_entrega_inicio')}}</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" fxFlex.lg="25">
+                <mat-label>Hasta: </mat-label>
+                <input matInput [min]="minDate" [matDatepicker]="picker2" formControlName="fecha_entrega_fin" (focus)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="error('fecha_entrega_fin')">{{error('fecha_entrega_fin')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field appearance="fill" fxFlex.lg="15" fxFlex.xs="100">
+            <mat-label>Precio a fijar</mat-label>
+            <mat-select formControlName="a_fijar">
+                <mat-option [value]="0">No</mat-option>
+                <mat-option [value]="1">Si</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('a_fijar')">{{error('a_fijar')}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex.lg="15" fxFlex.xs="100">
+                <mat-label>Moneda</mat-label>
+                <mat-select formControlName="moneda" required>
+                    <mat-option [value]="'USD'">USD</mat-option>
+                    <mat-option [value]="'AR$'">AR$</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('moneda')">{{error('moneda')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="30" fxFlex.xs="100">
+                <mat-label>Precio</mat-label>
+                <input formControlName="precio" matInput required/>
+                <mat-error *ngIf="error('precio')">{{error('precio')}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="55" fxFlex.xs="100">
+                <mat-label>Forma de pago</mat-label>
+                <mat-select formControlName="condicion_pago_id" required>
+                    <mat-option [value]="null">Seleccione...</mat-option>
+                    <mat-option *ngFor="let row of condiciones_pago" [value]="row.id">{{row.descripcion}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('condicion_pago_id')">{{error('condicion_pago_id')}}</mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+
+            <mat-form-field appearance="fill" fxFlex="100" fxFlex.lg="80" >
+                <mat-label>Empresa</mat-label>
+                <input formControlName="empresa_razon_social" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto2" (keyup)="empresa_id_keyup($event)" required />
+                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="empresa_id_selected($event)">
+                    <mat-option *ngFor="let row of empresas" [value]="row.razon_social" [attr.data-id]="row.id">
+                        {{row.razon_social}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="error('empresa_id')">{{error('empresa_id')}}</mat-error>
+            </mat-form-field>
+
+            <mat-radio-group fxLayout="row" class="radio-group" formControlName="opcion_destino">
+                <mat-radio-button class="radio-button" [value]="'exportacion'"  formControlName="opcion_destino" (change)="setearOpcionDestino('exportacion')">Exportación</mat-radio-button>
+                <mat-radio-button class="radio-button" [value]="'consumo'" formControlName="opcion_destino" (change)="setearOpcionDestino('consumo')">Consumo</mat-radio-button>
+                <mat-error *ngIf="error('opcion_destino')">{{error('opcion_destino')}}</mat-error>
+            </mat-radio-group>
+
+        </div>
+
+        <div fxLayout="row" *ngIf="opcion_destino==='exportacion'">
+            <mat-form-field appearance="fill" fxFlex="100" >
+                <mat-label>Destino</mat-label>
+                <mat-select formControlName="puerto_id">
+                    <mat-option [value]="null">Seleccione...</mat-option>
+                    <mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="error('puerto_id')">{{error('puerto_id')}}</mat-error>
+            </mat-form-field>
+
+            
+        </div>
+
+        <div *ngIf="opcion_destino==='consumo'">
+            <div fxLayout="row" >
+                <mat-form-field appearance="fill" fxFlex="100">
+                    <mat-label>Establecimiento</mat-label>
+                    <mat-select formControlName="establecimiento_id"  >
+                        <mat-option [value]="null">Seleccione...</mat-option>
+                        <mat-option *ngFor="let row of establecimientos" [value]="row.id" (onSelectionChange)="autocompletarEstablecimientoUbicacion(row.direccionCompleta)">{{row.nombre}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="error('establecimiento_id')">{{error('establecimiento_id')}}</mat-error>
+                </mat-form-field>
+                
+            </div>
+            <div fxLayout="row"  >
+                <app-static-map-place fxFlex="100" [titulo]="'Buscar ubicación de destino'" [(placeId)]="placeId" [error]="error('placeId')" [direccion]="direccionCompleta"></app-static-map-place>
+            </div>
+        </div>
+
+        <div>
+            <mat-form-field appearance="fill" fxFlex="100">
+                <mat-label>Observaciones</mat-label>
+                <input formControlName="observaciones" matInput />
+                <mat-error *ngIf="error('observaciones')">{{error('observaciones')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()" *ngIf="!consulta">
+                Guardar
+            </button>
+        </div>
+    </form>
+</mat-card>

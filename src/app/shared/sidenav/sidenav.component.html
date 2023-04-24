@@ -1,0 +1,4 @@
+<div fxLayout="column" fxLayoutAlign="start stretch">
+    <app-user-section></app-user-section>
+    <app-tree [itemLabelField]="'nombre'" [itemChildrenField]="'hijos'" [data]="accessTree" style="width:100%;" (nodeClick)="onNodeClick($event)"></app-tree>
+</div>

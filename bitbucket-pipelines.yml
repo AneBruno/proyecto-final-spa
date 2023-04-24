@@ -1,0 +1,89 @@
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: kodear/angular8:latest
+
+pipelines:
+
+  custom:
+    production-deploy:
+      - step:
+          name: Build for production
+          deployment: production-front
+          caches:
+            - node
+          script: 
+            - npm install
+            - npm run config -- --API_URL=$API_URL --SOCIALITE_API_KEY=$SOCIALITE_API_KEY --GOOGLE_API_KEY=$GOOGLE_API_KEY --environment=prod
+            - npm run build-production
+          artifacts:
+            - dist/**
+      - step:
+          name: Deploy to PROD
+          deployment: production
+          script:
+            - pipe: atlassian/scp-deploy:0.3.4
+              variables:
+                USER: $USER
+                SERVER: $SERVER
+                REMOTE_PATH: $REMOTE_PATH
+                LOCAL_PATH: 'dist/production/*'
+                SSH_KEY: $SISTEMAS_PRODUCTION_SSH_KEY
+  branches:
+      develop:
+        - step:
+            name: Test and build app
+            deployment: test-front
+            caches:
+              - node
+            script: # Modify the commands below to build your repository.
+              - npm install
+              - npm run config -- --API_URL=$API_URL --SOCIALITE_API_KEY=$SOCIALITE_API_KEY
+              # - npm run lint
+              # - npm run test
+              - npm run build:testing
+            artifacts:
+              - dist/**
+        - step:
+            name: Deploy artifacts using SCP to DEV
+            deployment: test
+            script:
+              - pipe: atlassian/scp-deploy:0.3.4
+                variables:
+                  USER: $USER
+                  SERVER: $SERVER
+                  REMOTE_PATH: $REMOTE_PATH
+                  LOCAL_PATH: 'dist/testing/*'
+                  SSH_KEY: $SISTEMAS_TESTING_SSH_KEY
+                  # EXTRA_ARGS: '<string>' # Optional.
+                  # DEBUG: '<boolean>' # Optional.
+      
+      staging:
+        - step:
+            name: Test and build app
+            deployment: staging-front
+            caches:
+              - node
+            script: # Modify the commands below to build your repository.
+              - npm install
+              - npm run config -- --API_URL=$API_URL --SOCIALITE_API_KEY=$SOCIALITE_API_KEY
+              # - npm run lint
+              # - npm run test
+              - npm run build:staging
+            artifacts:
+              - dist/**
+        - step:
+            name: Deploy artifacts using SCP to STAGING
+            deployment: staging
+            script:
+              - pipe: atlassian/scp-deploy:0.3.4
+                variables:
+                  USER: $USER
+                  SERVER: $SERVER
+                  REMOTE_PATH: $REMOTE_PATH
+                  LOCAL_PATH: 'dist/staging/*'
+                  SSH_KEY: $SISTEMAS_STAGING_SSH_KEY
+                  # EXTRA_ARGS: '<string>' # Optional.
+                  # DEBUG: '<boolean>' # Optional.

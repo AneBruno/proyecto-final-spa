@@ -1,0 +1,69 @@
+@import "./src/assets/scss/mixin.scss";
+@import "./src/assets/scss/variables.scss";
+
+:host {
+
+    & #menu {
+        float: right;
+    }
+
+    & .menu-option .mat-button {
+        font-size: 12px;
+    }
+
+    & .profile-section {     
+        text-align: right;
+        font-size: 12px;
+        line-height: 18px;
+        
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-name-extranet {
+            font-family: 'Alef';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16.48px;
+            line-height: 20px;
+        }
+    
+        .user-role {
+            color: #9DAAB6;
+        }
+    
+        .profile-button {
+            border-radius: 50%;
+            margin-left: 6px;
+            width: 50px;
+            height: 50px;
+            border: solid 2px #6D7195;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .profile-button-extranet{
+            margin-left: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 30px;
+            line-height: 36px;
+            color: white;
+            background: linear-gradient(111.56deg, #6EC54C 7.71%, #1DA978 92.48%), rgba(255, 255, 255, 0.15);
+        }
+    }
+
+    .profile-section-extranet{
+        gap: 12px;
+    }
+
+    .menu-extranet{
+        display: none;
+    }
+}

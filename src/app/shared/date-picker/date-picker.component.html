@@ -1,0 +1,14 @@
+<mat-form-field [formGroup]="controlContainer.control" appearance="fill" fxFlex="100">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput
+        [min]="minDate"
+        [matDatepicker]="picker"
+        [formControlName]="controlName"
+        [readonly]="readonly"
+        [required]="required"
+        (focus)="picker.open()"
+    >
+    <mat-datepicker-toggle *ngIf="!readonly" matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+</mat-form-field>

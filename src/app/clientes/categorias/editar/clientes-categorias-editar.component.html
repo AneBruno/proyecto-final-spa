@@ -1,0 +1,29 @@
+<app-form-section>    
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombre" matInput required />
+            <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Perfil</mat-label>
+            <mat-select formControlName="perfil" >
+                <mat-option [value]="'COMPRADOR'">COMPRADOR</mat-option>
+                <mat-option [value]="'VENDEDOR'">VENDEDOR</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('perfil')">{{error('perfil')}}</mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()">
+                Guardar
+            </button>
+            <button mat-flat-button routerLink="/app/clientes/categorias">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</app-form-section>>
+

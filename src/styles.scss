@@ -1,0 +1,65 @@
+@import "./assets/scss/mixin.scss";
+
+* {
+    box-sizing: border-box;
+}
+
+html, body { 
+    height: 100%; 
+}
+
+
+body { 
+    margin: 0; 
+    font-family: Avenir; 
+}
+
+.content {
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+}
+
+
+@media screen and (max-width: 599px) {
+    .table-sticky-wrapper {
+        width      : 100%;
+        overflow-x : scroll;
+        overflow-y : auto;
+
+        [mat-table] {
+            min-width: 800px /*!important*/ ;
+        }
+    }
+    .mat-table-sticky {
+        box-shadow    : -1px 2px 4px #cdcdcd;
+        z-index       : 10;
+        padding-left  : 10px !important;
+        padding-right : 15px !important;
+    }
+}
+
+
+.mat-table {
+    .mat-header-row {
+        .mat-header-cell {
+            color: #47494F;
+            font-weight: 850;
+        }
+    }
+
+    .mat-row:nth-child(odd) {
+        background-color: whitesmoke;
+    }
+}
+
+.custom-mat-error {
+    color: #f44336;
+    height:0px;
+    top:12px;
+    position:relative;
+    font-size:0.8em;
+}
+
+table .hide-headers thead {
+    display: none !important;
+}

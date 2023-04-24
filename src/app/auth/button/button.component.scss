@@ -1,0 +1,21 @@
+:host {
+    button {
+        cursor: pointer;
+        padding: 13px 30px;
+        display: inline-block;
+        font-family: Montserrat, sans-serif;
+        font-weight: 600;
+        text-transform: uppercase;
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
+        border-radius: 50px;
+        color: #166938;
+        background: transparent;
+        border: 3px solid;
+        line-height: 1.2em;
+        
+        &:hover {
+            color: #8ebe45!important;
+        }
+    }
+}

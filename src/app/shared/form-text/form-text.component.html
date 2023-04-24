@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [name]="name" [value]="value" (change)="onValueChange($event)" required />
+    <div mat-error [id]="error" *ngIf="error">{{error}}</div>
+</mat-form-field>

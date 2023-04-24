@@ -1,0 +1,12 @@
+<section>
+    <div class="form-container title" *ngIf="!listado">
+        <ng-content select="app-section-title-extranet"></ng-content>
+    </div>
+    <ng-content select="mat-divider"></ng-content>
+    <div class="form-container" *ngIf="!listado">
+        <ng-content  select="form"></ng-content>
+    </div>
+    <div class="">
+        <ng-content  select="app-listado-filtrado"></ng-content>
+    </div>
+</section>

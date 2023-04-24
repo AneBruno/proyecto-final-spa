@@ -1,0 +1,125 @@
+
+    <mat-card class="contenido">
+
+        <div class="tituloYBotones">
+            <span class="titulo">{{title}}</span>
+            <div class="botones" *ngIf="!modoConsulta">
+                <button mat-flat-button color="primary" type="button"  (click)="clickNewCbu()">Nuevo CBU</button>
+                <button mat-flat-button color="primary" type="button" routerLink="/app/extranet/solicitudes-cobro/listar">Historial de solicitudes</button>
+            </div>
+        </div>
+        
+        <form [formGroup]="form">
+            <div class="camposSolicitud">
+                <mat-form-field appearance="fill" fxFlex="100">
+                    <mat-label>Empresa</mat-label>
+                    <mat-select formControlName="cuit" required (selectionChange)="changeEmpresa()">
+                        <mat-option *ngFor="let row of empresas" [value]="row.CUIT">{{row.Empresa}} - Disponible: ${{utils.formatNumeroConDecimales(formatMonto(row.Saldos.Disponibles))}} - Cobranza del día: ${{utils.formatNumeroConDecimales(formatMonto(row.Saldos['del Día']))}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('cuit').getError('required')">Obligatorio</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" fxFlex="100">
+                    <mat-label>Tipo de retiro</mat-label>
+                    <mat-select  required formControlName="tipo" (selectionChange)="changeTipoRetiro()" [disabled]="modoConsulta">
+                        <mat-option value="Disponible">Saldo Disponible</mat-option>
+                        <mat-option value="Cobranza del día">Cobranza del día</mat-option>
+                        <mat-option *ngIf="usuario.TipoUsuario === '3' || usuario.TipoUsuario === '4' || modoConsulta === true" value="Anticipo">Anticipo</mat-option> 
+                    </mat-select>
+                    <mat-error *ngIf="form.get('tipo').getError('required')">Obligatorio</mat-error>
+                </mat-form-field>
+                
+                <div style="display: flex; justify-content: space-between;">
+                    <mat-form-field appearance="fill" style="width: 48%;">
+                        <mat-label>Usuario solicitante</mat-label>
+                        <input formControlName="nombre_usuario" matInput required />
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill" style="width: 48%;">
+                        <mat-label>Fecha de solicitud</mat-label>
+                        <input formControlName="fecha_solicitud" matInput required />
+                    </mat-form-field>
+                </div>
+                
+                <div class="divPagos">
+                    <span class="titulo">Pagos</span>
+                    <button *ngIf="!modoConsulta"  mat-flat-button color="primary" type="button" (click)="agregarFila()">Agregar</button>
+                    
+                </div>
+                
+                <app-table
+                    class="table"
+                    #detalles
+                    style="width:100%" 
+                    [hideHeaders]="true"
+                    [(dataSource)]="formas_pago"
+                >
+                </app-table>
+        
+        <div class="divMontos">
+            <div class="lineaMonto">
+                <div *ngIf="modoCorreccionMontos" class="tituloAprobado">
+                    <span>Monto aprobado:</span>
+                </div>
+                <div *ngIf="modoCorreccionMontos">
+                    <span>ARS {{utils.formatNumeroConDecimales(montoAprobado.toString(), 3)}}</span>
+                </div>
+                <div class="total">
+                    <div class="tituloMonto">
+                        <span>Total:</span>
+                    </div>
+                    <div>
+                        <span>ARS {{utils.formatNumeroConDecimales(montoTotal.toString(), 3)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!modoConsulta" class="lineaMonto">
+                <div class="tituloMonto">
+                    <span>Restante:</span>
+                </div>
+                <div>
+                    <span>ARS {{utils.formatNumeroConDecimales(restante.toString(), 3)}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <mat-form-field appearance="fill" style="margin-top: 32px;">
+            <mat-label>Observación</mat-label>
+            <input formControlName="observaciones" matInput disabled/>
+            <mat-error *ngIf="error('observaciones')">{{error('observaciones')}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="modoConsulta" appearance="fill" style="width: 48%;">
+            <mat-label>Estado</mat-label>
+            <input formControlName="estado" matInput />
+        </mat-form-field>
+
+        <div style="display: flex; justify-content: space-between;">
+            <mat-form-field *ngIf="(modoConsulta && estadoSolicitud === 'Anticipo') || modoGestion" appearance="fill" style="width: 48%;">
+                <mat-label>Monto aprobado</mat-label>
+                <input formControlName="monto_aprobado" matInput />
+            </mat-form-field>
+            
+            <mat-form-field *ngIf="(modoConsulta && estadoSolicitud === 'Anticipo') || modoGestion" appearance="fill" style="width: 48%;">
+                <mat-label>Tasa de interés</mat-label>
+                <input formControlName="porcentaje_interes" matInput />
+            </mat-form-field>
+        </div>
+        
+        
+        <div *ngIf="!modoConsulta" class="divEnviar">
+            <button mat-flat-button color="primary"  (click)="submit()" [disabled]="enviando">Enviar Solicitud</button>  
+        </div>
+
+        <div *ngIf="modoConsulta" class="divEnviar" style="gap: 15px;">
+            <button mat-flat-button color="primary" type="button"  routerLink="/app/extranet/solicitudes-cobro/listar">Volver</button>
+            <button *ngIf="modoCorreccionMontos" mat-flat-button color="primary" type="button"  (click)="confirmarRetiro()">Confirmar retiro</button>    
+            <button *ngIf="modoGestion" mat-flat-button class="boton-cancelar-retiro" type="button"  (click)="cancelarRetiro()">Cancelar retiro</button> 
+        </div>
+
+    </div>
+    
+</form>
+
+
+</mat-card>

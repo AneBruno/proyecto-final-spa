@@ -1,0 +1,112 @@
+<app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
+    <titulo>Eventos CRM</titulo>
+    <botones>
+        <button mat-flat-button color="primary" routerLink="agregar">Agregar</button>
+    </botones>
+    <filtros fxLayout="column">
+        
+        <app-search-input fxFlex="100" [label]="'Título'" [(value)]="dataSource.filtros.titulo" (change)="refreshList()" (click)="$event.stopPropagation()"></app-search-input>
+
+        <mat-form-field appearance="fill" >
+            <mat-label>Tipo</mat-label>
+            <mat-select multiple [(ngModel)]="dataSource.filtros.tipo_evento_id" (selectionChange)="refreshList()">
+                <mat-option *ngFor="let row of tipos_evento" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <app-datepicker-input [label]="'Fecha Creación Desde'"    [(value)]="filtros.created_at_desde"        (change)="refreshList()" [showCleanButton]="true"></app-datepicker-input>
+
+        <app-datepicker-input [label]="'Fecha Creación Hasta'"    [(value)]="filtros.created_at_hasta"        (change)="refreshList()" [showCleanButton]="true"></app-datepicker-input>
+
+        <app-datepicker-input [label]="'Fecha Vencimiento Desde'" [(value)]="filtros.fecha_vencimiento_desde" (change)="refreshList()" [showCleanButton]="true"></app-datepicker-input>
+
+        <app-datepicker-input [label]="'Fecha Vencimiento Hasta'" [(value)]="filtros.fecha_vencimiento_hasta" (change)="refreshList()" [showCleanButton]="true"></app-datepicker-input>
+
+        <mat-form-field appearance="fill" >
+            <mat-label>Creador</mat-label>
+            <mat-select multiple [(ngModel)]="dataSource.filtros.usuario_creador_id" (selectionChange)="refreshList()">
+                <mat-option *ngFor="let row of usuarios" [value]="row.id">{{row.nombreCompleto}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+            <mat-label>Asignado a</mat-label>
+            <mat-select multiple [(ngModel)]="dataSource.filtros.usuario_responsable_id" (selectionChange)="refreshList()">
+                <mat-option *ngFor="let row of usuarios" [value]="row.id">{{row.nombreCompleto}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill" >
+            <mat-label>Oficina</mat-label>
+            <mat-select multiple [(ngModel)]="dataSource.filtros.oficina_id" (selectionChange)="refreshList()">
+                <mat-option *ngFor="let row of oficinas" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <app-chips-input
+            [title]="'Empresa'"
+            [labelColumn]="'razon_social'"
+            [dataUrl]="'/clientes/empresas'"
+            [(selected)]="filtros.empresa_id"
+            (selectionChanged)="refreshList()"
+        ></app-chips-input>
+        
+        <mat-form-field appearance="fill" >
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="dataSource.filtros.estado" (selectionChange)="refreshList()">
+                <mat-option [value]="null">Todos</mat-option>
+                <mat-option [value]="'ABIERTO'">Abiertos</mat-option>
+                <mat-option [value]="'CERRADO'">Cerrados</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </filtros>
+    <contenido>
+        <div class="table-sticky-wrapper">
+            <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource" matSort>
+
+                <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}" [stickyEnd]="column.type==='menu'">
+                    <th 
+                        mat-header-cell 
+                        *matHeaderCellDef
+                        mat-sort-header 
+                        [ngStyle]="{'text-align': column.align, width: column.width}"
+                    >{{column.title}}</th>
+                    <td mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align, 'background-color': getCellColor(row)}">
+                        <ng-container *ngIf="column.type==='text'||column.type===undefined">
+                            {{column.valueFn(row) || row[column.name]  || null}}
+                        </ng-container>
+                        <ng-container *ngIf="column.type==='custom'">
+                            <div style="margin: 5px;">
+                                <mat-chip-list >
+                                    <mat-chip *ngIf="row.responsables.length > 1" [matTooltip]="concatenarNombres(row.responsables)">Varios</mat-chip>
+                                    <mat-chip *ngIf="row.responsables.length == 1">{{row.responsables[0].nombreCompleto}}</mat-chip>
+                                </mat-chip-list>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="column.type==='menu'">
+                            <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" >
+                                <mat-icon aria-hidden="false">more_vert</mat-icon>
+                            </button>
+                        </ng-container>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+            </table>
+        </div>
+        <mat-paginator [length]="dataSource.total"
+            [pageSize]="dataSource.limit"
+            [pageIndex]="dataSource.pageIndex"
+            (page)="dataSource.setPageIndex($event.pageIndex)">
+        </mat-paginator>
+    
+        <mat-menu #menu="matMenu">
+            <ng-template matMenuContent let-aliasMenuItems="row">
+                <button mat-menu-item *ngIf="aliasMenuItems.puedeEditar" routerLink="{{aliasMenuItems.id}}">Editar</button>
+                <button mat-menu-item routerLink="{{aliasMenuItems.id}}/consultar">Consultar</button>
+            </ng-template>
+        </mat-menu>
+    </contenido>
+</app-listado-filtrado>

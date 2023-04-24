@@ -1,0 +1,29 @@
+table {width:100%;}
+[toolbar] { margin: 20px 10px; }
+
+.menu-wrapper {
+    padding: 10px 25px;
+}
+.sidenav-container {
+    min-height: 1000px;
+}
+.sidenav-filtros {
+    width: calc(100% - 56px);
+    max-width: 320px;
+    padding: 20px;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+@media only screen and (min-width: 768px) {
+    table {
+        min-width:700px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    table {
+        width: 100% !important;
+        min-width: initial !important;
+    }
+}

@@ -1,0 +1,12 @@
+:host {
+    mat-toolbar {
+        background: #ffffff !important;
+        border-bottom: solid 1px #ddd;
+    }
+
+    .transparent{
+        background: transparent !important;
+        border-bottom: none;
+        padding: 0 37px;
+    }
+}

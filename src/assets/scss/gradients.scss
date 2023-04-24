@@ -1,0 +1,21 @@
+/* GRADIENT LISTS
+============================================= */
+
+/*$list1: $blue, $green, $orange; 
+
+$list2: $blue 0%,$blue 33%,$green 33%,$green 66%, $orange 66%, $orange 100%; 
+
+$list3: $blue 0%,$blue 10%,$green 25%,$green 39%,$orange 79%,$orange 100%; 
+
+$list4: $blue, $green, $orange, $blue, $green, $orange, $blue, $green, $orange; */
+
+@mixin gradient($direction, $list) { 
+  background: -webkit-linear-gradient($direction, $list);
+  background: -moz-linear-gradient($direction, $list);
+  background: -o-linear-gradient($direction, $list);
+  background: linear-gradient($direction, $list);  
+}
+
+/*.one {
+    @include gradient(left, $list1);
+}*/

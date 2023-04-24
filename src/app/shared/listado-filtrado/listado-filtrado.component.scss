@@ -1,0 +1,64 @@
+app-toolbar {
+    display: block;
+    top: 0;
+    z-index: 2;
+}
+
+.mat-sidenav-container {
+    overflow: unset;
+
+    .mat-sidenav {
+        overflow: unset;
+
+        ::ng-deep .mat-drawer-inner-container{
+            overflow: unset;
+            height: unset;
+            position: sticky;
+            top: 64px;
+        }
+    }
+}
+
+
+.sidenav-container {
+    min-height: 1000px;
+}
+
+.sidenav-filtros {
+    width: calc(100% - 56px);
+    max-width: 320px;
+    padding: 20px;
+}
+
+.transparent{
+    background:transparent;
+}
+
+.button{
+    height: 45px;
+    border-radius: 8px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.button-nuevo-cbu{
+    background: #1DA978;
+    width: 174px;
+
+}
+
+.button-limpiar{
+    width: 146px;
+    background: transparent;
+    border: 2px solid #1DA97859;
+    color: #1DA978;
+
+}

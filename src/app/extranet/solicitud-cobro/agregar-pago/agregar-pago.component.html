@@ -1,0 +1,63 @@
+<app-form-section-extranet>
+    <app-section-title-extranet>
+        {{title}}
+    </app-section-title-extranet>
+    <mat-divider></mat-divider>
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Forma de cobro</mat-label>
+            <mat-select  required formControlName="forma_pago" (selectionChange)="formaDeCobroChange($event)">
+                <mat-option *ngFor="let formaPago of opcionesFormaPago" [value]="formaPago.value">{{formaPago.text}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('forma_pago').getError('required')">Obligatorio</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Fecha *</mat-label>
+            <input matInput [min]="fechaHoy" [matDatepicker]="picker" [matDatepickerFilter]="myFilter" (click)="picker.open()" (focus)="picker.open()" formControlName="fecha" readonly>
+            <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="form.get('fecha').getError('required') && picker.closedStream">Obligatorio</mat-error>
+        </mat-form-field>
+
+   
+
+
+        <mat-form-field appearance="outline">
+            <mat-label>CBU</mat-label>
+            <mat-select  [required]="form.get('forma_pago').value === 'Transferencia'" [disabled]="form.get('forma_pago').value !== 'Transferencia'" formControlName="cbu">
+                <mat-option *ngFor="let cbu of cbus" [value]="cbu.value">{{cbu.text}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('cbu').getError('required')">Obligatorio</mat-error>
+
+        </mat-form-field>
+            
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Monto</mat-label> 
+            <input matInput type="text" formControlName="monto" autocomplete="off" app-input-numeric required>
+            <mat-error *ngIf="form.get('monto').getError('required')">Obligatorio</mat-error>
+        </mat-form-field>
+
+        
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button type="submit" mat-flat-button color="primary" class="button buttonGuardar" [disabled]="formEnviado">
+                <div>
+                    <mat-icon>add_circle_outline</mat-icon>
+                    <span>
+                        Guardar
+                    </span>
+                </div>
+            </button>
+            <button type="button" mat-flat-button class="button buttonCancelar" [disabled]="formEnviado" routerLink="/app/extranet/solicitudes-cobro/agregar">
+                <div>
+                    <mat-icon>arrow_back</mat-icon>
+                    <span>
+                        Cancelar
+                    </span>
+                </div>
+            </button>
+        </div>
+    </form>
+</app-form-section-extranet >    

@@ -1,0 +1,18 @@
+<mat-form-field fxFlex="100" [appearance]="appearance">
+    <mat-label>{{label}}</mat-label>
+    <input matInput 
+        [matDatepicker]="picker" 
+        [(ngModel)]="value" 
+        (ngModelChange)="onChange($event)" 
+        (dateChange)="onDateChange()" 
+        (click)="picker.open()"
+        onkeypress="return false">
+    <div matSuffix style="display:flex">
+        <button *ngIf="canShowCleanButton" (click)="onCleanButtonClick()" mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+    </div>
+    <mat-datepicker #picker></mat-datepicker>
+    <div class="custom-mat-error" [id]="controlName" *ngIf="error">{{error}}</div>
+</mat-form-field>

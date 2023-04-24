@@ -1,0 +1,16 @@
+:host {
+    display:block;
+    height:100%;
+    width:300px;
+    & > div {
+        height: 100%;
+        width:100%;
+        a {
+            width: 100%;
+        }
+    }
+} 
+
+app-user-section {
+    margin: 18px 25px 10px 0;
+}

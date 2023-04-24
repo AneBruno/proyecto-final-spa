@@ -1,0 +1,45 @@
+<app-form-section fxLayoutAlign="column" fxLayoutAlign="stretch stretch" fxFill>
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombre" matInput required />
+            <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Tipo Producto</mat-label>
+            <mat-select formControlName="tipo_producto_id" required>
+                <mat-option *ngFor="let row of tiposProducto$ | async" [value]="row.id">
+                    {{row.nombre}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('tipo_producto_id')">{{error('tipo_producto_id')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Unidades</mat-label>
+            <mat-select formControlName="unidad" required>
+                <mat-option [value]="'UNIDADES'">UNIDADES</mat-option>
+                <mat-option [value]="'TONELADAS'">TONELADAS</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('unidad')">{{error('unidad')}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Uso Frecuente</mat-label>
+            <mat-select formControlName="uso_frecuente" required>
+                <mat-option [value]="false">No</mat-option>
+                <mat-option [value]="true">Si</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('uso_frecuente')">{{error('uso_frecuente')}}</mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button type="submit" mat-flat-button color="primary">
+                Guardar
+            </button>
+            <button type="button" mat-flat-button routerLink="/app/productos">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</app-form-section>    

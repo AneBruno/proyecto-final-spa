@@ -1,0 +1,22 @@
+<app-form-section>    
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <input formControlName="descripcion" matInput required />
+            <mat-error *ngIf="error('descripcion')">{{error('descripcion')}}</mat-error>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()">
+                Guardar
+            </button>
+            <button mat-flat-button routerLink="/app/mercado/condicionesPago">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</app-form-section>

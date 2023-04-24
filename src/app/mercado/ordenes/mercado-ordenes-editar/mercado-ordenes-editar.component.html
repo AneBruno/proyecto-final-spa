@@ -1,0 +1,12 @@
+<mat-card>
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+
+    <app-mercado-ordenes-form 
+        [id]="id"
+        [accion]="accion"
+        (datosGuardados)="onDatosGuardados()">
+    </app-mercado-ordenes-form>
+</mat-card>
+

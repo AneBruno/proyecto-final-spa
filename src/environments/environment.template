@@ -1,0 +1,9 @@
+
+{
+    production: APP_ENV,
+    apiUrl: 'API_URL',
+    loginEndPoint: '/auth:google',
+    logoutEndPoint: '/auth:logout',
+    socialiteApiKey: 'SOCIALITE_API_KEY',
+    googleApiKey: 'GOOGLE_API_KEY'
+}

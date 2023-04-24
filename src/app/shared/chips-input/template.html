@@ -1,0 +1,36 @@
+<mat-form-field fxFlex="100" [appearance]="appearance">
+    <mat-label>{{title}}</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+        <mat-chip
+            *ngFor="let row of selected"
+            [disabled]="disabled"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="removeChip(row)"
+            (click)="onChipClick(row)"
+        >
+            <a *ngIf="chipLinkFn" [href]="chipLinkFn(row)">{{getLabelValue(row)}}</a>
+            <span *ngIf="!chipLinkFn">{{getLabelValue(row)}}</span>
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+            placeholder={{placeHolder}}
+            #dataInput
+            matInput
+            [(ngModel)]="searchText"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="onAddKey($event)"
+            (keyup)="keyup()"
+            [readonly]="readonly"
+            [disabled]="disabled"
+            >
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event)">
+        <mat-option *ngFor="let row of data" [value]="row">
+            {{getLabelValue(row)}}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="error">{{error}}</mat-error>
+</mat-form-field>

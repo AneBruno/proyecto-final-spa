@@ -1,0 +1,100 @@
+
+    <mat-card class="contenido">
+
+        <div class="tituloYBotones">
+            <span class="titulo">{{title}}</span>
+        </div>
+        
+        <form [formGroup]="form">
+            <div class="camposSolicitud">
+                <mat-form-field appearance="fill" fxFlex="100">
+                    <mat-label>Empresa</mat-label>
+                    <input formControlName="razon_social" matInput readonly/>
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" fxFlex="100">
+                    <mat-label>Tipo de retiro</mat-label>
+                    <input formControlName="tipo" matInput readonly/>
+                </mat-form-field>
+                
+                <div style="display: flex; justify-content: space-between;">
+                    <mat-form-field appearance="fill" style="width: 48%;">
+                        <mat-label>Usuario solicitante</mat-label>
+                        <input formControlName="nombre_usuario" matInput readonly />
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill" style="width: 48%;">
+                        <mat-label>Fecha de solicitud</mat-label>
+                        <input formControlName="fecha_solicitud" matInput readonly />
+                    </mat-form-field>
+                </div>
+                
+                <div class="divPagos">
+                    <span class="titulo">Pagos</span>                    
+                </div>
+                
+                <app-table
+                class="table"
+                #detalles
+                style="width:100%" 
+                [hideHeaders]="true"
+                [(dataSource)]="formas_pago"
+            >
+        </app-table>
+        
+        <div class="divMontos">
+            <div class="lineaMonto">
+                <div class="tituloMonto">
+                    <span>Total:</span>
+                </div>
+                <div class="monto">
+                    <span>ARS {{utils.formatNumeroConDecimales(montoTotal.toString())}}</span>
+                </div>
+            </div>
+        </div>
+        
+        <mat-form-field appearance="fill" style="margin-top: 32px;">
+            <mat-label>Observación</mat-label>
+            <input formControlName="observaciones" matInput readonly/>
+        </mat-form-field>
+
+        <div style="display: flex; justify-content: space-between;" *ngIf="esTipoAnticipo">
+            <mat-form-field  appearance="fill" style="width: 48%;">
+                <mat-label>Monto aprobado financiero *</mat-label>
+                <input formControlName="monto_aprobado" matInput autocomplete="off"/>
+                <mat-error *ngIf="form.get('monto_aprobado').getError('invalido_menor')">El monto debe ser menor o igual al solicitado</mat-error>
+                <mat-error *ngIf="form.get('monto_aprobado').getError('invalido_mayor')">El monto debe ser mayor a cero</mat-error>
+                <mat-error *ngIf="form.get('monto_aprobado').getError('required')">Ingrese un valor</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field  appearance="fill" style="width: 48%;">
+                <mat-label>Tasa de interés *</mat-label>
+                <input formControlName="porcentaje_interes" matInput autocomplete="off"/>
+                <mat-error *ngIf="form.get('porcentaje_interes').getError('invalido')">Utilizar "," como separador de decimales</mat-error>
+                <mat-error *ngIf="form.get('porcentaje_interes').getError('required')">Ingrese un valor</mat-error>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" style="width: 48%;">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado_id">
+                <mat-option *ngFor="let row of estadosPosibles" [value]="row.id" [disabled]="row.id === estadoId">{{row.descripcion}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 48%;">
+            <mat-label>Observaciones de cambio de estado</mat-label>
+            <input formControlName="observaciones_cambio_estado" matInput autocomplete="off"/>
+        </mat-form-field>
+
+        <div class="divEnviar" style="gap: 15px;">
+            <button mat-flat-button color="primary" *ngIf="modoGestion" (click)="submit()" [disabled]="solicitud?.estado_id === form.get('estado_id').value">Guardar cambios</button>  
+            <button mat-flat-button class="button buttonCancelar"type="button"  routerLink="/app/gestion-saldos/solicitudes-cobro">Volver</button>
+        </div>
+
+    </div>
+    
+</form>
+
+
+</mat-card>

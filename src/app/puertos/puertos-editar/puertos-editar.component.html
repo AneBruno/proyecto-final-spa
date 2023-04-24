@@ -1,0 +1,39 @@
+<app-form-section  fxLayoutAlign="column" fxLayoutAlign="stretch stretch" fxFill>    
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input formControlName="nombre" matInput required />
+            <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="fill">
+            <mat-label>Terminal</mat-label>
+            <input formControlName="terminal" matInput required  />
+            <mat-error *ngIf="error('terminal')">{{error('terminal')}}</mat-error>
+        </mat-form-field>
+        
+        <app-static-map-place [(placeId)]="placeId" [url]="urlImagenMapa" [error]="error('placeId')" [direccion]="direccionCompleta"></app-static-map-place>
+
+        <div>
+            <mat-form-field appearance="fill" fxFlex.lg="70" fxFlex.xs="100">
+                <mat-label>Descripción ubicación</mat-label>
+                <input formControlName="descripcion_ubicacion" matInput />
+                <mat-error *ngIf="error('descripcion_ubicacion')">{{error('descripcion_ubicacion')}}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <app-buttons-bar fxLayout="row" fxLayoutGap="15px">
+            <button type="submit" mat-flat-button color="primary">
+                Guardar
+            </button>
+            <button type="button" mat-flat-button routerLink="/app/puertos">
+                Cancelar
+            </button>
+        </app-buttons-bar>
+    </form>
+</app-form-section>
+

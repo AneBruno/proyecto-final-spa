@@ -1,0 +1,11 @@
+    table {width:100%;
+        box-shadow: 10px 10px 25px rgba(141, 142, 142, 0.08);
+    
+        ::ng-deep mat-form-field {
+            padding-right: 24px;
+            padding-top: 5px;
+        }
+    }
+    table .hide-headers thead {
+        display: none;
+    }

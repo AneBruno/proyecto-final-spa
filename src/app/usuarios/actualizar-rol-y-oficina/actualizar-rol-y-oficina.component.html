@@ -1,0 +1,9 @@
+<usuarios-editar 
+    [allowAvatarChange]="false" 
+    [id]="id" 
+    [disabledFields]="{nombre:true,apellido:true,telefono:true,email:true}"
+    (clickSave)="onClickSave($event)"
+    (clickCancelar)="onClickCancelar()"
+
+    fxLayoutAlign="column" fxLayoutAlign="stretch stretch"
+></usuarios-editar>

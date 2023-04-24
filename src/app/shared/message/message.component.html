@@ -1,0 +1,6 @@
+<div mat-dialog-content>
+    <p [innerHTML]="data.message"></p>
+</div>
+<div mat-dialog-actions [align]="data.align">
+    <button mat-button color="primary" (click)="close()">{{data.textoBoton}}</button>
+</div>

@@ -1,0 +1,112 @@
+<mat-card>
+    <app-section-title>
+        {{title}}
+    </app-section-title>
+
+    <app-mercado-ordenes-form 
+        [id]="orden_id"
+        [accion]="'consulta'"
+        [mostrarBotones]="false"
+        (formChange)="onOrdenFormChange($event)">
+    </app-mercado-ordenes-form>
+
+
+    <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
+        <div>
+            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100" >
+            <mat-label>Posición - Comprador</mat-label>
+            <mat-select formControlName="posicion_id" required>
+                <mat-option [value]="null">Seleccione...</mat-option>
+                <mat-option *ngFor="let row of listaPosiciones" [value]="row.id">{{infoEmpresaPosicion(row)}} </mat-option>
+            </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <!--Datos de la posición-->
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Producto:</mat-label>
+                    <input formControlName="producto_posicion" matInput readonly/>
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Destino:</mat-label>
+                <input formControlName="destino_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Entrega:</mat-label>
+                <input formControlName="entrega_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Precio:</mat-label>
+                <input formControlName="precio_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Forma de pago:</mat-label>
+                <input formControlName="forma_pago_posicion" matInput readonly />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Calidades:</mat-label>
+                <input formControlName="calidad_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Posicion excepcional:</mat-label>
+                <input formControlName="posicion_excepcional_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Posicion trabajar:</mat-label>
+                <input formControlName="posicion_trabajar_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Volumen limitado:</mat-label>
+                <input formControlName="volumen_limitado_posicion" matInput readonly />
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Observación de calidad:</mat-label>
+                <input formControlName="calidad_observaciones_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Observaciones:</mat-label>
+                <input formControlName="observaciones_posicion" matInput readonly />
+                </mat-form-field>
+            </div>
+            </div>
+            
+            <div>
+            <mat-form-field appearance="fill" fxFlex.lg="35" fxFlex.xs="100">
+                <mat-label>Precio de cierre</mat-label>
+                <input formControlName="precio_cierre_slip" matInput required/>
+            </mat-form-field>
+            </div>
+
+        <div fxLayout="row" fxLayoutGap="15px">
+            <button mat-flat-button color="primary" (click)="guardar()">
+                Guardar
+            </button>
+            <button mat-flat-button routerLink="/app/mercado/panel/gestionar-ofertas/{{clave}}">
+                Volver
+            </button>
+        </div>
+
+    </form>
+</mat-card>
+
+
+
+
+

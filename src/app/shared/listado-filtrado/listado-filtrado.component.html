@@ -1,0 +1,53 @@
+<app-toolbar [transparent]="transparent">
+
+    <ng-content select="titulo"></ng-content>
+
+    <span class="spacer"></span>
+
+    <ng-content select="botones"></ng-content>
+
+    <button mat-icon-button (click)=" clickFiltrosMobile()" mobile fxLayout="row" fxLayoutAlign="center center" >
+        <mat-icon>tune</mat-icon>
+    </button>
+</app-toolbar>
+
+<mat-sidenav-container [class.transparent]="transparent">
+    <mat-sidenav class="sidenav-filtros" #sidenav [mode]="sidenavMode" position="end" [ngStyle]="{'display':displayFiltros}">
+
+        <!-- section fxLayout="row" style="margin-bottom:16px;" fxLayoutAlign="space-between center">
+            <div><b>Filtros</b></div>
+            <button mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </section -->
+
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+
+            <ng-content select="filtros"></ng-content>
+
+            <ng-container *ngIf="!transparent">
+                <mat-divider></mat-divider><br />
+            </ng-container>
+
+            <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="15px">
+                <button mobile mat-flat-button color="primary" (click)="clickFiltrosMobile()">Cerrar</button>
+                <button *ngIf="!transparent" mat-flat-button color="primary" (click)="clickClearFilters()">Limpiar</button>
+                <button *ngIf="transparent" type="button" mat-flat-button class="button button-limpiar" (click)="clickClearFilters()">
+                    <mat-icon>restart_alt</mat-icon>
+                    <span>
+                        Limpiar
+                    </span>
+                </button>
+            </div>
+
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+
+        <ng-content select="contenido"></ng-content>
+
+    </mat-sidenav-content>
+
+
+</mat-sidenav-container>
