@@ -17,20 +17,20 @@
         </mat-form-field>
 
         <mat-form-field appearance="legacy" >
-          <mat-label>Puertos</mat-label>
+          <mat-label>Puerto de destino</mat-label>
           <mat-select multiple [(ngModel)]="filtroPuertos" (selectionChange)="selecetionChangeMultiple($event,'puerto_id')" >
             <mat-option value="">TODOS</mat-option>
             <mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
           <mat-label>Calidad</mat-label>
           <mat-select multiple [(ngModel)]="filtroCalidad" (selectionChange)="selecetionChangeMultiple($event,'calidad_id')">
             <mat-option value="">TODAS</mat-option>
             <mat-option *ngFor="let row of calidades" [value]="row.id">{{row.nombre}}</mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
 
         <mat-form-field appearance="legacy">

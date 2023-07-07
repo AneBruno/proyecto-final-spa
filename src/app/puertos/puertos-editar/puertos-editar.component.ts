@@ -36,9 +36,11 @@ export class PuertosEditarComponent extends FormBaseLocalizacionComponent implem
         this.form = this.fb.group({
             id                    : new FormControl({ value: '', disabled: true  }),
             nombre                : new FormControl({ value: '', disabled: false }),
-            terminal              : new FormControl({ value: '', disabled: false }),
-            placeId               : new FormControl({ value: '', disabled: false }),
-            descripcion_ubicacion : new FormControl({ value: '', disabled: false }),
+            //terminal              : new FormControl({ value: '', disabled: false }),
+            //placeId               : new FormControl({ value: '', disabled: false }),
+            //descripcion_ubicacion : new FormControl({ value: '', disabled: false }),
+            localidad                : new FormControl({ value: '', disabled: false }),
+            provincia                : new FormControl({ value: '', disabled: false })
         });
     }
 

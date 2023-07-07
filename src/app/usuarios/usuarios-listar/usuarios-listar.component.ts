@@ -32,7 +32,6 @@ export class UsuariosListarComponent implements OnInit {
         this.displayedColumns = [
             'id','nombre_y_apellido', 
             'rol_nombre', 
-            'oficina_nombre', 
             'estado', 
             '_acciones'
         ];
@@ -41,11 +40,11 @@ export class UsuariosListarComponent implements OnInit {
             this.roles = data;
         });
 
-        this.client.getData('/oficinas', {
+        /*this.client.getData('/oficinas', {
             limit: 0,
         }).subscribe((data) => {
             this.oficinas = data;
-        });
+        });*/
     }
 
     public habilitar(usuario: any) {

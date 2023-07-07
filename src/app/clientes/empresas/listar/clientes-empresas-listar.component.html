@@ -16,19 +16,19 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
             <mat-label>Actividad</mat-label>
             <mat-select multiple [(ngModel)]="dataSource.filtros.actividad_id" (selectionChange)="dataSource.refreshData()">
                 <mat-option *ngFor="let row of actividades" [value]="row.id">{{row.nombre}}</mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
         
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
             <mat-label>Categorí­a</mat-label>
             <mat-select multiple [(ngModel)]="dataSource.filtros.categoria_id" (selectionChange)="dataSource.refreshData()">
                 <mat-option *ngFor="let row of categorias" [value]="row.id">{{row.nombre}}</mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
         <mat-form-field appearance="legacy" *ngIf="this.rol_usuarioLogueado != 4">
             <mat-label>Comercial</mat-label>
@@ -39,7 +39,7 @@
         </mat-form-field>
 
         <mat-form-field appearance="legacy">
-            <mat-label>Habilitado</mat-label>
+            <mat-label>Estado</mat-label>
             <mat-select [(ngModel)]="dataSource.filtros.habilitada" (selectionChange)="dataSource.refreshData()">
                 <mat-option value="">TODAS</mat-option>
                 <mat-option value="1">Habilitadas</mat-option>

@@ -31,7 +31,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     public fechaDesde    : Date;
     public fechaHasta    : Date;
-    public calidades            : any[]    = [];
+    //public calidades            : any[]    = [];
     public comerciales          : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
@@ -44,7 +44,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     private ESTADO_ELIMINADA = 5;
     public filtroProductosOpciones : any = {
         ordenes: {
-            uso_frecuente: 'desc',
+            //uso_frecuente: 'desc',
             nombre: 'asc',
         }
     }
@@ -62,7 +62,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     public filtroProductos! : Array<any>;
     public filtroPuertos!   : Array<any>;
-    public filtroCalidad!   : Array<any>;
+    //public filtroCalidad!   : Array<any>;
     public filtroComercial  : Array<any>;
 
 
@@ -111,18 +111,18 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         ]).subscribe(result => {
             this.clearColumns();
             this.addColumn('created_at',    'Fecha',     '120px').renderFn(row => this.formatearFecha(row.created_at));
-            this.addColumn('vendedor',      'Vendedor',  '120px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
-            this.addColumn('producto',      'Producto',       '').renderFn(row => row.producto.nombre);
-            this.addColumn('entrega',       'Entrega',   '200px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
-            this.addColumn('destino',       'Destino',   '150px').renderFn(row => this.calculaDestino(row));
+            this.addColumn('vendedor',      'Vendedor',  '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
+            this.addColumn('producto',      'Producto',       '200px').renderFn(row => row.producto.nombre);
+            //this.addColumn('entrega',       'Entrega',   '200px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
+            this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => this.calculaDestino(row));
             this.addColumn('volumen',       'Volumen',   '50px').renderFn(row => row.volumen).setAsNumber().setAlign('right');
-            this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.precio} ${row.moneda}`).setAlign('right');
-            this.addColumn('estado',        'Estado',    '150px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
+            this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
+            this.addColumn('estado',        'Estado',    '120px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
             this.addColumn('_acciones',     'Acciones',   '30px').setAsMenu().setAlign('right');
 
             if (result.matches) {
                 this.getColumn('producto' ).setWidth('200px');
-                this.getColumn('entrega'  ).setWidth('200px');
+                //this.getColumn('entrega'  ).setWidth('200px');
                 this.getColumn('destino'  ).setWidth('200px');
                 this.getColumn('estado'   ).setWidth('200px');
             }
@@ -136,14 +136,14 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
           'limit' : 0,
          }).toPromise();
       this.productos =  await this.apiService.getData('/productos',{
-        'ordenes[uso_frecuente]': 'desc',
+        //'ordenes[uso_frecuente]': 'desc',
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
-      this.calidades = await this.apiService.getData('/calidades', {
+      /*this.calidades = await this.apiService.getData('/calidades', {
           ordenes: {descripcion:'DESC'},
           'limit': 0,
-        }).toPromise();
+        }).toPromise();*/
     }
 
     public calculaDestino(row:any) {
@@ -154,7 +154,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         }
     }
 
-    public calculaEntrega(fechaIni: any, fechaFin: any) {
+    /*public calculaEntrega(fechaIni: any, fechaFin: any) {
         var mesIni  = Number(fechaIni.substring(5, 7)) - 1;
         var mesFin  = Number(fechaFin.substring(5, 7)) - 1;
         var anioIni = Number(fechaIni.substring(0, 4));
@@ -179,15 +179,15 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         } else {
             return (meses[mesIni] + ' - ' + meses[mesFin]);
         }
-    }
+    }*/
 
     public formatearFecha(fecha:any) {
         return moment(fecha).format('DD-MM-YYYY');
     }
 
-    public filtroProductosIconoFn(row: any) : string {
+    /*public filtroProductosIconoFn(row: any) : string {
         return row.uso_frecuente ? 'star_outlined' : '';
-    }
+    }*/
 
     public actualizarDatos() {
         this.configurarFiltros();
@@ -210,7 +210,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
         this.filtroProductos = null;
         this.filtroPuertos   = null;
-        this.filtroCalidad   = null;
+        //this.filtroCalidad   = null;
         this.filtroComercial = null;
     }
 

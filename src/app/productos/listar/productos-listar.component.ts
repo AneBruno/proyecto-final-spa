@@ -31,7 +31,7 @@ export class ProductosListarComponent extends ListadoComponent implements OnInit
         this.addColumn('id',                   'Id',            '300px').renderFn(row => row.id);
         this.addColumn('nombre',               'Nombre',             '').renderFn(row => row.nombre);
         this.addColumn('tipo_producto_nombre', 'Tipo Producto', '300px').renderFn(row => row.tipo_producto.nombre);
-        this.addColumn('unidad',               'Unidad',        '200px').renderFn(row => row.unidad);
+       //this.addColumn('unidad',               'Unidad',        '200px').renderFn(row => row.unidad);
         this.addColumn('habilitado',           'Habilitado',    '100px').renderFn(row => row.habilitado ? 'Si' : 'No');
         this.addColumn('_acciones',            'Acciones',       '50px').setAsMenu().setAlign('right');
     }

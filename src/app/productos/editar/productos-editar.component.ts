@@ -42,8 +42,8 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
             id               : new FormControl({ value: '', disabled: true  }),
             nombre           : new FormControl({ value: '', disabled: false }),
             tipo_producto_id : new FormControl({ value: '', disabled: false }, Validators.required),
-            unidad           : new FormControl({ value: '', disabled: false }, Validators.required),
-            uso_frecuente    : new FormControl({ value: '', disabled: false }, Validators.required),
+          //  unidad           : new FormControl({ value: '', disabled: false }, Validators.required),
+            //uso_frecuente    : new FormControl({ value: '', disabled: false }, Validators.required),
         });
     }
 

@@ -14,8 +14,8 @@ import { ListadoDataSource   } from 'src/app/shared/listado.datasource';
 export class ClientesEmpresasListarComponent extends ListadoComponent implements OnInit {
 
     public displayedColumns     : string[] = [];
-    public actividades          : any[]  = [];
-    public categorias           : any[]  = [];
+    //public actividades          : any[]  = [];
+    //public categorias           : any[]  = [];
     public usuarios             : any[]  = [];
     public usuarioLogueado      : any;
     public rol_usuarioLogueado  : Number;
@@ -38,8 +38,8 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
 
         this.dataSource.uri      = '/clientes/empresas';
 
-        this.actividades         = await this.apiService.getData('/clientes/actividades', { limit : 0 }).toPromise();
-        this.categorias          = await this.apiService.getData('/clientes/categorias',  { limit : 0 }).toPromise();
+        //this.actividades         = await this.apiService.getData('/clientes/actividades', { limit : 0 }).toPromise();
+        //this.categorias          = await this.apiService.getData('/clientes/categorias',  { limit : 0 }).toPromise();
         this.usuarioLogueado     = await this.apiService.getData('/auth/getUser'                       ).toPromise();
         this.rol_usuarioLogueado = this.usuarioLogueado.rol.id;
 
@@ -52,6 +52,8 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
 
         this.addColumn('cuit',         'Cuit',         '150px').renderFn(row => row.cuit);
         this.addColumn('razon_social', 'Razón social',      '').renderFn(row => row.razon_social);
+        this.addColumn('telefono', 'Teléfono',      '').renderFn(row => row.telefono? row.telefono : '-');
+        this.addColumn('comercial_asignado', 'Comercial Asignado',      '').renderFn(row => row.comercial_asignado? row.comercial_asignado: '-' );
         this.addColumn('habilitada',   'Habilitada',   '100px').renderFn(row => row.habilitada ? 'Si' : 'No').setAlign('center');
         this.addColumn('_acciones',    'Acciones',      '60px').setAsMenu().setAlign('right');
     }
@@ -65,13 +67,7 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
     }
 
     public async habilitar(id: number) {
-        let respuesta = await this.apiService.getData(`/clientes/empresas/${id}/archivos/completos`).toPromise();
-        if (respuesta.resultado === false) {
-            await this.confirm.askAsync('La empresa no posee al menos un archivo de cada tipo. Continuar?');
-        } else {
-            await this.confirm.askAsync('Habilitará la empresa. Continuar?');
-        }
-        
+        await this.confirm.askAsync('Habilitará la empresa. Continuar?');
         await this.apiService.put(`/clientes/empresas/${id}/habilitar`, {}).toPromise();
         this.dataSource.refreshData();
     }

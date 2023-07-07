@@ -127,7 +127,7 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
         let data = this.form.getRawValue();
         let file = this.getFile();
         data['foto'] = file ? file : undefined;
-        console.log('hola',data);
+        //console.log('hola',data);
         this.clickSave.emit(data);
     }
 

@@ -22,28 +22,28 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
 
     public productos: any[] = [];
-    public calidades: any[] = [];
+   //public calidades: any[] = [];
     public condiciones_pago: any[] = [];
     public empresas: any[] = [];
     public puertos: any[] = [];
     public posicion: any;
     public consulta: boolean = false;
     public empresa_id: number;
-    public establecimientos: any[] = [];
-    public mostrar_establecimientos: boolean = false;
+    //public establecimientos: any[] = [];
+    //public mostrar_establecimientos: boolean = false;
     public campoVendedorModificado: boolean = false;
     private empresa_id_to: any;
     private producto_id_to: any;
-    private calidad_id_to: any;
+   // private calidad_id_to: any;
     public minDate: any = moment().format();
-    public entrega_es_forward: boolean = false;
-    private fecha_actual: any = this.fechaEntregaHelper.getToday();
-    public placeIdProcedencia: string = '';
-    public placeIdDestino: string = '';
-    public opcion_destino: string;
-    public direccionCompletaProcedencia: string;
+    //public entrega_es_forward: boolean = false;
+    //private fecha_actual: any = this.fechaEntregaHelper.getToday();
+    //public placeIdProcedencia: string = '';
+    //public placeIdDestino: string = '';
+    //public opcion_destino: string;
+    //public direccionCompletaProcedencia: string;
     public direccionCompletaDestino: string;
-    public mostrarCampoEstablecimientos: boolean = false;
+    //public mostrarCampoEstablecimientos: boolean = false;
 
 
     public constructor(
@@ -62,7 +62,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     public loadRelatedData() {
         this.buscarProductos();
-        this.buscarCalidades();
+        //this.buscarCalidades();
         this.buscarEmpresas();
 
         this.apiService.getData('/mercado/condiciones-pago').subscribe(data => {
@@ -92,7 +92,8 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     private loadData() {
         if (this.id) {
-            this.obtenerYCompletar(this.id, { with_relation: 'estado,empresa,calidad,producto,usuarioCarga' });
+            this.obtenerYCompletar(this.id, { with_relation: 'estado,empresa,producto,usuarioCarga' });
+            //saqué calidad, de las llaves
         }
     }
 
@@ -100,14 +101,14 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         this.form.get('producto_id').setValue(this.posicion.producto_id);
         this.form.get('producto_nombre').setValue(this.posicion.producto.nombre);
         this.form.get('puerto_id').setValue(this.posicion.puerto_id);
-        this.form.get('calidad_id').setValue(this.posicion.calidad_id);
-        this.form.get('calidad_nombre').setValue(this.posicion.calidad.nombre);
+        //this.form.get('calidad_id').setValue(this.posicion.calidad_id);
+        //this.form.get('calidad_nombre').setValue(this.posicion.calidad.nombre);
         this.form.get('moneda').setValue(this.posicion.moneda);
         this.form.get('precio').setValue(this.posicion.precio);
         this.form.get('condicion_pago_id').setValue(this.posicion.condicion_pago_id);
-        this.form.get('entrega').setValue(this.posicion.entrega);
+        /*this.form.get('entrega').setValue(this.posicion.entrega);
         this.form.get('fecha_entrega_inicio').setValue(moment(this.posicion.fecha_entrega_inicio).toISOString());
-        this.form.get('fecha_entrega_fin').setValue(moment(this.posicion.fecha_entrega_fin).toISOString());
+        this.form.get('fecha_entrega_fin').setValue(moment(this.posicion.fecha_entrega_fin).toISOString());*/
     }
 
     private createForm() {
@@ -116,35 +117,35 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
             producto_id: new FormControl({ value: '', disabled: false }),
             producto_nombre: new FormControl({ value: '', disabled: false }),
             empresa_id: new FormControl({ value: '', disabled: false }),
-            establecimiento_id: new FormControl({ value: '', disabled: false }),
+            //establecimiento_id: new FormControl({ value: '', disabled: false }),
             puerto_id: new FormControl({ value: '', disabled: false }),
-            calidad_id: new FormControl({ value: '', disabled: false }),
-            calidad_nombre: new FormControl({ value: '', disabled: false }),
+            //calidad_id: new FormControl({ value: '', disabled: false }),
+            //calidad_nombre: new FormControl({ value: '', disabled: false }),
             volumen: new FormControl({ value: '', disabled: false }),
             moneda: new FormControl({ value: '', disabled: false }),
             precio: new FormControl({ value: '', disabled: false }),
-            fecha_entrega_inicio: new FormControl({ value: '', disabled: false }),
-            fecha_entrega_fin: new FormControl({ value: '', disabled: false }),
+            /*fecha_entrega_inicio: new FormControl({ value: '', disabled: false }),
+            fecha_entrega_fin: new FormControl({ value: '', disabled: false }),*/
             condicion_pago_id: new FormControl({ value: '', disabled: false }),
             estado_id: new FormControl({ value: '', disabled: false }),
             comercial: new FormControl({ value: '', disabled: false }),
             observaciones: new FormControl({ value: '', disabled: false }),
             empresa_razon_social: new FormControl({ value: '', disabled: false }),
-            entrega: new FormControl({ value: '', disabled: false }),
-            placeIdProcedencia: new FormControl({ value: '', disabled: false }),
-            direccionCompletaProcedencia: new FormControl({ value: '', disabled: false }),
-            placeIdDestino: new FormControl({ value: '', disabled: false }),
-            opcion_destino: new FormControl({ value: '', disabled: false }),
+            //entrega: new FormControl({ value: '', disabled: false }),
+            //placeIdProcedencia: new FormControl({ value: '', disabled: false }),
+            //direccionCompletaProcedencia: new FormControl({ value: '', disabled: false }),
+            //placeIdDestino: new FormControl({ value: '', disabled: false }),
+            //opcion_destino: new FormControl({ value: '', disabled: false }),
             direccionCompletaDestino: new FormControl({ value: '', disabled: false })
         });
 
         this.form.get('empresa_id').valueChanges.subscribe((value) => {
             this.empresa_id = value;
-            this.form.get('establecimiento_id').reset();
-            this.loadEstablecimientos(value === null ? undefined : value);
+            //this.form.get('establecimiento_id').reset();
+            //this.loadEstablecimientos(value === null ? undefined : value);
         });
 
-        this.form.get('entrega').valueChanges.subscribe((value) => {
+        /*this.form.get('entrega').valueChanges.subscribe((value) => {
             var campo_fecha_entrega_inicio = this.form.get('fecha_entrega_inicio');
             var campo_fecha_entrega_fin = this.form.get('fecha_entrega_fin');
 
@@ -179,7 +180,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
                 campo_fecha_entrega_fin.enable();
                 this.entrega_es_forward = true;
             }
-        });
+        });*/
 
         this.form.valueChanges.subscribe(value => {
             this.formChange.emit(value);
@@ -187,7 +188,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     }
 
-    private loadEstablecimientos(empresa_id: string | undefined = undefined) {
+    /*private loadEstablecimientos(empresa_id: string | undefined = undefined) {
         this.apiService.getData(`/clientes/empresas/${this.empresa_id}/establecimientos`, {
             filtros: {
                 empresa_id: empresa_id
@@ -200,7 +201,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
             }
             this.establecimientos = data;
         });
-    }
+    }*/
 
     protected get dataUrl(): string {
         return '/mercado/ordenes';
@@ -216,46 +217,46 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
             this.form.patchValue({ 'estado_id': data.estado_id });
         }
         this.form.patchValue({ 'producto_nombre': data.producto.nombre });
-        this.form.patchValue({ 'calidad_nombre': data.calidad.nombre });
+        //this.form.patchValue({ 'calidad_nombre': data.calidad.nombre });
         this.form.patchValue({ 'comercial': (data.usuario_carga.nombreCompleto) });
-        this.form.patchValue({ 'fecha_entrega_inicio': moment(data.fecha_entrega_inicio).format() });
-        this.form.patchValue({ 'fecha_entrega_fin': moment(data.fecha_entrega_fin).format() });
+        /*this.form.patchValue({ 'fecha_entrega_inicio': moment(data.fecha_entrega_inicio).format() });
+        this.form.patchValue({ 'fecha_entrega_fin': moment(data.fecha_entrega_fin).format() });*/
 
         //Lógica para completar campos de destino:
         if (data.puerto_id !== null) {
-            this.opcion_destino = 'exportacion';
+            //this.opcion_destino = 'exportacion';
             this.form.patchValue({ 'puerto_id': data.puerto_id });
 
         } else {
-            this.opcion_destino = 'consumo';
+            //this.opcion_destino = 'consumo';
             this.direccionCompletaDestino = data.localidad_destino + ', ' + data.departamento_destino + ', ' + data.provincia_destino;
         }
 
         //Lógica para completar campos de procedencia:
-        if (data.establecimiento_id !== null) {
+        /*if (data.establecimiento_id !== null) {
             this.form.patchValue({ 'establecimiento_id': data.establecimiento_id });
         } else {
             this.direccionCompletaProcedencia = data.localidad_procedencia + ', ' + data.departamento_procedencia + ', ' + data.provincia_procedencia;
         }
-        this.form.patchValue({ 'opcion_destino': this.opcion_destino });
+        this.form.patchValue({ 'opcion_destino': this.opcion_destino });*/
     }
 
 
     protected getFormData(): any {
         let formData = super.getFormData();
-        if (formData.fecha_entrega_inicio) {
+        /*if (formData.fecha_entrega_inicio) {
             formData.fecha_entrega_inicio = moment(formData.fecha_entrega_inicio).format('YYYY-MM-DD');
         }
         if (formData.fecha_entrega_fin) {
             formData.fecha_entrega_fin = moment(formData.fecha_entrega_fin).format('YYYY-MM-DD');
-        }
+        }*/
 
-        if (this.placeIdProcedencia) {
+        /*if (this.placeIdProcedencia) {
             formData.placeIdProcedencia = this.placeIdProcedencia;
-        }
-        if (this.placeIdDestino) {
+        }*/
+        /*if (this.placeIdDestino) {
             formData.placeIdDestino = this.placeIdDestino;
-        }
+        }*/
         return formData;
     }
 
@@ -284,7 +285,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         let id = ev.option._getHostElement().getAttribute('data-id');
         this.form.patchValue({ empresa_id: id });
 
-        this.direccionCompletaProcedencia = null;
+        //this.direccionCompletaProcedencia = null;
     }
 
     public buscarEmpresas(busqueda?: any) {
@@ -317,7 +318,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         }, 400);
     }
 
-    public calidad_id_keyup(ev: any) {
+   /* public calidad_id_keyup(ev: any) {
         if (this.calidad_id_to) {
             clearTimeout(this.calidad_id_to);
         }
@@ -345,7 +346,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         }).subscribe(data => {
             this.calidades = data;
         })
-    }
+    }*/
 
     public buscarProductos(busqueda?: any) {
         let filtros: any = {};
@@ -378,12 +379,12 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     }
 
-    public autocompletarEstablecimientoUbicacion(establecimiento) {
+    /*public autocompletarEstablecimientoUbicacion(establecimiento) {
         this.direccionCompletaProcedencia = establecimiento.localidad + ', ' + establecimiento.departamento + ', ' + establecimiento.provincia;
-    }
+    }*/
 
-    public setearOpcionDestino(valor: string): void {
+    /*public setearOpcionDestino(valor: string): void {
         this.opcion_destino = valor;
         this.form.patchValue({ 'opcion_destino': this.opcion_destino });
-    }
+    }*/
 }

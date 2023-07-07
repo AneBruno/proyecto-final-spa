@@ -18,7 +18,7 @@ export class MainToolbarComponent implements OnInit {
     accessGroups = {};
     avatar: string;
     user: User;
-    public isExtranet : boolean = false;
+    //public isExtranet : boolean = false;
 
     private navigationSubscription: Subscription;
 
@@ -32,7 +32,7 @@ export class MainToolbarComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.setIsExtranet();
+        //this.setIsExtranet();
         this.user = this.userService.getUser();
         this.accessGroups = this.userService.getAccessTree();
         console.log('this.accessGroups', this.accessGroups);
@@ -44,11 +44,11 @@ export class MainToolbarComponent implements OnInit {
         );
     }
 
-    public setIsExtranet() : void {
+    /*public setIsExtranet() : void {
         if(this.router.url.startsWith('/app/extranet')){
             this.isExtranet = true;
         }
-    }
+    }*/
     
     getAvatar() {
         let urlImagen = this.user.urlImagen||'';

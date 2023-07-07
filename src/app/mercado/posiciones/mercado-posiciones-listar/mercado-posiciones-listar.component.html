@@ -5,7 +5,7 @@
     </botones>
     <filtros fxLayout="column">
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
 			<mat-label>Tipo de posición</mat-label>
 			<mat-select multiple [(ngModel)]="filtroTipoPosicion" (selectionChange)="selecetionChangeMultiple($event,'tipo_posicion')">
 				<mat-option value="" >TODAS</mat-option>
@@ -13,15 +13,15 @@
 				<mat-option value="a_trabajar">Posición a trabajar</mat-option>
 				<mat-option value="volumen_limitado">Volumen limitado</mat-option>
 			</mat-select>
-		</mat-form-field>
+		</mat-form-field>-->
 
-        <app-chips-input
+        <!--<app-chips-input
             [title]="'Comprador'"
             [labelColumn]="'razon_social'"
             [dataUrl]="'/clientes/empresas'"
             [(selected)]="filtros.empresa_id"
             (selectionChanged)="refreshList()"
-        ></app-chips-input>
+        ></app-chips-input>-->
 
         <mat-form-field appearance="legacy" >
           <mat-label>Productos</mat-label>
@@ -39,7 +39,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
 			<mat-label>Entrega</mat-label>
 			<mat-select multiple [(ngModel)]="filtroEntrega" (selectionChange)="selecetionChangeMultiple($event,'entrega')">
 				<mat-option value="">TODOS</mat-option>
@@ -48,15 +48,15 @@
 				<mat-option value="contractual">Contractual</mat-option>
 				<mat-option value="forward">Forward</mat-option>
 			</mat-select>
-		  </mat-form-field>
+		  </mat-form-field>-->
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
           <mat-label>Calidad</mat-label>
           <mat-select multiple [(ngModel)]="filtroCalidad" (selectionChange)="selecetionChangeMultiple($event,'calidad_id')">
             <mat-option value="">TODAS</mat-option>
             <mat-option *ngFor="let row of calidades" [value]="row.id">{{row.nombre}}</mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
         <mat-form-field appearance="legacy" >
 			<mat-label>Forma de pago</mat-label>
@@ -121,13 +121,13 @@
                                 </mat-chip>
                             </mat-chip-list>
                         </ng-container>
-                        <ng-container *ngIf="column.type === 'figure'">
+                        <!--<ng-container *ngIf="column.type === 'figure'">
                           <div fxLayout="row" style="height:25px;">
                               <div *ngIf="posicionExcepcional(row)" style="flex-grow: 1;" id="rectanguloVerde"   ></div>
                               <div *ngIf="volumenLimitado(row)"     style="flex-grow: 1;" id="rectanguloRojo"    ></div>
                               <div *ngIf="aTrabajar(row)"           style="flex-grow: 1;" id="rectanguloAmarillo"></div>
                           </div>
-                        </ng-container>
+                        </ng-container>-->
                         <ng-container *ngIf="column.type==='text'||column.type===undefined">
                             {{column.valueFn(row) || row[column.name]  || null}}
                         </ng-container>
@@ -153,11 +153,11 @@
                 <button mat-menu-item routerLink="copiar/{{aliasMenuItems.id}}">Copiar</button>
                 <button mat-menu-item routerLink="consulta/{{aliasMenuItems.id}}">Consultar</button>
                 <div *ngIf="!(rol_id_usuario == 6)">
-                  <button mat-menu-item *ngIf="!(aliasMenuItems.estado=='DENUNCIADA' || aliasMenuItems.estado == 'ELIMINADA' || aliasMenuItems.estado == 'RETIRADA')" (click)="estadoPosicion(aliasMenuItems.id, 'DENUNCIADA')">Denunciar</button>
-                  <div *ngIf="rol_id_usuario == 1 || rol_id_usuario == 2 || aliasMenuItems.usuario_carga_id == id_usuario">
+                  <!--<button mat-menu-item *ngIf="!(aliasMenuItems.estado=='DENUNCIADA' || aliasMenuItems.estado == 'ELIMINADA' || aliasMenuItems.estado == 'RETIRADA')" (click)="estadoPosicion(aliasMenuItems.id, 'DENUNCIADA')">Denunciar</button>-->
+                  <!--<div *ngIf="rol_id_usuario == 1 || rol_id_usuario == 2 || aliasMenuItems.usuario_carga_id == id_usuario">
                     <button mat-menu-item *ngIf="aliasMenuItems.estado=='DENUNCIADA'" (click)="estadoPosicion(aliasMenuItems.id, 'ACTIVA')">Quitar denuncia</button>
-                  </div>
-                  <button mat-menu-item *ngIf="!(aliasMenuItems.estado == 'ELIMINADA' || aliasMenuItems.estado == 'RETIRADA')"(click)="estadoPosicion(aliasMenuItems.id, 'RETIRADA')">Retirar</button>
+                  </div>-->
+                  <!--<button mat-menu-item *ngIf="!(aliasMenuItems.estado == 'ELIMINADA' || aliasMenuItems.estado == 'RETIRADA')"(click)="estadoPosicion(aliasMenuItems.id, 'RETIRADA')">Retirar</button>-->
                   <button mat-menu-item *ngIf="!(aliasMenuItems.estado == 'ELIMINADA' || aliasMenuItems.estado == 'RETIRADA')"(click)="estadoPosicion(aliasMenuItems.id, 'ELIMINADA')">Eliminar</button>
                 </div>
             </ng-template>

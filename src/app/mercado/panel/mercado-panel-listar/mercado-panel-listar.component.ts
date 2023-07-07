@@ -80,7 +80,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     private setTable() : void {
         this.clearColumns();
-        this.addColumn('tipo',          '',      '100px').setAsFigure();
+        //this.addColumn('tipo',          '',      '100px').setAsFigure();
         this.addColumn('comprador',     'Comprador',      '').setAsCustom();
         this.addColumn('producto',      'Producto',  '200px').renderFn(row => row.producto.nombre             );
         this.addColumn('destino',       'Destino',   '150px').renderFn(row => this.calculaDestino(row)        );

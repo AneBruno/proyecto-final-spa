@@ -1,11 +1,11 @@
 <div>
     <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px" class="principal mat-elevation-z3">
-        <a *ngIf="!isExtranet" routerLink="/app" fxFlex.xs="25" fxFlex.sm="25" fxFlex.lt-lg="10" fxFlex.lg="6" fxLayout="column" class="logo">
+        <!--<a *ngIf="!isExtranet" routerLink="/app" fxFlex.xs="25" fxFlex.sm="25" fxFlex.lt-lg="10" fxFlex.lg="6" fxLayout="column" class="logo">
             <img src="/assets/images/logo_NDG.svg" alt="logo">
-        </a>
-        <a *ngIf="isExtranet" routerLink="/app/extranet/solicitudes-cobro/listar" fxFlex.xs="25" fxFlex.sm="25" fxFlex.lt-lg="10" fxFlex.lg="6" fxLayout="column" class="logo">
+        </a>-->
+        <!--<a *ngIf="isExtranet" routerLink="/app/extranet/solicitudes-cobro/listar" fxFlex.xs="25" fxFlex.sm="25" fxFlex.lt-lg="10" fxFlex.lg="6" fxLayout="column" class="logo">
             <img src="/assets/images/logo_NDG.svg" alt="logo">
-        </a>
+        </a>-->
         <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1px" fxHide.lt-md>
             <div *ngFor="let item of accessGroups" class="menu-option">
                 <button mat-button [matMenuTriggerFor]="menu">

@@ -3,15 +3,9 @@
     [id]="id"
     [disabledFields]="{
         email: true, 
-        rol_id: true, 
-        oficina_id: true,
-        aprobacion_cbu : true,
-        aprobacion_gerencia_comercial : true,
-        aprobacion_dpto_creditos : true,
-        aprobacion_dpto_finanzas : true,
-        confirmacion_pagos : true
+        rol_id: true
     }"
-    [mostrarLogout]="true"
+    [mostrarLogout]="false"
     (clickSave)="onClickSave($event)"
     (clickCancelar)="onClickCancelar()"
 ></usuarios-editar>

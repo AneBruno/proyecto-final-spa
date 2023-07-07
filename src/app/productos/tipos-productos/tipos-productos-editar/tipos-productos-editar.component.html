@@ -4,7 +4,7 @@
     </app-section-title>
     <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
         <mat-form-field appearance="fill">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Descripción</mat-label>
             <input formControlName="nombre" matInput required />
             <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
         </mat-form-field>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/shared/services/auth.service';
 import { ListadoDataSource } from 'src/app/shared/listado.datasource';
+import { ListadoComponent } from 'src/app/shared/listados/listado.component';
 import { ApiService        } from 'src/app/shared/services/api.service';
 import { ConfirmService    } from 'src/app/shared/services/confirm.service';
 
@@ -11,16 +13,18 @@ import { ConfirmService    } from 'src/app/shared/services/confirm.service';
 })
 export class CondicionesPagoListarComponent implements OnInit {
 
-  public displayedColumns = ['id','descripcion','_acciones'];
+  public displayedColumns = ['id','descripcion', 'estado' , '_acciones'];
 
     public constructor(
         public dataSource: ListadoDataSource<any>,
         private client: ApiService,
         private confirm: ConfirmService,
+        public  authService : AuthService
     ) { }
 
     ngOnInit(): void {
         this.dataSource.uri = '/mercado/condiciones-pago';
+
     }
 
     public eliminar(id: number) {

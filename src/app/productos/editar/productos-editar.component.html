@@ -17,22 +17,22 @@
             </mat-select>
             <mat-error *ngIf="error('tipo_producto_id')">{{error('tipo_producto_id')}}</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <!--<mat-form-field appearance="fill">
             <mat-label>Unidades</mat-label>
             <mat-select formControlName="unidad" required>
                 <mat-option [value]="'UNIDADES'">UNIDADES</mat-option>
                 <mat-option [value]="'TONELADAS'">TONELADAS</mat-option>
             </mat-select>
             <mat-error *ngIf="error('unidad')">{{error('unidad')}}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
+        </mat-form-field>-->
+        <!--<mat-form-field appearance="fill">
             <mat-label>Uso Frecuente</mat-label>
             <mat-select formControlName="uso_frecuente" required>
                 <mat-option [value]="false">No</mat-option>
                 <mat-option [value]="true">Si</mat-option>
             </mat-select>
             <mat-error *ngIf="error('uso_frecuente')">{{error('uso_frecuente')}}</mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
         <div fxLayout="row" fxLayoutGap="15px">
             <button type="submit" mat-flat-button color="primary">
                 Guardar
