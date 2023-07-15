@@ -36,7 +36,7 @@ export class MainToolbarComponent implements OnInit {
         this.user = this.userService.getUser();
         this.accessGroups = this.userService.getAccessTree();
         console.log('this.accessGroups', this.accessGroups);
-        this.getAvatar();
+        //this.getAvatar();
         this.navigationSubscription = this.navigationService.current$.subscribe(
             (item: AccessGroup) => {
                 this.currentSection = item
@@ -50,17 +50,16 @@ export class MainToolbarComponent implements OnInit {
         }
     }*/
     
-    getAvatar() {
+    /*getAvatar() {
         let urlImagen = this.user.urlImagen||'';
         this.avatar = `url(${urlImagen})`;
     }
-
+*/
     logout() {        
         this.authService.signOut();
     }
 
     openMobileMenu() {
-        console.log('holas');
         this.toogleSideNav.emit(true);
     }
     

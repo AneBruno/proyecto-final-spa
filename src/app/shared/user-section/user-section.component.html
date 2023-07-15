@@ -1,35 +1,18 @@
 <div fxLayout="row" fxLayoutAlign="end center" class="profile-section profile-section-extranet">
-    <div *ngIf="!isExtranet" fxLayout="column">
+    <div 
+        mat-button 
+        [matMenuTriggerFor]="menu"
+        class="profile-button"
+        [style.background-image]="'url(../assets/images/download.png)'"
+    >
+    </div>
+    <div fxLayout="column">
         <div class="user-name">{{user?.nombre}} {{user?.apellido}}</div>
         <div class="user-role">{{user?.rol?.nombre}}</div>
     </div>
 
-    <!--eliminar? extranet-->
-    <div *ngIf="isExtranet" fxLayout="column">
-        <div class="user-name-extranet">{{userExtranet}}</div>
-        <div class="user-role">{{razon_social}}</div>
-    </div>
-    <!--eliminar? extranet-->
-    <div
-        *ngIf="!extranet"
-        mat-button 
-        [matMenuTriggerFor]="menu"
-        class="profile-button"
-        [style.background-image]="'url(' + user?.urlImagen + ')'"
-    >
-    </div>
-    <div
-    *ngIf="extranet"
-        mat-button 
-        [matMenuTriggerFor]="menu"
-        class="profile-button profile-button-extranet"
-        
-    >
-    {{userExtranet[0].toUpperCase()}}
-    </div>
-    <mat-menu #menu="matMenu" [class.menu-extranet]="extranet === true">
-        <button *ngIf="!isExtranet" mat-menu-item routerLink="usuarios/mis-datos">Mis Datos</button>
-        <button *ngIf="!isExtranet" mat-menu-item (click)="logout()">Logout</button>
-        <!--<button *ngIf="isExtranet" mat-menu-item (click)="logoutExtranet()">Salir</button>-->
+    <mat-menu #menu="matMenu" >
+        <button  mat-menu-item routerLink="usuarios/mis-datos">Mi Cuenta</button>
+        <button  mat-menu-item (click)="logout()">Cerrar sesión</button>
     </mat-menu>
 </div>

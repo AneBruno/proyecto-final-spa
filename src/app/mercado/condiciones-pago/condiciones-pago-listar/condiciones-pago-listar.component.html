@@ -11,20 +11,27 @@
         <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
             
             <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef width="80px">Id</th>
+                <th mat-header-cell 
+                *matHeaderCellDef 
+                width="80px"
+                [ngStyle]="{'font-weight': '600'}">Id</th>
                 <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
 
             <ng-container matColumnDef="descripcion">
-                <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                <th mat-header-cell 
+                *matHeaderCellDef
+                [ngStyle]="{'font-weight': '600'}">Descripción</th>
                 <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
             </ng-container>
 
             <!--Columna estado-->
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef>Estado</th>
-                <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-            </ng-container>
+            <ng-container matColumnDef="habilitado">
+                <th mat-header-cell *matHeaderCellDef [ngStyle]="{'font-weight': '600'}">Habilitado</th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.habilitado === 1 ? 'Si' : 'No' }}
+                  </td>
+              </ng-container>
 
             <ng-container matColumnDef="_acciones">
                 <th mat-header-cell *matHeaderCellDef width="80px">Acciones</th>
@@ -46,7 +53,8 @@
         <mat-menu #menu="matMenu">
             <ng-template matMenuContent let-aliasMenuItems="element">
                 <button mat-menu-item routerLink="/app/mercado/condicionesPago/{{aliasMenuItems.id}}">Editar</button>
-                <button mat-menu-item (click)="eliminar(aliasMenuItems.id)">Eliminar</button>
+                <button mat-menu-item (click)="deshabilitar(aliasMenuItems.id)" *ngIf="aliasMenuItems.habilitado">Deshabilitar</button>
+                <button mat-menu-item (click)="habilitar(aliasMenuItems)" *ngIf="!aliasMenuItems.habilitado">Habilitar</button>
             </ng-template>
         </mat-menu>
     </contenido>

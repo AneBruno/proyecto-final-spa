@@ -2,21 +2,21 @@
     <app-section-title>
         {{title}}
     </app-section-title>
-    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="stretch start" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
-        <div class="section-avatar" fxLayout="column" fxLayoutAlign="center center" fxFlex.lg="40" fxFlex.xs="100">
+    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="onSubmit()" fxLayout="row" fxLayoutAlign="center center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <!--<div class="section-avatar" fxLayout="column" fxLayoutAlign="center center" fxFlex.lg="40" fxFlex.xs="100">
             <div class="wrapper">
                 <img class="avatar" [src]="urlImagen" />
             </div>
-            <!--<app-file-upload-button
+            <app-file-upload-button
                 *ngIf="allowAvatarChange"
                 [label]="'Reemplazar foto'"
-            ></app-file-upload-button>-->
-            <!--<a *ngIf="mostrarLogout" type="button" mat-button (click)="clickLogout()">
+            ></app-file-upload-button>
+            <a *ngIf="mostrarLogout" type="button" mat-button (click)="clickLogout()">
                 <mat-icon class="logout-icon" aria-hidden="false" aria-label="Example home icon">logout</mat-icon>
                 <span>Cerrar sesión</span>
-            </a>-->
-        </div>
-        <div class="section-data" fxFlex.lg="60" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="start stretch">
+            </a>
+        </div>-->
+        <div class="section-data" fxFlex.lg="100" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="start stretch">
             <mat-form-field appearance="fill">
                 <mat-label>Nombre</mat-label>
                 <input formControlName="nombre" matInput required />

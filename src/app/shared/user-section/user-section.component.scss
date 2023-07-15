@@ -4,7 +4,7 @@
 :host {
 
     & #menu {
-        float: right;
+        float: left;
     }
 
     & .menu-option .mat-button {
@@ -12,24 +12,26 @@
     }
 
     & .profile-section {     
-        text-align: right;
+        text-align: left;
         font-size: 12px;
         line-height: 18px;
         
         .user-name {
-            font-weight: 500;
+            font-weight: 600;
+            margin-left: 16px;
         }
 
-        .user-name-extranet {
+        /*.user-name-extranet {
             font-family: 'Alef';
             font-style: normal;
             font-weight: 700;
             font-size: 16.48px;
             line-height: 20px;
-        }
+        }*/
     
         .user-role {
             color: #9DAAB6;
+            margin-left: 16px;
         }
     
         .profile-button {
@@ -37,14 +39,14 @@
             margin-left: 6px;
             width: 50px;
             height: 50px;
-            border: solid 2px #6D7195;
+            border: solid 2px #000000;
             background-size: cover;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: left;
             cursor: pointer;
         }
 
-        .profile-button-extranet{
+        /*.profile-button-extranet{
             margin-left: 0px;
             display: flex;
             justify-content: center;
@@ -56,14 +58,14 @@
             line-height: 36px;
             color: white;
             background: linear-gradient(111.56deg, #6EC54C 7.71%, #1DA978 92.48%), rgba(255, 255, 255, 0.15);
-        }
+        }*/
     }
 
-    .profile-section-extranet{
+    /*.profile-section-extranet{
         gap: 12px;
     }
 
     .menu-extranet{
         display: none;
-    }
+    }*/
 }

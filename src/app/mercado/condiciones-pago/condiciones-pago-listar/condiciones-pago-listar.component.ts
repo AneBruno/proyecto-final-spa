@@ -13,7 +13,7 @@ import { ConfirmService    } from 'src/app/shared/services/confirm.service';
 })
 export class CondicionesPagoListarComponent implements OnInit {
 
-  public displayedColumns = ['id','descripcion', 'estado' , '_acciones'];
+  public displayedColumns = ['id','descripcion', 'habilitado' , '_acciones'];
 
     public constructor(
         public dataSource: ListadoDataSource<any>,
@@ -27,6 +27,31 @@ export class CondicionesPagoListarComponent implements OnInit {
 
     }
 
+    public deshabilitar(id: number) {
+        this.confirm.ask('Deshabilitará el producto. Continuar?').subscribe(() => {
+            this.client.put('/mercado/condiciones-pago/' + id + '/deshabilitar', {}).subscribe(() => {
+                this.dataSource.refreshData();
+            });
+        });
+    }
+
+    public async habilitar(id: number) {
+        await this.confirm.askAsync('Habilitará el producto. Continuar?');
+        await this.client.put('/mercado/condiciones-pago/' + id + '/habilitar', {}).toPromise();
+        this.dataSource.refreshData();
+        }
+    
+
+    /*public eliminar(orden) {
+        const nuevoEstado = orden.estado === 'Habilitado' ? 'Deshabilitado' : 'Habilitado';
+
+        this.confirm.ask('Deshabilitará la condición de pago. Continuar?').subscribe(() => {
+            this.client.patch(`/mercado/condiciones-pago/${orden.id}/estado`, {estado: nuevoEstado}).subscribe(resp=> {
+                this.dataSource.refreshData();
+            });
+        });
+    }*/
+    /*
     public eliminar(id: number) {
         this.confirm.ask('Borrará la condición de pago. Continuar?').subscribe(() => {
             this.client.delete('/mercado/condiciones-pago', id).subscribe(resp=> {
@@ -34,5 +59,9 @@ export class CondicionesPagoListarComponent implements OnInit {
             });
         });
     }
+*/
+    /*public getDeshabilitarButtonText(orden) {
+        return orden.estado === 'Habilitado' ? 'Deshabilitar' : 'Habilitar';
+    }*/
 
 }

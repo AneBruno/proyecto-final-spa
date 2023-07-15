@@ -115,7 +115,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             this.addColumn('producto',      'Producto',       '200px').renderFn(row => row.producto.nombre);
             //this.addColumn('entrega',       'Entrega',   '200px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
             this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => this.calculaDestino(row));
-            this.addColumn('volumen',       'Volumen',   '50px').renderFn(row => row.volumen).setAsNumber().setAlign('right');
+            this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber().setAlign('right');
             this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
             this.addColumn('estado',        'Estado',    '120px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
             this.addColumn('_acciones',     'Acciones',   '30px').setAsMenu().setAlign('right');
