@@ -11,7 +11,6 @@ import { UserService } from 'src/app/auth/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
-import { FechaEntregaHelper } from '../../fecha-entrega.helper';
 import { EmpresaHelper } from '../../empresa.helper';
 
 @Component({
@@ -73,7 +72,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         private breakPointObserver : BreakpointObserver,
         private apiService         : ApiService,
         private confirm            : ConfirmService,
-        private fechaEntregaHelper : FechaEntregaHelper,
         private empresaHelper      : EmpresaHelper,
     ) {
         super();

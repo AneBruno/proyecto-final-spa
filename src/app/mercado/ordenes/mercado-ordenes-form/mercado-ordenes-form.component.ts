@@ -4,7 +4,7 @@ import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as moment from "moment";
 import { FormBaseLocalizacionComponent } from "src/app/shared/form-base-localizacion.component";
-import { FechaEntregaHelper } from "../../fecha-entrega.helper";
+
 
 
 @Component({
@@ -49,7 +49,6 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     public constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private fechaEntregaHelper: FechaEntregaHelper,
     ) {
         super();
     }

@@ -7,7 +7,6 @@ import { ListadoDataSource  } from 'src/app/shared/listado.datasource';
 import { ListadoComponent   } from 'src/app/shared/listados/listado.component';
 import { ApiService         } from 'src/app/shared/services/api.service';
 import { registerLocaleData } from '@angular/common';
-import { FechaEntregaHelper } from '../fecha-entrega.helper';
 
 @Component({
     selector    : 'app-gestion-ofertas',
@@ -30,8 +29,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         public  dataSource         : ListadoDataSource<any>,
         private apiService         : ApiService,
         private route              : ActivatedRoute,
-        private breakPointObserver : BreakpointObserver,
-        private fechaEntregaHelper : FechaEntregaHelper,
+        private breakPointObserver : BreakpointObserver
     ) {
         super();
     }
@@ -64,7 +62,6 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             this.addColumn('tonelada',    'Tonelada',     '100px').renderFn(row => row.volumen).setAsNumber();
             this.addColumn('moneda',      'Moneda',       '100px').renderFn(row => row.moneda);
             this.addColumn('precio',      'Precio',       '100px').renderFn(row => row.precio).setAsNumber();
-            this.addColumn('entrega',     'Entrega',      '150px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
             this.addColumn('destino',     'Destino',      '150px').renderFn(row => this.calculaDestinoOfertas(row));
             this.addColumn('estado',      'Estado',       '120px').renderFn(row => row.estado.nombre);
             this.addColumn('_acciones',   'Acciones',      '30px').setAsMenu().setAlign('right');

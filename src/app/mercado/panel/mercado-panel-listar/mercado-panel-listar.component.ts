@@ -7,7 +7,6 @@ import { ListadoComponent             } from 'src/app/shared/listados/listado.co
 import { User } from 'src/app/shared/models/user.model';
 import { ApiService                   } from 'src/app/shared/services/api.service';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
-import { FechaEntregaHelper           } from '../../fecha-entrega.helper';
 import { MatDialog } from '@angular/material/dialog';
 import { RetirarEliminarPosicionComponent } from '../carteles/retirar-eliminar-posicion/retirar-posicion.component';
 
@@ -32,7 +31,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     public filtroProductosOpciones : any = {
         ordenes: {
-            //uso_frecuente: 'desc',
             nombre: 'asc',
         }
     }
@@ -40,18 +38,14 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     //Filtros Multiples
     public filtroProductos!    : Array<any>;
     public filtroPuertos!      : Array<any>;
-    public filtroEntrega!      : Array<any>;
-    //public filtroCalidad!      : Array<any>;
     public filtroCosecha!      : Array<any>;
     public filtroFormaPago!    : Array<any>;
-    public filtroTipoPosicion! : Array<any>;
 
 
     public constructor(
         public  dataSource         : ListadoDataSource<any>,
         private apiService         : ApiService,
         public  authService        : AuthService,
-        private fechaEntregaHelper : FechaEntregaHelper,
         private userService        : UserService,
         private confirm            : ConfirmService,
         public dialog              : MatDialog
@@ -80,12 +74,9 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     private setTable() : void {
         this.clearColumns();
-        //this.addColumn('tipo',          '',      '100px').setAsFigure();
         this.addColumn('comprador',     'Comprador',      '').setAsCustom();
         this.addColumn('producto',      'Producto',  '200px').renderFn(row => row.producto.nombre             );
         this.addColumn('destino',       'Destino',   '150px').renderFn(row => this.calculaDestino(row)        );
-        this.addColumn('entrega',       'Entrega',   '100px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
-        //this.addColumn('calidad',       'Calidad',   '100px').renderFn(row => row.calidad.nombre              );
         this.addColumn('cosecha_nueva', 'Cosecha',    '50px').renderFn(row => this.DescripcionCosecha(row));
         this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
         this.addColumn('precio_moneda', 'Compra',     '80px').renderFn(row => row.precio ? `${row.moneda} ${row.precio}` : "A fijar").setAlign('right');
@@ -100,14 +91,9 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
           'limit' : 0,
          }).toPromise();
       this.productos =  await this.apiService.getData('/productos',{
-        //'ordenes[uso_frecuente]': 'desc',
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
-      /*this.calidades = await this.apiService.getData('/calidades', {
-          ordenes: {descripcion:'DESC'},
-          'limit': 0,
-        }).toPromise();*/
     }
 
     public concatenaCompradores(listaEmpresas: any) {
@@ -154,10 +140,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
             return 'Consumo interno';
         }
     }
-
-    /*public filtroProductosIconoFn(row: any) : string {
-        return row.uso_frecuente ? 'star_outlined' : '';
-    }*/
 
     public getEstadoPosicion (row:any) {
         if (row.posiciones.some(posicion => posicion.estado === 'DENUNCIADA')) {
@@ -249,13 +231,10 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     }
 
     public onClearFilters() : void {
-        this.filtroTipoPosicion = null;
         this.filtroProductos    = null;
         this.filtroPuertos      = null;
-        //this.filtroCalidad      = null;
         this.filtroCosecha      = null;
         this.filtroFormaPago    = null;
-        this.filtroEntrega      = null;
         this.filtros.empresa_id = [];
     }
 
