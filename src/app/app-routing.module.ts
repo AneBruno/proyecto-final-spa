@@ -6,7 +6,7 @@ import { DashboardComponent   } from './shared/dashboard/dashboard.component';
 import { LoginComponent       } from './auth/login/login.component';
 import { DashboardResolver    } from './shared/resolvers/dashboard.resolver';
 import { MercadoPanelListarComponent } from '../app/mercado/panel/mercado-panel-listar/mercado-panel-listar.component';
-//import { ExtranetGuard } from './extranet/extranet.guard';
+
 
 const routes: Routes = [
     {
@@ -28,10 +28,6 @@ const routes: Routes = [
             {
                 path:'',
                 component: MercadoPanelListarComponent,
-            },
-            {
-                path: 'oficinas',
-                loadChildren: () => import('./oficinas/oficinas.module').then(m => m.OficinasModule),
             },
             {
                 path: 'usuarios',

@@ -13,7 +13,6 @@ import { AppComponent            } from './app.component';
 import { environment             } from 'src/environments/environment';
 import { SharedModule            } from './shared/shared.module';
 import { AuthModule              } from './auth/auth.module';
-import { OficinasModule          } from './oficinas/oficinas.module';
 import { DashboardResolver       } from './shared/resolvers/dashboard.resolver';
 import { LocatorService          } from './shared/services/locator.service';
 
@@ -34,8 +33,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
         }),
         SharedModule.forRoot(),
         AuthModule.forRoot(),
-        FlexLayoutModule,
-        OficinasModule
+        FlexLayoutModule
     ],
     providers: [
         DashboardResolver,

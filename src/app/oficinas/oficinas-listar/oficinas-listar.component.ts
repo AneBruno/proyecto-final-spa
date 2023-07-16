@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { ConfirmService    } from 'src/app/shared/services/confirm.service';
 import { ListadoDataSource } from 'src/app/shared/listado.datasource';
 import { ApiService        } from 'src/app/shared/services/api.service';
@@ -31,3 +31,4 @@ export class OficinasListarComponent implements OnInit {
         });
     }
 }
+*/

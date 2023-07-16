@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+/*import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit      } from '@angular/core';
 import { FormControl            } from '@angular/forms';
 import { Observable,            } from 'rxjs';
@@ -63,3 +63,4 @@ export class OficinasEditarComponent extends FormBaseComponent implements OnInit
     }
 
 }
+*/
