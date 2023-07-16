@@ -1,4 +1,4 @@
-import { CommonModule                   } from '@angular/common';
+/*import { CommonModule                   } from '@angular/common';
 import { ExtranetRoutingModule          } from './extranet-routing.module';
 import { LoginComponent                 } from './login/login.component';
 import { NgModule, NO_ERRORS_SCHEMA                       } from '@angular/core';
@@ -29,3 +29,4 @@ import { AgregarPagoComponent } from './solicitud-cobro/agregar-pago/agregar-pag
 })
 export class ExtranetModule {
 }
+*/

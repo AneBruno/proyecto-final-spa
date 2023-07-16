@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+/*import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit      } from '@angular/core';
 import { FormControl            } from '@angular/forms';
 import { FormBaseComponent      } from 'src/app/shared/form-base.component';
@@ -58,3 +58,4 @@ export class ClientesCategoriasEditarComponent extends FormBaseComponent impleme
     }
 
 }
+*/

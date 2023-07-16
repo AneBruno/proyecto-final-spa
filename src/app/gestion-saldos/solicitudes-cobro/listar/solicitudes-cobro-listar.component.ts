@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+/*import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListadoDataSource } from 'src/app/shared/listado.datasource';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { Utils } from 'src/app/shared/utils';
@@ -162,3 +162,4 @@ export class SolicitudCobroListarComponent extends ListadoComponent implements O
     }
 
 }
+*/

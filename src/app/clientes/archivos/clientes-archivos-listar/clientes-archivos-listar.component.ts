@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+/*import * as moment from 'moment';
 import { Component, Input, OnInit } from '@angular/core';
 import { ListadoDataSource        } from 'src/app/shared/listado.datasource';
 import { ApiService               } from 'src/app/shared/services/api.service';
@@ -50,3 +50,4 @@ export class ClientesArchivosListarComponent implements OnInit {
     }
 
 }
+*/

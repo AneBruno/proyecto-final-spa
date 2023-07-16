@@ -1,4 +1,4 @@
-import { AgregarPagoSolicitudService } from '../../agregar-pago-solicitud.service';
+/*import { AgregarPagoSolicitudService } from '../../agregar-pago-solicitud.service';
 import { Component                   } from '@angular/core';
 import { _isNumberValue              } from '@angular/cdk/coercion';
 import { FormControl                 } from '@angular/forms';
@@ -96,7 +96,7 @@ export class SolicitudCobroAgregarComponent extends FormBaseComponent implements
     }
 
     private checkHorario() : void {
-        this.apiService.getData('/extranet/solicitudes-cobro/*/horarioLimiteSolicitudDisponibleDelDia').subscribe((data)=>{
+        this.apiService.getData('/extranet/solicitudes-cobro//horarioLimiteSolicitudDisponibleDelDia').subscribe((data)=>{
             let date = new Date();
             let horaActual = date.getHours();
             let minutosActual = date.getMinutes();
@@ -349,3 +349,4 @@ export class SolicitudCobroAgregarComponent extends FormBaseComponent implements
     }
 
 }
+*/

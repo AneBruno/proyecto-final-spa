@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+/*import * as moment from 'moment';
 import { Component, OnInit } from '@angular/core';
 import { FormControl       } from '@angular/forms';
 import { FormBaseComponent } from 'src/app/shared/form-base.component';
@@ -124,3 +124,4 @@ export class ClientesContactosEditarComponent extends FormBaseComponent implemen
     }
 
 }
+*/

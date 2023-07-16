@@ -2,7 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/shared/services/auth.service';
 import { UserService } from 'src/app/auth/shared/services/user.service';
-import { ExtranetAuthService } from 'src/app/extranet/extranet.auth.service';
+//import { ExtranetAuthService } from 'src/app/extranet/extranet.auth.service';
 import { User } from '../models/user.model';
 
 @Component({
@@ -26,19 +26,19 @@ export class UserSectionComponent implements OnInit {
     constructor(
         public userService         : UserService,
         public authService         : AuthService,
-        public extranetAuthService : ExtranetAuthService,
+        //public extranetAuthService : ExtranetAuthService,
         public router              : Router,
     ) { }
 
     ngOnInit(): void {
-        this.setIsExtranet();
+        //this.setIsExtranet();
         this.user = this.userService.getUser();
         this.userService.getUser$().subscribe(user => {
             this.user = user;
         })
     }
 
-    private setIsExtranet() : void {
+    /*private setIsExtranet() : void {
         if(this.router.url.startsWith('/app/extranet')){
             this.isExtranet = true;
             let loginData = this.extranetAuthService.getLoginData();
@@ -47,15 +47,15 @@ export class UserSectionComponent implements OnInit {
                 this.razon_social = loginData.accounts[0].Empresa;
             }
         }
-    }
+    }*/
 
     logout() {        
         this.authService.signOut();
     }
 
-    public logoutExtranet()  {
+    /*public logoutExtranet()  {
         this.extranetAuthService.logout();
         window.location.href = 'http://test.oprcer.com.ar/';
-    }
+    }*/
 
 }

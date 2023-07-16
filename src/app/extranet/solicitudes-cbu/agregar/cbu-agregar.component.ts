@@ -1,4 +1,4 @@
-import { Component           } from '@angular/core';
+/*import { Component           } from '@angular/core';
 import { ExtranetAuthService } from '../../extranet.auth.service';
 import { FormBaseComponent   } from 'src/app/shared/form-base.component';
 import { FormControl         } from '@angular/forms';
@@ -47,7 +47,7 @@ export class SolicitudCbuAgregarComponent extends FormBaseComponent implements O
 
             token : new FormControl({ value: '', disabled: false }),
 
-			/*
+			
 			{
 				"token": "6f67285ff310f536822b30e4161e9e67276e57e14bfd70ee87c75934acc5995d",
 				"cuit": "30708663278",
@@ -55,7 +55,7 @@ export class SolicitudCbuAgregarComponent extends FormBaseComponent implements O
 				"banco": "Banco Pcia de Bs As",
 				"cbu": "0140417701630005106006"
 			}
-			*/
+			
         });
     }
 
@@ -114,6 +114,6 @@ export class SolicitudCbuAgregarComponent extends FormBaseComponent implements O
 	}
 
 }
-
+*/
 
 

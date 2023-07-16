@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+/*import { Component, OnInit, } from '@angular/core';
 import { AuthService        } from 'src/app/auth/shared/services/auth.service';
 import { ListadoDataSource  } from 'src/app/shared/listado.datasource';
 import { ListadoComponent   } from 'src/app/shared/listados/listado.component';
@@ -38,3 +38,4 @@ export class ClientesCargosListarComponent extends ListadoComponent implements O
         });
     }
 }
+*/

@@ -1,4 +1,4 @@
-import { Injectable  } from "@angular/core";
+/*import { Injectable  } from "@angular/core";
 import { UserService } from "../auth/shared/services/user.service";
 import { User        } from "../shared/models/user.model";
 import { ApiService  } from "../shared/services/api.service";
@@ -76,4 +76,4 @@ export class ExtranetAuthService {
 // POST extranet/solicitudes-cobro
 // GET  extranet/solicitudes-cobro
 // GET  extranet/solicitudes-cbu
-// POST extranet/solicitudes-cbu
+// POST extranet/solicitudes-cbu*/

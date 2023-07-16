@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+/*import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RedesSocialesListarComponent } from './redes-sociales-listar.component';
 
@@ -23,3 +23,4 @@ describe('RedesSocialesListarComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/

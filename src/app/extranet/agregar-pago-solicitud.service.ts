@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 
 
 export class FormaPago {
@@ -30,4 +30,4 @@ export class AgregarPagoSolicitudService {
 	public eliminarTodasLasFormasDePago() {
 		return this.solicitud.formasPago = [];
 	}
-}
+}*/

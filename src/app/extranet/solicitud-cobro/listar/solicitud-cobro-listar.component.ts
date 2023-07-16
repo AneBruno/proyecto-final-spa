@@ -1,4 +1,4 @@
-import * as moment             from 'moment';
+/*import * as moment             from 'moment';
 import { Component           } from '@angular/core';
 import { OnInit              } from '@angular/core';
 import { ViewChild           } from '@angular/core';
@@ -163,3 +163,4 @@ export class SolicitudCobroListarComponent extends ListadoComponent implements O
     }
 
 }
+*/

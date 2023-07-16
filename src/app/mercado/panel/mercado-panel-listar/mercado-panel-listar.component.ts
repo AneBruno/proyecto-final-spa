@@ -32,7 +32,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     public filtroProductosOpciones : any = {
         ordenes: {
-            uso_frecuente: 'desc',
+            //uso_frecuente: 'desc',
             nombre: 'asc',
         }
     }
@@ -100,7 +100,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
           'limit' : 0,
          }).toPromise();
       this.productos =  await this.apiService.getData('/productos',{
-        'ordenes[uso_frecuente]': 'desc',
+        //'ordenes[uso_frecuente]': 'desc',
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
@@ -155,9 +155,9 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         }
     }
 
-    public filtroProductosIconoFn(row: any) : string {
+    /*public filtroProductosIconoFn(row: any) : string {
         return row.uso_frecuente ? 'star_outlined' : '';
-    }
+    }*/
 
     public getEstadoPosicion (row:any) {
         if (row.posiciones.some(posicion => posicion.estado === 'DENUNCIADA')) {

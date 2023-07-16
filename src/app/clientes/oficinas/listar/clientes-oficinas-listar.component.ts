@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+/*import { Component, OnInit, Input } from '@angular/core';
 import { ListadoDataSource        } from 'src/app/shared/listado.datasource';
 import { ApiService               } from 'src/app/shared/services/api.service';
 import { ConfirmService           } from 'src/app/shared/services/confirm.service';
@@ -37,4 +37,4 @@ export class ClientesOficinasListarComponent implements OnInit {
         });
     }
 
-}
+}*/

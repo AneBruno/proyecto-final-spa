@@ -1,4 +1,4 @@
-import { ApiService         } from 'src/app/shared/services/api.service';
+/*import { ApiService         } from 'src/app/shared/services/api.service';
 import { Component          } from '@angular/core';
 import { ConfirmService     } from 'src/app/shared/services/confirm.service';
 import { ListadoComponent   } from 'src/app/shared/listados/listado.component';
@@ -46,3 +46,4 @@ export class ClientesTiposEventosListarComponent extends ListadoComponent implem
     }
     
 }
+*/

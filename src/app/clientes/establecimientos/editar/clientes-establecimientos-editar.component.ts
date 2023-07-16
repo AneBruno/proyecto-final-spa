@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router   } from '@angular/router';
+/*import { ActivatedRoute, Router   } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl              } from '@angular/forms';
 import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localizacion.component';
@@ -93,4 +93,4 @@ export class ClientesEstablecimientosEditarComponent extends FormBaseLocalizacio
     public cancelar() {
         
     }
-}
+}*/

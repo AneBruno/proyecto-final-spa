@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+/*import { Component, OnInit, } from '@angular/core';
 import { ConfirmService     } from 'src/app/shared/services/confirm.service';
 import { ApiService         } from 'src/app/shared/services/api.service';
 import { ListadoDataSource  } from 'src/app/shared/listado.datasource';
@@ -75,3 +75,4 @@ export class ClientesCategoriasListarComponent extends ListadoComponent implemen
         });
     }
 }
+*/

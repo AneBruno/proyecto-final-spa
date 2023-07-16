@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+/*import * as moment from 'moment';
 
 import { Component         } from '@angular/core';
 import { EventEmitter      } from '@angular/core';
@@ -124,3 +124,4 @@ export class BuscarOrdenesComponent extends ListadoComponent implements OnInit {
         this.choosen.emit(this.getOrdenesSeleccionadas());
     }
 }
+*/

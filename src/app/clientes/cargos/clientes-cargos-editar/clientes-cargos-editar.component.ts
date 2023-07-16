@@ -1,4 +1,4 @@
-import { Component, OnInit      } from '@angular/core';
+/*import { Component, OnInit      } from '@angular/core';
 import { FormControl            } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBaseComponent      } from 'src/app/shared/form-base.component';
@@ -54,3 +54,4 @@ export class ClientesCargosEditarComponent extends FormBaseComponent implements 
   }
 
 }
+*/

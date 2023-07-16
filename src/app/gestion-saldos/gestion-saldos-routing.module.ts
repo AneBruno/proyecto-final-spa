@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+/*import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SolicitudesCobroGestionar } from './solicitudes-cobro/gestionar/solicitudes-cobro-gestionar';
 import { SolicitudesCBUComponent } from './solicitudes-cbu/solicitudes-cbu.component';
@@ -30,3 +30,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class GestionSaldosRoutingModule { }
+*/

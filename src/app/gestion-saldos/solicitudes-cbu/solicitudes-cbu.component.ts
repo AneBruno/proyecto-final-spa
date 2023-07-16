@@ -1,4 +1,4 @@
-import { ApiService        } from 'src/app/shared/services/api.service';
+/*import { ApiService        } from 'src/app/shared/services/api.service';
 import { Component         } from '@angular/core';
 import { ListadoComponent  } from 'src/app/shared/listados/listado.component';
 import { ListadoDataSource } from 'src/app/shared/listado.datasource';
@@ -89,3 +89,4 @@ export class SolicitudesCBUComponent extends ListadoComponent implements  OnInit
     }
 
 }
+*/

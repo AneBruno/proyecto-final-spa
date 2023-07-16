@@ -1,4 +1,4 @@
-import * as moment                from "moment";
+/*import * as moment                from "moment";
 import es                         from '@angular/common/locales/es';
 import { ActivatedRoute         } from '@angular/router';
 import { Component              } from '@angular/core';
@@ -150,7 +150,7 @@ export class ClientesEventosEditarComponent extends FormBaseComponent implements
          * ya hemos probado de todo. Con distintos adapters.
          * Por falta de tiempo hacemos esto, habría que hacer un debug del date adapter
          * para ver qué está pasando realmente.
-         **/
+         **
         data.fecha_vencimiento = moment(data.fecha_vencimiento).add(1, 'day').format('YYYY-MM-DD');
         return data;
     }
@@ -161,7 +161,7 @@ export class ClientesEventosEditarComponent extends FormBaseComponent implements
             /**
              * tengo que restarle un día, ver comentario anterior
              * Esto es un PARCHE.
-             **/
+             **
             data.fecha_vencimiento = moment(data.fecha_vencimiento).subtract(1, 'day').format('YYYY-MM-DD');
         } else {
             data.fecha_vencimiento = moment(data.fecha_vencimiento).format('YYYY-MM-DD');
@@ -259,3 +259,4 @@ export class ClientesEventosEditarComponent extends FormBaseComponent implements
     }
 
 }
+*/

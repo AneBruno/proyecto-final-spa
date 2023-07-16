@@ -1,4 +1,4 @@
-import { Component           } from '@angular/core';
+/*import { Component           } from '@angular/core';
 import { _isNumberValue      } from '@angular/cdk/coercion';
 import { FormControl         } from '@angular/forms';
 import { OnInit              } from '@angular/core';
@@ -124,7 +124,7 @@ export class SolicitudCobroEditarComponent extends FormBaseComponent implements 
     }
 
     private checkHorario() : void {
-        this.apiService.getData('/extranet/solicitudes-cobro/*/horarioLimiteSolicitudDisponibleDelDia').subscribe((data)=>{
+        this.apiService.getData('/extranet/solicitudes-cobro//horarioLimiteSolicitudDisponibleDelDia').subscribe((data)=>{
             let date = new Date();
             let horaActual = date.getHours();
             let minutosActual = date.getMinutes();
@@ -174,13 +174,7 @@ export class SolicitudCobroEditarComponent extends FormBaseComponent implements 
     private setTable() :void {
         let opcionesFormaPago = [{value:'Cheque',text:'Cheque'}, {value:'E-cheq',text:'e-Cheq'}, {value:'Transferencia',text:'Transferencia'}];
 
-        /*
-            Nota Agus al 30/11/22: el código que sigue no lo modifico pero sospecho que no está bien
-            porque siempre el if entra en true ya que this.modoConsulta es true siempre, entonces
-            al presionar Gestionar en realidad entra en modo consulta y no puede editar los campos de la tabla.
-            Para mi caso de uso (#9740), necesito solamente poder editar el campo monto por lo que realizo
-            una función aparte setTableCorreccionMontos().
-        */
+        
 
         if(this.modoConsulta){
             this.detalles.addColumn('forma_pago','Forma de cobro','100px').setAsSelect(opcionesFormaPago).setDisabledFn(()=>true);
@@ -451,3 +445,4 @@ export class SolicitudCobroEditarComponent extends FormBaseComponent implements 
     }
 
 }
+*/

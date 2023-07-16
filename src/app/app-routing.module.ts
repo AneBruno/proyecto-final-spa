@@ -7,7 +7,7 @@ import { DashboardExtranetComponent } from './shared/dashboard-extranet/dashboar
 import { LoginComponent       } from './auth/login/login.component';
 import { DashboardResolver    } from './shared/resolvers/dashboard.resolver';
 import { MercadoPanelListarComponent } from '../app/mercado/panel/mercado-panel-listar/mercado-panel-listar.component';
-import { ExtranetGuard } from './extranet/extranet.guard';
+//import { ExtranetGuard } from './extranet/extranet.guard';
 
 const routes: Routes = [
     {
@@ -25,12 +25,12 @@ const routes: Routes = [
      * 
      * No quitar ni cambiar
      **/
-    {
+    /*{
         path        : 'app/saldos/:token',
         redirectTo  : 'app/extranet/login/:token',
         canActivate : [ ExtranetGuard ],
-    },
-    {
+    },*/
+    /*{
         path             : 'app/extranet',
         canActivate      : [ ExtranetGuard ],
         canActivateChild : [ ExtranetGuard ],
@@ -39,7 +39,7 @@ const routes: Routes = [
             path         : '',
             loadChildren : () => import('./extranet/extranet.module').then(m => m.ExtranetModule),
         }],
-    },
+    },*/
     {
         path             : 'app',
         component        : DashboardComponent,
@@ -79,10 +79,10 @@ const routes: Routes = [
                 path: 'mercado',
                 loadChildren: () => import('./mercado/mercado.module').then(m => m.MercadoModule),
             },
-            {
+            /*{
                 path: 'gestion-saldos',
                 loadChildren: () => import('./gestion-saldos/gestion-saldos.module').then(m => m.GestionSaldosModule),
-            }
+            }*/
         ]
     }
 ];

@@ -1,4 +1,4 @@
-import { Component         } from '@angular/core';
+/*import { Component         } from '@angular/core';
 import { FormBaseComponent } from 'src/app/shared/form-base.component';
 import { OnInit            } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -115,3 +115,4 @@ export class AgregarPagoComponent extends FormBaseComponent implements OnInit {
 	}
 
 }
+*/

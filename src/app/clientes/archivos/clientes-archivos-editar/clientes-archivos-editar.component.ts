@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+/*import * as moment from 'moment';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl                   } from '@angular/forms';
 import { ActivatedRoute, Router        } from '@angular/router';
@@ -112,3 +112,4 @@ export class ClientesArchivosEditarComponent extends FormBaseLocalizacionCompone
     }
 
 }
+*/

@@ -1,4 +1,4 @@
-import { Component          } from '@angular/core';
+/*import { Component          } from '@angular/core';
 import { OnInit             } from '@angular/core';
 import { ListadoDataSource  } from 'src/app/shared/listado.datasource';
 import { ListadoComponent   } from 'src/app/shared/listados/listado.component';
@@ -116,4 +116,4 @@ export class ClientesEventosListarComponent extends ListadoComponent implements 
         return row.nombreCompleto;
     }
 
-}
+}*/
