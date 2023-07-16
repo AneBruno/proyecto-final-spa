@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA        } from '@angular/core';
+/*import { NgModule, NO_ERRORS_SCHEMA        } from '@angular/core';
 import { CommonModule                      } from '@angular/common';
 import { SharedModule                      } from '../shared/shared.module';
 import { ProductosCalidadesListarComponent } from './listar/productos-calidades-listar.component';
@@ -21,3 +21,4 @@ import { ProductosCalidadesRoutingModule   } from './productos-calidades-routing
     ]
 })
 export class ProductosCalidadesModule {}
+*/

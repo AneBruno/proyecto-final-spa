@@ -1,4 +1,4 @@
-import { NgModule                          } from '@angular/core';
+/*import { NgModule                          } from '@angular/core';
 import { RouterModule, Routes              } from '@angular/router';
 import { ProductosCalidadesListarComponent } from './listar/productos-calidades-listar.component';
 import { ProductosCalidadesEditarComponent } from './editar/productos-calidades-editar.component';
@@ -22,4 +22,4 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class ProductosCalidadesRoutingModule { }
+export class ProductosCalidadesRoutingModule { }*/

@@ -21,7 +21,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     public filtros                 : any = {};
     private interval               : any;
-    public  calidades              : any[] = [];
+   // public  calidades              : any[] = [];
     public  cosechas               : any[] = [];
     public  formasPago             : any[] = [];
     public  puertos                : Array<any> = [];
@@ -41,7 +41,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public filtroProductos!    : Array<any>;
     public filtroPuertos!      : Array<any>;
     public filtroEntrega!      : Array<any>;
-    public filtroCalidad!      : Array<any>;
+    //public filtroCalidad!      : Array<any>;
     public filtroCosecha!      : Array<any>;
     public filtroFormaPago!    : Array<any>;
     public filtroTipoPosicion! : Array<any>;
@@ -85,7 +85,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         this.addColumn('producto',      'Producto',  '200px').renderFn(row => row.producto.nombre             );
         this.addColumn('destino',       'Destino',   '150px').renderFn(row => this.calculaDestino(row)        );
         this.addColumn('entrega',       'Entrega',   '100px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
-        this.addColumn('calidad',       'Calidad',   '100px').renderFn(row => row.calidad.nombre              );
+        //this.addColumn('calidad',       'Calidad',   '100px').renderFn(row => row.calidad.nombre              );
         this.addColumn('cosecha_nueva', 'Cosecha',    '50px').renderFn(row => this.DescripcionCosecha(row));
         this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
         this.addColumn('precio_moneda', 'Compra',     '80px').renderFn(row => row.precio ? `${row.moneda} ${row.precio}` : "A fijar").setAlign('right');
@@ -104,10 +104,10 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
-      this.calidades = await this.apiService.getData('/calidades', {
+      /*this.calidades = await this.apiService.getData('/calidades', {
           ordenes: {descripcion:'DESC'},
           'limit': 0,
-        }).toPromise();
+        }).toPromise();*/
     }
 
     public concatenaCompradores(listaEmpresas: any) {
@@ -252,7 +252,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         this.filtroTipoPosicion = null;
         this.filtroProductos    = null;
         this.filtroPuertos      = null;
-        this.filtroCalidad      = null;
+        //this.filtroCalidad      = null;
         this.filtroCosecha      = null;
         this.filtroFormaPago    = null;
         this.filtroEntrega      = null;
