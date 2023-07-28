@@ -5,7 +5,8 @@ import { AccessGroup           } from '../models/acceso.model';
 import { NavigationService     } from '../services/navigation.service';
 import { UserService           } from 'src/app/auth/shared/services/user.service';
 import { User                  } from '../models/user.model';
-import { Router                } from '@angular/router';
+//import { Router                } from '@angular/router';
+//import { RegistroService } from 'src/app/auth/shared/services/registro.service';
 
 @Component({
     selector: 'app-main-toolbar',
@@ -16,7 +17,7 @@ export class MainToolbarComponent implements OnInit {
     @Output() toogleSideNav: EventEmitter<boolean> = new EventEmitter<boolean>();
     
     accessGroups = {};
-    avatar: string;
+    //avatar: string;
     user: User;
     //public isExtranet : boolean = false;
 
@@ -27,8 +28,9 @@ export class MainToolbarComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private userService: UserService,
+        //private registroService: RegistroService,
         private navigationService: NavigationService,
-        private router : Router,
+        //private router : Router,
     ) { }
 
     ngOnInit(): void {
@@ -43,12 +45,6 @@ export class MainToolbarComponent implements OnInit {
             }
         );
     }
-
-    /*public setIsExtranet() : void {
-        if(this.router.url.startsWith('/app/extranet')){
-            this.isExtranet = true;
-        }
-    }*/
     
     /*getAvatar() {
         let urlImagen = this.user.urlImagen||'';

@@ -1,8 +1,6 @@
 <app-toolbar>
     <span>{{title}}</span>
 </app-toolbar>
-<!--<mat-tab-group dynamicHeight>
-    <mat-tab label="General">-->
 <mat-card>
     <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
         <div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px">
@@ -17,24 +15,19 @@
                 <input formControlName="razon_social" matInput required />
                 <mat-error *ngIf="error('razon_social')">{{error('razon_social')}}</mat-error>
             </mat-form-field>
-            
-            <!--<mat-form-field appearance="fill" fxFlex.lg="70" fxFlex.md="70" fxFlex.xs="100">
-                <mat-label>Abreviación</mat-label>
-                <input formControlName="abreviacion" matInput />
-                <mat-error *ngIf="error('abreviacion')">{{error('abreviacion')}}</mat-error>
-            </mat-form-field>-->
+
         </div>
 
         <div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px">
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Teléfono</mat-label>
-                <input formControlName="telefono" matInput [required]="isNotAdministrador" />
+                <input formControlName="telefono" matInput />
                 <mat-error *ngIf="error('telefono')">{{error('telefono')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Email</mat-label>
-                <input formControlName="email" matInput [required]="isNotAdministrador"/>
+                <input formControlName="email" matInput/>
                 <mat-error *ngIf="error('email')">{{error('email')}}</mat-error>
             </mat-form-field>
         </div>
@@ -42,7 +35,7 @@
         <div fxLayout.mg="row" fxLayout.xs="column" fxLayoutGap="10px">
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="70" fxFlex.xs="100">
                 <mat-label>Comprador | Vendedor</mat-label>
-                <mat-select formControlName="perfil" [required]="isNotAdministrador">
+                <mat-select formControlName="perfil" required>
                     <mat-option [value]="'COMPRADOR'">Comprador</mat-option>
                     <mat-option [value]="'VENDEDOR'">Vendedor</mat-option>
                     <mat-option [value]="'COMPRADOR_VENDEDOR'">Comprador y Vendedor</mat-option>
@@ -50,83 +43,25 @@
                 <mat-error *ngIf="error('perfil')">{{error('perfil')}}</mat-error>
             </mat-form-field>
 
-            <!-- <mat-form-field appearance="fill" fxFlex.lg="10" fxFlex.md="15" fxFlex.xs="100" *ngIf="mostrarComisionComprador">
-                <mat-label>Comisión Comprador</mat-label>
-                <input formControlName="comision_comprador" matInput [required]="isNotAdministrador" style="text-align:right;" />
-                <span matSuffix>&nbsp; %</span>
-                <mat-error *ngIf="error('comision_comprador')">{{error('comision_comprador')}}</mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" fxFlex.lg="10" fxFlex.md="15" fxFlex.xs="100" *ngIf="mostrarComisionVendedor">
-                <mat-label>Comisión Vendedor</mat-label>
-                <input formControlName="comision_vendedor" matInput [required]="isNotAdministrador" style="text-align:right;" />
-                <span matSuffix>&nbsp; %</span>
-                <mat-error *ngIf="error('comision_vendedor')">{{error('comision_vendedor')}}</mat-error>
-            </mat-form-field>
-            -->
-
-        <!--<div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
-                <mat-label>Actividad</mat-label>
-                <mat-select formControlName="actividades_id" [required]="isNotAdministrador" multiple>
-                    <mat-option *ngFor="let row of actividades" [value]="row.id">{{row.nombre}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="error('actividades_id')">{{error('actividades_id')}}</mat-error>
-            </mat-form-field> 
-        
-
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
-                <mat-label>Categorí­a</mat-label>
-                <mat-select formControlName="categorias_id" [required]="isNotAdministrador" multiple>
-                    <mat-option *ngFor="let row of categorias" [value]="row.id">{{row.nombre}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="error('categorias_id')">{{error('categorias_id')}}</mat-error>
-            </mat-form-field>
-        </div>
-        -->
-
-            <!--<div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
-                <mat-label>Categorí­a Crediticia</mat-label>
-                <mat-select formControlName="categoria_crediticia" [required]="isNotAdministrador">
-                    <mat-option [value]="'OPERAR'">Operar</mat-option>
-                    <mat-option [value]="'NO_OPERAR'">No operar</mat-option>
-                    <mat-option [value]="'CONSULTAR'">Consultar</mat-option>
-                </mat-select>
-                <mat-error *ngIf="error('categoria_crediticia')">{{error('categoria_crediticia')}}</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
-                <mat-label>Afinidad</mat-label>
-                <mat-select formControlName="afinidad" [required]="isNotAdministrador">
-                    <mat-option [value]="'FIDELIZADO'">Fidelizado</mat-option>
-                    <mat-option [value]="'NO_FIDELIZADO'">No Fidelizado</mat-option>
-                </mat-select>
-                <mat-error *ngIf="error('afinidad')">{{error('afinidad')}}</mat-error>
-            </mat-form-field>
-        </div>
-        -->
-
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="30" fxFlex.xs="100">
                 <mat-label>Comercial asociado</mat-label>
-                <mat-select formControlName="usuario_comercial_id">
+                <mat-select formControlName="usuario_comercial_id" required>
                     <mat-option *ngFor="let row of usuarios" [value]="row.id">{{row.nombre}} {{row.apellido}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="error('usuario_comercial_id')">{{error('usuario_comercial_id')}}</mat-error>
             </mat-form-field>
         </div>
 
-        <!--<app-static-map-place [(placeId)]="placeId" [url]="urlImagenMapa" [error]="error('placeId')" [direccion]="direccionCompleta"></app-static-map-place>-->
-
         <div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px">
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Dirección</mat-label>
-                <input formControlName="direccion" matInput [required]="isNotAdministrador" />
+                <input formControlName="direccion" matInput  />
                 <mat-error *ngIf="error('direccion')">{{error('direccion')}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Localidad</mat-label>
-                <input formControlName="localidad" matInput [required]="isNotAdministrador"/>
+                <input formControlName="localidad" matInput />
                 <mat-error *ngIf="error('localidad')">{{error('localidad')}}</mat-error>
             </mat-form-field>
         </div>
@@ -138,15 +73,6 @@
                 <mat-error *ngIf="error('provincia')">{{error('provincia')}}</mat-error>
             </mat-form-field>
         </div>
-
-        <!--<div>
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
-                <mat-label>Descripción ubicación</mat-label>
-                <input formControlName="descripcion_ubicacion" matInput />
-                <mat-error *ngIf="error('descripcion_ubicacion')">{{error('descripcion_ubicacion')}}</mat-error>
-            </mat-form-field>
-        </div>-->
-
         <div fxLayout="row" fxLayoutGap="15px">
             <button mat-flat-button color="primary" (click)="guardar()">
                 Guardar
@@ -157,25 +83,4 @@
         </div>
     </form>
 </mat-card>
-    <!--</mat-tab>-->
-    <!--<mat-tab *ngIf="id" label="Archivos">
-        <ng-template matTabContent>
-            <app-clientes-archivos-listar [empresa_id]="id"></app-clientes-archivos-listar>
-        </ng-template>
-    </mat-tab>-->
-    <!--<mat-tab *ngIf="id" label="Establecimientos">
-        <ng-template matTabContent>
-            <clientes-establecimientos-listar [empresa_id]="id"></clientes-establecimientos-listar>
-        </ng-template>
-    </mat-tab>-->
-    <!--<mat-tab *ngIf="id" label="Oficinas">
-        <ng-template matTabContent>
-            <app-clientes-oficinas-listar [empresa_id]="id"></app-clientes-oficinas-listar>
-        </ng-template>
-    </mat-tab>-->
-    <!--<mat-tab *ngIf="id" label="Eliminar?">
-        <ng-template matTabContent>
-            <clientes-contactos-listar [empresa_id]="id"></clientes-contactos-listar>
-        </ng-template>
-    </mat-tab>-->
-<!--</mat-tab-group>-->
+    

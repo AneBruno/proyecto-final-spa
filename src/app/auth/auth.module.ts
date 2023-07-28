@@ -9,12 +9,14 @@ import { SharedModule                  } from '../shared/shared.module';
 
 import { ButtonComponent               } from './button/button.component';
 import { LoginComponent                } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
 
 
 @NgModule({
     declarations: [
         LoginComponent,
-        ButtonComponent
+        ButtonComponent,
+        RegistroComponent
     ],
     imports: [
         RouterModule,

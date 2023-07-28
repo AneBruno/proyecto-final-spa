@@ -1,7 +1,5 @@
 import { Router              } from '@angular/router';
 import { Injectable          } from '@angular/core';
-import { GoogleLoginProvider } from 'angularx-social-login';
-import { SocialAuthService   } from 'angularx-social-login';
 import { ApiService          } from 'src/app/shared/services/api.service';
 import { UserService         } from './user.service';
 import { Subject             } from 'rxjs';
@@ -10,19 +8,25 @@ import { Subject             } from 'rxjs';
 export class AuthService {
 
     constructor(
-        private socialAuthService : SocialAuthService,
         private apiService        : ApiService,
         private router            : Router,
-        private userService       : UserService,
+        private userService       : UserService
     ) { }
 
-    public signInWithGoogle(): void {
-        this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    async login(email: string, password: string): Promise<any> {
+        const loginData = { email: email, password: password };
+        const respuesta = (await this.apiService.post('/auth/login', loginData).toPromise()) as any;
+        if (respuesta.access_token) {
+            this.userService.setAccessToken(respuesta.access_token);
+            this.userService.setUser(respuesta.me);
+            this.router.navigate(['app']);
+        }
+        console.log('respuesta', respuesta);
+        return ;
     }
-
+    
     public signOut(): void {
-        this.socialAuthService.signOut();
-
+        
         this.apiService.logout().subscribe((response: any) => {
             if (response.ok) {
                 this.router.navigateByUrl('/login');
@@ -30,20 +34,6 @@ export class AuthService {
             }
         });
 
-    }
-
-    public inicializarObsAuthState() {
-        this.socialAuthService.authState.subscribe(user => {
-            if (user) {
-                this.apiService.login(user.authToken).subscribe((response: any)  => {
-                    if (response.access_token) {
-                        this.userService.setAccessToken(response.access_token);
-                        this.userService.setUser(response.me);
-                        this.router.navigate(['app']);
-                    }
-                });
-            }
-        });
     }
 
     public tieneAcceso(nombre: string): boolean {
@@ -77,4 +67,9 @@ export class AuthService {
 
         return $puedeNavegar;
     }
+
+
+
+    
+
 }

@@ -13,11 +13,11 @@ export class ButtonComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.authService.inicializarObsAuthState();
+      //this.authService.inicializarObsAuthState();
   }
 
   signInWithGoogle() {
-      this.authService.signInWithGoogle();
+     // this.authService.signInWithGoogle();
   }
 
 }

@@ -3,20 +3,38 @@
         <mat-card class="card" fxLayout="column" fxLayoutAlign="start center">
             <div fxFlex="100" fxLayout="row" fxLayoutAlign="center">
                 <span class="bienvenido-mb" style="text-align: center; font-size:25px; font-weight: 500;">
-                    Bienvenido
+                    Complete sus datos
                 </span>
             </div>
 
             <form [formGroup]="form" fxLayout="row wrap" fxLayoutAlign="space-between" class="form" (ngSubmit)="submit()" [autocomplete]="false">
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
+                    <mat-label>Nombre</mat-label>
+                    <input formControlName="nombre" matInput>
+                    <!--<mat-error *ngIf="error('email')">{{error('email')}}</mat-error>-->
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
+                    <mat-label>Apellido</mat-label>
+                    <input formControlName="apellido" matInput>
+                    <!--<mat-error *ngIf="error('email')">{{error('email')}}</mat-error>-->
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
+                    <mat-label>Teléfono</mat-label>
+                    <input formControlName="telefono" matInput>
+                    <!--<mat-error *ngIf="error('email')">{{error('email')}}</mat-error>-->
+                </mat-form-field>
+
+                <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Email</mat-label>
-                    <input formControlName="email" matInput required>
+                    <input formControlName="email" matInput>
                     <!--<mat-error *ngIf="error('email')">{{error('email')}}</mat-error>-->
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Contraseña</mat-label>
-                    <input formControlName="password" matInput required [type]="hidePassword ? 'password' : 'text'" (keypress)="passwordKeyPress($event)">
+                    <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'" (keypress)="passwordKeyPress($event)">
                     <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
                         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
@@ -29,16 +47,16 @@
                     <span fxFlex="100" fxLayout="row" fxLayoutAlign="center" style="color: red;" >{{errorMessage}}</span>
                 </ng-container>-->
 
+                <button fxFlex="100" class="submit-button" color="primary" mat-raised-button  type="submit">
+                    Registrarme
+                </button>
+
                 <div fxFlex="100" fxLayout="row" fxLayoutAlign="center">
-                    <span class="mat-body-strong" style="margin:12px;">
-                        <a>¿No tenés una cuenta?    </a>
-                        <a style="color: #0300a7" routerLink="/registro">Registrate aquí</a>
+                    <span class="mat-body-strong" style="margin:2px;">
+                        <a>¿Ya tenés una cuenta?   </a>
+                        <a style="color: #0300a7" routerLink="/login">Iniciar sesión</a>
                     </span>
                 </div>
-
-                <button fxFlex="100" class="submit-button" color="primary" mat-raised-button  type="submit">
-                    INGRESAR
-                </button>
             </form>
         </mat-card>
     </contenido>

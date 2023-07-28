@@ -28,6 +28,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
         BrowserAnimationsModule,
         AppRoutingModule,
         SocialLoginModule,
+        AuthModule,
         NgxsReduxDevtoolsPluginModule.forRoot({
             disabled: environment.production
         }),
