@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl       } from '@angular/forms';
+import { FormBaseComponent } from 'src/app/shared/form-base.component';
 import { AuthService } from '../shared/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -14,23 +15,27 @@ import {HttpClient} from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
+    error(arg0: string): any {
+        throw new Error('Method not implemented.');
+    }
+
     public form            : FormGroup;
     public hidePassword     : boolean = true;
 
     constructor(
         private authService : AuthService,
         private fb          : FormBuilder,
-        private router      : Router
+        private router      : Router,
+        private matDialog   : MatDialog
     ) {
     }
 
     ngOnInit() {
         this.form = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
+            email: [''/*, [this.emailValidator()]*/],
+            password: [''/*, [this.minLength(8)]*/]
         });
     }
-    
 
     public async submit() : Promise<any>{
         if (this.form.valid) {
@@ -52,13 +57,6 @@ export class LoginComponent implements OnInit {
         }
         return true;
     }
-
-    /*public setForm() : void {
-        this.form = new FormGroup({
-            email    : new FormControl('', [this.emailValidator()]),
-            password : new FormControl('', [this.minLength(6)    ])
-        });
-    }*/
 
     public minLength(minLength: number) {
         return (control: AbstractControl): { [key: string]: any } | null => {

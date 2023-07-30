@@ -50,7 +50,7 @@ export class RegistroComponent implements OnInit {
 
   public async submit() {
     await this.apiService.post('/auth/registro', this.form.value).toPromise();
-    //this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/registro-exito');
   }
 
   public passwordKeyPress($event : any) : boolean {

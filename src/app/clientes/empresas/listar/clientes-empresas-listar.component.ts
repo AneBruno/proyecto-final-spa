@@ -41,7 +41,7 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
 
         this.usuarios = await this.apiService.getData('/usuarios', {
             filtros: {
-                rol_id: [2,3,4]
+                rol_id: [3,4]
             },
             limit:0
         }).toPromise();
@@ -51,7 +51,7 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
         this.addColumn('razon_social', 'Razón social',      '').renderFn(row => row.razon_social);
         this.addColumn('telefono', 'Teléfono',      '').renderFn(row => row.telefono? row.telefono : '-');
         this.addColumn('comercial_asignado', 'Comercial Asignado',      '').renderFn(row => row.comercial_asignado.nombreCompleto );
-        this.addColumn('habilitada',   'Habilitada',   '100px').renderFn(row => row.habilitado ? 'Si' : 'No').setAlign('center');
+        this.addColumn('habilitada',   'Habilitada',   '100px').renderFn(row => row.habilitada ? 'No' : 'Si').setAlign('center');
         this.addColumn('_acciones',    'Acciones',      '60px').setAsMenu().setAlign('right');
     }
 

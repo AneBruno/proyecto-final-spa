@@ -71,11 +71,11 @@
                 <button mat-menu-item routerLink="/app/clientes/empresas/{{aliasMenuItems.id}}">Editar</button>
 
                 <div *ngIf="accesoDeshabilitar">
-                    <button mat-menu-item (click)="deshabilitar(aliasMenuItems.id)" *ngIf="aliasMenuItems.habilitada">Deshabilitar</button>
+                    <button mat-menu-item (click)="deshabilitar(aliasMenuItems.id)" *ngIf="!aliasMenuItems.habilitada">Deshabilitar</button>
                 </div>
 
                 <div *ngIf="accesoHabilitar">
-                    <button mat-menu-item (click)="habilitar(aliasMenuItems.id)" *ngIf="!aliasMenuItems.habilitada">Habilitar</button>
+                    <button mat-menu-item (click)="habilitar(aliasMenuItems.id)" *ngIf="aliasMenuItems.habilitada">Habilitar</button>
                 </div>
             </ng-template>
         </mat-menu>

@@ -10,13 +10,15 @@ import { SharedModule                  } from '../shared/shared.module';
 import { ButtonComponent               } from './button/button.component';
 import { LoginComponent                } from './login/login.component';
 import { RegistroComponent } from './registro/registro.component';
+import { RegistroExitoComponent } from './registro-exito/registro-exito.component';
 
 
 @NgModule({
     declarations: [
         LoginComponent,
         ButtonComponent,
-        RegistroComponent
+        RegistroComponent,
+        RegistroExitoComponent
     ],
     imports: [
         RouterModule,

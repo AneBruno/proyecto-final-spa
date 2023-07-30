@@ -13,7 +13,7 @@ export class AuthService {
         private userService       : UserService
     ) { }
 
-    async login(email: string, password: string): Promise<any> {
+        async login(email: string, password: string): Promise<any> {
         const loginData = { email: email, password: password };
         const respuesta = (await this.apiService.post('/auth/login', loginData).toPromise()) as any;
         if (respuesta.access_token) {
@@ -24,7 +24,6 @@ export class AuthService {
         console.log('respuesta', respuesta);
         return ;
     }
-    
     public signOut(): void {
         
         this.apiService.logout().subscribe((response: any) => {

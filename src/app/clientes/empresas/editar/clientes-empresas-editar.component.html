@@ -69,7 +69,9 @@
         <div>
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Provincia</mat-label>
-                <input formControlName="provincia" matInput />
+                <mat-select formControlName="provincia">
+                    <mat-option *ngFor="let opcion of opciones" [value]="opcion">{{ opcion }}</mat-option>
+                </mat-select>
                 <mat-error *ngIf="error('provincia')">{{error('provincia')}}</mat-error>
             </mat-form-field>
         </div>

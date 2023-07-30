@@ -15,6 +15,32 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
     public title                    : string = 'Agregar Empresa'
     public usuarios                 : any[]  = [];
     public perfil                   : string;
+    public opciones: string[] = [
+        'Buenos Aires',
+        'Capital Federal',
+        'Catamarca',
+        'Chaco',
+        'Chubut',
+        'Córdoba',
+        'Corrientes',
+        'Entre Ríos',
+        'Formosa',
+        'Jujuy',
+        'La Pampa',
+        'La Rioja',
+        'Mendoza',
+        'Misiones',
+        'Neuquén',
+        'Río Negro',
+        'Salta',
+        'San Juan',
+        'San Luis',
+        'Santa Cruz',
+        'Santa Fe',
+        'Santiago del Estero',
+        'Tierra del Fuego',
+        'Tucumán'
+    ];
 
     cuitError = '';
     cuitValue = '';
@@ -97,6 +123,8 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
             });
         });
     }
+
+    
 
 
 }

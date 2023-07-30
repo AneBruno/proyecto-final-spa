@@ -7,6 +7,7 @@ import { LoginComponent       } from './auth/login/login.component';
 import { DashboardResolver    } from './shared/resolvers/dashboard.resolver';
 import { MercadoPanelListarComponent } from '../app/mercado/panel/mercado-panel-listar/mercado-panel-listar.component';
 import { RegistroComponent } from './auth/registro/registro.component';
+import { RegistroExitoComponent } from './auth/registro-exito/registro-exito.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
     {
         path: 'registro',
         component: RegistroComponent,
+    },
+    {
+        path: 'registro-exito',
+        component: RegistroExitoComponent,
     },
     {
         path             : 'app',
