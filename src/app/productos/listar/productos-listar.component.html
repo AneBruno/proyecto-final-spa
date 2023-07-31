@@ -1,7 +1,7 @@
 <app-listado-filtrado [dataSource]="dataSource">
     <titulo>Productos</titulo>
     <botones>
-        <button mat-flat-button color="primary" [routerLink]="'agregar'">Agregar</button>
+        <button mat-flat-button color="primary" class="rounded-button" [routerLink]="'agregar'">Agregar</button>
     </botones>
     <filtros fxLayout="column">
         <app-search-input fxFlex="100" [(value)]="dataSource.filtros.busqueda" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>

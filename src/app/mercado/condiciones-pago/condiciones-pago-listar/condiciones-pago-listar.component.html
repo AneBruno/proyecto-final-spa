@@ -1,7 +1,7 @@
 <app-listado-filtrado [dataSource]="dataSource">
     <titulo>Condiciones de pago</titulo>
     <botones>
-        <button mat-flat-button color="primary" routerLink="agregar">Agregar</button>
+        <button mat-flat-button color="primary" class="rounded-button" routerLink="agregar">Agregar</button>
     </botones>
     <filtros fxLayout="column">
         <app-search-input fxFlex="100" [(value)]="dataSource.filtros.busqueda" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
@@ -54,7 +54,8 @@
             <ng-template matMenuContent let-aliasMenuItems="element">
                 <button mat-menu-item routerLink="/app/mercado/condicionesPago/{{aliasMenuItems.id}}">Editar</button>
                 <button mat-menu-item (click)="deshabilitar(aliasMenuItems.id)" *ngIf="aliasMenuItems.habilitado">Deshabilitar</button>
-                <button mat-menu-item (click)="habilitar(aliasMenuItems)" *ngIf="!aliasMenuItems.habilitado">Habilitar</button>
+                <button mat-menu-item (click)="habilitar(aliasMenuItems.id)" *ngIf="!aliasMenuItems.habilitado">Habilitar</button>
+                
             </ng-template>
         </mat-menu>
     </contenido>

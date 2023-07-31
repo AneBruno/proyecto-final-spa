@@ -2,7 +2,7 @@ import { FormBaseComponent } from "./form-base.component";
 
 export abstract class FormBaseLocalizacionComponent extends FormBaseComponent {
 
-    public placeId                  : string = '';
+   /* public placeId                  : string = '';
     public urlImagenMapa            : string = '';
     public direccionCompleta        : string = '';
 
@@ -18,5 +18,5 @@ export abstract class FormBaseLocalizacionComponent extends FormBaseComponent {
             data.placeId = this.placeId;
         }
         return data;
-    }
+    }*/
 }

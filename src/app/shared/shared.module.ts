@@ -62,7 +62,6 @@ import { ChipsInputComponent             } from './chips-input/component';
 import { ConfirmComponent                } from './confirm/confirm.component';
 import { ConfirmYesNoComponent           } from './confirmYesNo/confirm.component';    
 import { DashboardComponent              } from './dashboard/dashboard.component';
-import { DashboardExtranetComponent      } from './dashboard-extranet/dashboard-extranet.component';
 import { DatePickerComponent             } from './date-picker/date-picker.component';
 import { DatepickerInputComponent        } from './datepicker-input/component';
 import { DateTimePickerComponent         } from './date-time-picker/component';
@@ -103,7 +102,6 @@ import { InputNumericDirective } from './input-numeric.directive';
         ConfirmComponent,
         ConfirmYesNoComponent,
         DashboardComponent,
-        DashboardExtranetComponent,
         DatePickerComponent,
         DatepickerInputComponent,
         DateTimePickerComponent,
@@ -204,7 +202,6 @@ import { InputNumericDirective } from './input-numeric.directive';
         ChipsFieldComponent,
         ChipsInputComponent,
         DashboardComponent,
-        DashboardExtranetComponent,
         DatePickerComponent,
         DatepickerInputComponent,
         DateTimePickerComponent,

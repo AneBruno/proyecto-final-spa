@@ -31,7 +31,7 @@
 
             <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="15px">
                 <button mobile mat-flat-button color="primary" (click)="clickFiltrosMobile()">Cerrar</button>
-                <button *ngIf="!transparent" mat-flat-button color="primary" (click)="clickClearFilters()">Limpiar</button>
+                <button *ngIf="!transparent" mat-flat-button color="primary" class="rounded-button" (click)="clickClearFilters()">Quitar filtros</button>
                 <button *ngIf="transparent" type="button" mat-flat-button class="button button-limpiar" (click)="clickClearFilters()">
                     <mat-icon>restart_alt</mat-icon>
                     <span>

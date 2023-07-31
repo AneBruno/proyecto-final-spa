@@ -11,7 +11,7 @@ import { ConfirmService    } from 'src/app/shared/services/confirm.service';
 })
 export class TiposProductosListarComponent implements OnInit {
 
-    public displayedColumns = ['id','nombre','_acciones'];
+    public displayedColumns = ['id','nombre', 'habilitado','_acciones'];
 
     public constructor(
         public  dataSource : ListadoDataSource<any>,
@@ -23,12 +23,26 @@ export class TiposProductosListarComponent implements OnInit {
         this.dataSource.uri = '/tipos-producto';
     }
 
-    public eliminar(id: number) {
+    /*public eliminar(id: number) {
         this.confirm.ask('Borrará el tipo de producto. Continuar?').subscribe(() => {
             this.client.delete('/tipos-producto', id).subscribe(resp=> {
                 this.dataSource.refreshData();
             });
         });
+    }*/
+
+    public deshabilitar(id: number) {
+        this.confirm.ask('Deshabilitará el tipo de producto. Continuar?').subscribe(() => {
+            this.client.put(`/productos/tipo/${id}/deshabilitar`, {}).subscribe(() => {
+                this.dataSource.refreshData();
+            });
+        });
+    }
+
+    public async habilitar(id: number) {
+        await this.confirm.askAsync('Habilitará el tipo de producto. Continuar?');
+        await this.client.put(`/productos/tipo/${id}/habilitar`, {}).toPromise();
+        this.dataSource.refreshData();
     }
 
 }

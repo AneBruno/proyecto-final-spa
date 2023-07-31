@@ -48,6 +48,9 @@ app-toolbar {
     justify-content: center;
 
 }
+.rounded-button {
+    border-radius: 20px; /* Ajusta el valor según el radio de redondeo deseado */
+}
 
 .button-nuevo-cbu{
     background: #1DA978;

@@ -1,6 +1,8 @@
 import { Component, OnInit       } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router  } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FormBaseComponent       } from 'src/app/shared/form-base.component';
 
 @Component({
@@ -12,14 +14,18 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
 
     public id      : number;
     public title   : string = 'Agregar Producto';
+    tiposProducto$: Observable<any[]>;
 
-    public tiposProducto$  = this.apiService.getData('/tipos-producto');
 
     constructor(
         private route    : ActivatedRoute,
         private router   : Router,
     ) {
         super();
+        this.tiposProducto$ = this.apiService.getData('/tipos-producto').pipe(
+            map(tipos => tipos.filter(tipo => tipo.habilitado))
+          );
+        
     }
 
     ngOnInit(): void {

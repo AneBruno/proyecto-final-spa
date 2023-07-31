@@ -3,6 +3,8 @@ import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as moment from "moment";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { FormBaseLocalizacionComponent } from "src/app/shared/form-base-localizacion.component";
 
 
@@ -22,28 +24,17 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
 
     public productos: any[] = [];
-   //public calidades: any[] = [];
-    public condiciones_pago: any[] = [];
+    public condiciones_pago$ : Observable<any[]>;
     public empresas: any[] = [];
     public puertos: any[] = [];
     public posicion: any;
     public consulta: boolean = false;
     public empresa_id: number;
-    //public establecimientos: any[] = [];
-    //public mostrar_establecimientos: boolean = false;
     public campoVendedorModificado: boolean = false;
     private empresa_id_to: any;
     private producto_id_to: any;
-   // private calidad_id_to: any;
     public minDate: any = moment().format();
-    //public entrega_es_forward: boolean = false;
-    //private fecha_actual: any = this.fechaEntregaHelper.getToday();
-    //public placeIdProcedencia: string = '';
-    //public placeIdDestino: string = '';
-    //public opcion_destino: string;
-    //public direccionCompletaProcedencia: string;
     public direccionCompletaDestino: string;
-    //public mostrarCampoEstablecimientos: boolean = false;
 
 
     public constructor(
@@ -61,12 +52,10 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     public loadRelatedData() {
         this.buscarProductos();
-        //this.buscarCalidades();
         this.buscarEmpresas();
-
-        this.apiService.getData('/mercado/condiciones-pago').subscribe(data => {
-            this.condiciones_pago = data;
-        });
+        this.condiciones_pago$ = this.apiService.getAllData('/mercado/condiciones-pago').pipe(
+            map(condiciones => condiciones.filter(condicion => condicion.habilitado))
+        );
 
         this.fetchPuertos();
 
