@@ -15,10 +15,12 @@
             <input formControlName="localidad" matInput required />
             <mat-error *ngIf="error('localidad')">{{error('localidad')}}</mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
+        
+        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
             <mat-label>Provincia</mat-label>
-            <input formControlName="provincia" matInput required />
+            <mat-select formControlName="provincia" matInput required>
+                <mat-option *ngFor="let opcion of opciones" [value]="opcion">{{ opcion }}</mat-option>
+            </mat-select>
             <mat-error *ngIf="error('provincia')">{{error('provincia')}}</mat-error>
         </mat-form-field>
 

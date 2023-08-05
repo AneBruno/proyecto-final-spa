@@ -11,18 +11,18 @@ import { ApiService } from 'src/app/shared/services/api.service';
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.scss']
 })
-export class RegistroComponent implements OnInit {
+export class RegistroComponent extends FormBaseComponent implements OnInit {
 
   public form!            : FormGroup;
   public hidePassword     : boolean = true;
   
   constructor(
-    //private snackBar : SnackBarService,
     private dialog      : MatDialog,
     private router : Router,
-    private registroService: RegistroService,
-    private apiService: ApiService
+    private registroService: RegistroService
+   // private apiService: ApiService
   ) { 
+    super();
   }
 
   ngOnInit(): void {
@@ -31,21 +31,6 @@ export class RegistroComponent implements OnInit {
 
   public get dataUrl() : string {
       return ""
-  }
-
-  /*public onKey($event: any){
-      if ($event.key && /^Arrow/.test($event.key)) {
-          return;
-      }
-  }*/
-
-  public getFieldErrorMessage(controlName: string): string | void {
-      /*const errors = this.form.get(controlName)!.errors;
-      for (const error of Object.values(errors!)) {
-          if (typeof error === 'string') {
-              return error;
-          }
-      }*/
   }
 
   public async submit() {
@@ -62,14 +47,21 @@ export class RegistroComponent implements OnInit {
 }
 
   public setForm() : void {
-      this.form = new FormGroup({
+      this.form = this.fb.group({
           id    : new FormControl({value: '', disabled: true}),
           nombre    : new FormControl({value: '', disabled: false}),
           apellido    : new FormControl({value: '', disabled: false}),
           telefono    : new FormControl({value: '', disabled: false}),
-          email    : new FormControl({value: '', disabled: false}/*, [emailValidator()]*/),
-          password : new FormControl({value: '', disabled: false}/*, [minLength(6)    ]*/)
+          email    : new FormControl({value: '', disabled: false}),
+          password : new FormControl({value: '', disabled: false})
       });
   }
-
+  
+  /*error(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (control.hasError('required') && control.touched) {
+      return 'Obligatorio';
+    }
+    return '';
+  }*/
 }

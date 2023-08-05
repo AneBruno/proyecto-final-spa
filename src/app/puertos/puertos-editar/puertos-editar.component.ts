@@ -15,6 +15,32 @@ export class PuertosEditarComponent extends FormBaseLocalizacionComponent implem
     public sessionToken      : string = '';
     public timeout           : any;
     public resultados        : any[] = [];
+    public opciones: string[] = [
+        'Buenos Aires',
+        'Capital Federal',
+        'Catamarca',
+        'Chaco',
+        'Chubut',
+        'Córdoba',
+        'Corrientes',
+        'Entre Ríos',
+        'Formosa',
+        'Jujuy',
+        'La Pampa',
+        'La Rioja',
+        'Mendoza',
+        'Misiones',
+        'Neuquén',
+        'Río Negro',
+        'Salta',
+        'San Juan',
+        'San Luis',
+        'Santa Cruz',
+        'Santa Fe',
+        'Santiago del Estero',
+        'Tierra del Fuego',
+        'Tucumán'
+    ];
 
     constructor(
         private route    : ActivatedRoute, 

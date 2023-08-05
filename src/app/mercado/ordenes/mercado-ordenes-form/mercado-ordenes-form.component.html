@@ -25,56 +25,6 @@
         </mat-form-field>
 
     </div>
-    
-    <!--<div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex="80"  *ngIf="mostrarCampoEstablecimientos">
-            <mat-label>Establecimiento</mat-label>
-            <mat-select formControlName="establecimiento_id">
-                <mat-option [value]="null">Seleccione...</mat-option>
-                <mat-option *ngFor="let row of establecimientos" [value]="row.id" >{{row.nombre}}</mat-option>
-                (onSelectionChange)="autocompletarEstablecimientoUbicacion(row)"
-            </mat-select>
-            <mat-error *ngIf="error('establecimiento_id')">{{error('establecimiento_id')}}</mat-error>
-        </mat-form-field>
-    </div>-->
-    <!--<div fxLayout="row"  >
-        <app-static-map-place 
-            fxFlex="100" 
-            [titulo]="'Procedencia'" 
-            [(placeId)]="placeIdProcedencia" 
-            [error]="error('placeIdProcedencia')" 
-            [direccion]="direccionCompletaProcedencia"
-            [disabled]="consulta">
-        </app-static-map-place>
-    </div>-->
-    <!--<mat-radio-group fxLayout="row" class="radio-group" formControlName="opcion_destino">
-        <mat-radio-button class="radio-button" [value]="'exportacion'"  formControlName="opcion_destino" (change)="setearOpcionDestino('exportacion')">Exportación</mat-radio-button>
-        <mat-radio-button class="radio-button" [value]="'consumo'" formControlName="opcion_destino" (change)="setearOpcionDestino('consumo')">Consumo</mat-radio-button>
-        <mat-error *ngIf="error('opcion_destino')">{{error('opcion_destino')}}</mat-error>
-    </mat-radio-group>-->
-
-    
-    <!--<div *ngIf="opcion_destino==='consumo'">
-        <div fxLayout="row"  >
-            <app-static-map-place fxFlex="100" [titulo]="'Destino'" [(placeId)]="placeIdDestino" [error]="error('placeIdDestino')" [direccion]="direccionCompletaDestino"></app-static-map-place>
-        </div>
-    </div>-->
-
-    <!--<div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
-
-        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
-            <mat-label>Calidades</mat-label>
-            <input formControlName="calidad_nombre" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto3" (keyup)="calidad_id_keyup($event)" required />
-            <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="calidad_id_selected($event)">
-                <mat-option *ngFor="let row of calidades" [value]="row.nombre" [attr.data-id]="row.id">
-                    {{row.nombre}}
-                </mat-option>
-            </mat-autocomplete>
-            <mat-error *ngIf="error('calidad_id')">{{error('calidad_id')}}</mat-error>
-        </mat-form-field>
-
-
-    </div>-->
         
     <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
         <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
@@ -111,53 +61,8 @@
         </mat-form-field>
     </div>
 
-    <!--<div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-form-field appearance="fill" fxFlex.lg="15" fxFlex.xs="100">
-            <mat-label>Entrega</mat-label>
-            <mat-select formControlName="entrega" required>
-                <mat-option [value]="'DISPONIBLE'">Disponible</mat-option>
-                <mat-option [value]="'LIMIT'">Limit</mat-option>
-                <mat-option [value]="'CONTRACTUAL'">Contractual</mat-option>
-                <mat-option [value]="'FORWARD'">Forward</mat-option>
-            </mat-select>
-            <mat-error *ngIf="error('entrega')">{{error('entrega')}}</mat-error>
-        </mat-form-field>
-    </div>
-
-    <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-form-field appearance="fill" fxFlex.lg="25">
-            <mat-label>Período de entrega desde: </mat-label>
-            <input matInput [min]="minDate" [matDatepicker]="picker1" formControlName="fecha_entrega_inicio" (focus)="picker1.open()">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-            <mat-error *ngIf="error('fecha_entrega_inicio')">{{error('fecha_entrega_inicio')}}</mat-error>
-        </mat-form-field>
-
-
-        <mat-form-field appearance="fill" fxFlex.lg="25">
-            <mat-label>Hasta: </mat-label>
-            <input matInput [min]="minDate" [matDatepicker]="picker2" formControlName="fecha_entrega_fin" (focus)="picker2.open()">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-            <mat-error *ngIf="error('fecha_entrega_fin')">{{error('fecha_entrega_fin')}}</mat-error>
-        </mat-form-field>
-    </div>-->
-
-    
-    <!--<div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">    
-        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
-            <mat-label>Estado</mat-label>
-            <mat-select formControlName="estado_id" required>
-                <mat-option [value]="1">Oferta a trabajar</mat-option>
-                <mat-option [value]="2">Orden firme</mat-option>
-            </mat-select>
-            <mat-error *ngIf="error('estado_id')">{{error('estado_id')}}</mat-error>
-        </mat-form-field>
-
-    </div>-->
-
     <div *ngIf="consulta">
-        <mat-form-field appearance="fill" fxFlex="100">
+        <mat-form-field appearance="fill" fxFlex="50">
             <mat-label>Comercial</mat-label>
             <input formControlName="comercial" matInput [readonly]="true"/>
             <mat-error *ngIf="error('comercial')">{{error('comercial')}}</mat-error>
@@ -165,14 +70,14 @@
     </div>
 
     <!--<div *ngIf="opcion_destino==='exportacion'">-->
-        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
-            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
-                <mat-label>Puerto de destino</mat-label>
-                <mat-select formControlName="puerto_id" required>
-                    <mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="error('puerto_id')">{{error('puerto_id')}}</mat-error>
-            </mat-form-field>
+    <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+        <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
+            <mat-label>Puerto de destino</mat-label>
+            <mat-select formControlName="puerto_id" required>
+                <mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="error('puerto_id')">{{error('puerto_id')}}</mat-error>
+        </mat-form-field>
         
         <!--</div>-->
 

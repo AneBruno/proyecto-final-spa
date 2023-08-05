@@ -1,5 +1,5 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
-    <titulo>Órdenes</titulo>
+    <titulo>Órdenes de venta</titulo>
     <botones>
         <button mat-flat-button color="primary" class="rounded-button" [routerLink]="'agregar'">Agregar</button>
     </botones>
@@ -102,8 +102,7 @@
             <ng-template matMenuContent let-aliasMenuItems="row">
                 <button mat-menu-item routerLink="consulta/{{aliasMenuItems.id}}">Consultar</button>
                 <button mat-menu-item routerLink="copiar/{{aliasMenuItems.id}}">Copiar</button>
-                <button mat-menu-item *ngIf="!(aliasMenuItems.estado_id == 5 || aliasMenuItems.estado_id == 4)"(click)="estadoPosicion(aliasMenuItems.id, 4)">Retirar</button>
-                <button mat-menu-item *ngIf="!(aliasMenuItems.estado_id == 5 || aliasMenuItems.estado_id == 4)"(click)="estadoPosicion(aliasMenuItems.id, 5)">Eliminar</button>
+                <button mat-menu-item *ngIf="!(aliasMenuItems.estado_id == 5)"(click)="estadoPosicion(aliasMenuItems.id, 5)">Eliminar</button>
             </ng-template>
         </mat-menu>
     </contenido>

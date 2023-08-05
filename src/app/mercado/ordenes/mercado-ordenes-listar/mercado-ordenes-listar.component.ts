@@ -30,7 +30,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     public fechaDesde    : Date;
     public fechaHasta    : Date;
-    //public calidades            : any[]    = [];
     public comerciales          : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
@@ -39,11 +38,9 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
     public estados              : any;
     public rol_id_usuario       : Number;
-    private ESTADO_RETIRADA = 4;
     private ESTADO_ELIMINADA = 5;
     public filtroProductosOpciones : any = {
         ordenes: {
-            //uso_frecuente: 'desc',
             nombre: 'asc',
         }
     }
@@ -61,7 +58,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     public filtroProductos! : Array<any>;
     public filtroPuertos!   : Array<any>;
-    //public filtroCalidad!   : Array<any>;
     public filtroComercial  : Array<any>;
 
 
@@ -111,7 +107,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             this.addColumn('created_at',    'Fecha',     '120px').renderFn(row => this.formatearFecha(row.created_at));
             this.addColumn('vendedor',      'Vendedor',  '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
             this.addColumn('producto',      'Producto',       '200px').renderFn(row => row.producto.nombre);
-            //this.addColumn('entrega',       'Entrega',   '200px').renderFn(row => this.fechaEntregaHelper.calculaEntrega(row));
             this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => this.calculaDestino(row));
             this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber().setAlign('right');
             this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
@@ -120,7 +115,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
             if (result.matches) {
                 this.getColumn('producto' ).setWidth('200px');
-                //this.getColumn('entrega'  ).setWidth('200px');
                 this.getColumn('destino'  ).setWidth('200px');
                 this.getColumn('estado'   ).setWidth('200px');
             }
@@ -134,14 +128,9 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
           'limit' : 0,
          }).toPromise();
       this.productos =  await this.apiService.getData('/productos',{
-        //'ordenes[uso_frecuente]': 'desc',
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
-      /*this.calidades = await this.apiService.getData('/calidades', {
-          ordenes: {descripcion:'DESC'},
-          'limit': 0,
-        }).toPromise();*/
     }
 
     public calculaDestino(row:any) {
@@ -152,40 +141,10 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         }
     }
 
-    /*public calculaEntrega(fechaIni: any, fechaFin: any) {
-        var mesIni  = Number(fechaIni.substring(5, 7)) - 1;
-        var mesFin  = Number(fechaFin.substring(5, 7)) - 1;
-        var anioIni = Number(fechaIni.substring(0, 4));
-        var anioFin = Number(fechaFin.substring(0, 4));
-        var meses     = [
-            "ENERO",
-            "FEBRERO",
-            "MARZO",
-            "ABRIL",
-            "MAYO",
-            "JUNIO",
-            "JULIO",
-            "AGOSTO",
-            "SEPTIEMBRE",
-            "OCTUBRE",
-            "NOVIEMBRE",
-            "DICIEMBRE"
-        ];
-        if (mesIni === mesFin && anioIni == anioFin) {
-            var entrega = mesIni === this.mesActual ? "Disponible" : meses[mesIni];
-            return entrega;
-        } else {
-            return (meses[mesIni] + ' - ' + meses[mesFin]);
-        }
-    }*/
-
     public formatearFecha(fecha:any) {
         return moment(fecha).format('DD-MM-YYYY');
     }
 
-    /*public filtroProductosIconoFn(row: any) : string {
-        return row.uso_frecuente ? 'star_outlined' : '';
-    }*/
 
     public actualizarDatos() {
         this.configurarFiltros();
@@ -208,16 +167,13 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
         this.filtroProductos = null;
         this.filtroPuertos   = null;
-        //this.filtroCalidad   = null;
         this.filtroComercial = null;
     }
 
 
     public estadoPosicion(id:number, estado:number){
       var mensaje;
-      if (estado == this.ESTADO_RETIRADA) {
-        mensaje = 'Desea retirar la orden?';
-      } else if (estado == this.ESTADO_ELIMINADA) {
+      if (estado == this.ESTADO_ELIMINADA) {
         mensaje = 'Desea eliminar la orden?';
       }
       this.confirm.ask(mensaje).subscribe(() => {
