@@ -1,18 +1,18 @@
-<div>     
-    <contenido class="main" fxLayout.gt-md="row" fxLayoutAlign="center center">
-        <mat-card class="card" fxLayout="column" fxLayoutAlign="start center">
-            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center" style="height: 200px;">
-                
-                <span class="bienvenido-mb" style="text-align: center; font-size:25px; font-weight: 500;">
-                    ¡Usuario creado con éxito!
-                </span>
-            </div>
-
-            <div fxFlex="100" fxLayout="row" fxLayoutAlign="center">
-                <span class="mat-body-strong" style="margin:12px;">
-                    <a style="color: #0300a7" routerLink="/login">Ir al login</a>
-                </span>
-            </div>
-        </mat-card>
-    </contenido>
+<div class="main">
+    <mat-card class="card">
+        <div class="content">
+            <span class="bienvenido-mb">
+                ¡Usuario creado con éxito!
+            </span>
+            <br>
+            <span class="bienvenido-mb" style="font-size: 16px; font-weight: 300;">
+                Podrás operar una vez que tu cuenta sea validada por un Administrador.
+            </span>
+        </div>
+        <div class="login-link">
+            <span class="mat-body-strong">
+                <a routerLink="/login">Ir al login</a>
+            </span>
+        </div>
+    </mat-card>
 </div>

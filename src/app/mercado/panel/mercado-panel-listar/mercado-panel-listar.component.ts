@@ -20,7 +20,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     public filtros                 : any = {};
     private interval               : any;
-   // public  calidades              : any[] = [];
     public  cosechas               : any[] = [];
     public  formasPago             : any[] = [];
     public  puertos                : Array<any> = [];
@@ -63,7 +62,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         await this.loadRelatedData();
 
         this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', {ordenes: {descripcion:'DESC'}}).toPromise();
-        console.log('formaspago' ,this.formasPago);
         this.cosechas   = await this.apiService.getAllData('/mercado/cosechas', {ordenes: {descripcion:'DESC'}}).toPromise();
 
         this.setTable();
@@ -74,14 +72,16 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     private setTable() : void {
         this.clearColumns();
-        this.addColumn('comprador',     'Comprador',      '').setAsCustom();
-        this.addColumn('producto',      'Producto',  '200px').renderFn(row => row.producto.nombre             );
-        this.addColumn('destino',       'Destino',   '150px').renderFn(row => this.calculaDestino(row)        );
-        this.addColumn('cosecha_nueva', 'Cosecha',    '50px').renderFn(row => this.DescripcionCosecha(row));
-        this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
-        this.addColumn('precio_moneda', 'Compra',     '80px').renderFn(row => row.precio ? `${row.moneda} ${row.precio}` : "A fijar").setAlign('right');
-        this.addColumn('ofertas',       'Venta',    '80px').renderFn(row => row.ofertas == 0 ? 0 : `${row.moneda} ${row.ofertas}`).setAlign('right');
-        this.addColumn('toneladas',     'Toneladas',  '100px').renderFn(row => row.toneladas.toString()).setAlign('right');
+        this.addColumn('comprador',     'Empresa compradora',      '150px').setAsCustom();
+        this.addColumn('producto',      'Producto',  '150px').renderFn(row => row.producto.nombre             );
+        this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => row.puerto.nombre        );
+        this.addColumn('cosecha_nueva', 'Cosecha',    '100px').renderFn(row => this.DescripcionCosecha(row));
+        this.addColumn('forma_pago', 'Forma de Pago', '100px').renderFn(row => row.condicion_pago.descripcion);
+        this.addColumn('precio_moneda', 'Precio compra',     '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
+        //Falta todavía. 
+        this.addColumn('ofertas',       'Ofertas',    '80px').renderFn(row => row.id? '-': "-");
+        //Falta todavía.
+        this.addColumn('toneladas',     'Toneladas',  '80px').renderFn(row => row.id? "-": "-");
         this.addColumn('_acciones',     'Acciones',   '80px').setAsMenu().setAlign('right');
     }
 
@@ -96,16 +96,16 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
       }).toPromise();
     }
 
-    public concatenaCompradores(listaEmpresas: any) {
+    /*public concatenaCompradores(listaEmpresas: any) {
         var resultado = listaEmpresas.map((empresa) => {
             let razon_social = empresa.razon_social.length > 14 ? empresa.razon_social.substr(0, 14) + '...' : empresa.razon_social;
             return empresa.abreviacion ? empresa.abreviacion : razon_social;
         }).filter((empresa, i, a) => a.indexOf(empresa) == i);
         return resultado.join('\n');
-    }
+    }*/
 
     public obtenerNombreComprador(empresa: any): string {
-        return empresa.abreviacion ? empresa.abreviacion : empresa.razon_social;
+        return empresa.razon_social;
     }
 
     public DescripcionCosecha(row: any){
@@ -116,107 +116,22 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         }
     }
 
-
+//Actualiza el listado del home cada 10segundos asi no queda desactualizado.
     private async actualizarPeriodicamente() {
         this.interval = setInterval(async () => {
             await this.dataSource.refreshData();
         }, 10 * 1000);
     }
 
-    public calculaDestino(row:any) {
-        if (row.puerto.id){
-            return row.puerto?.nombre;
-        } else if (row.establecimiento.id) {
-            return row.establecimiento?.nombre;
-        } else {
-            return row.localidad_destino;
-        }
-    }
-
-    public calcularTipo(row:any){
-        if (row.puerto.id){
-            return 'Exportación';
-        } else {
-            return 'Consumo interno';
-        }
-    }
-
-    public getEstadoPosicion (row:any) {
-        if (row.posiciones.some(posicion => posicion.estado === 'DENUNCIADA')) {
-            return 'denunciada';
-        }
-        if (row.establecimiento.id) {
-            return 'importacion';
-        }
-        if (row.puerto.id) {
-            return 'exportacion';
-        }
-    }
-
     public obtenerNombreEmpresas(grupo:any) {
-        grupo.empresas.length > 1 ? this.concatenaCompradores(grupo.empresas) : [this.obtenerNombreComprador(grupo.empresas[0])]
+        //grupo.empresas.length > 1 ? this.concatenaCompradores(grupo.empresas) : [this.obtenerNombreComprador(grupo.empresas[0])]
+        this.obtenerNombreComprador(grupo.empresas[0]);
     }
 
     getPuertoParams() {
         return {
             'filtros[estado]': 'todos'
         };
-    }
-
-    denunciarPosiciones (posiciones : any[any]) {
-            this.confirm.ask('Desea denunciar todas las posiciones?').subscribe(() => {
-            posiciones.forEach(posicion => {
-                if (posicion.estado !== 'DENUNCIADA') {
-                    this.apiService.patch('/mercado/posiciones/' + posicion.id + '/estado', {'estado':'DENUNCIADA'}).subscribe(() => {
-                        this.dataSource.refreshData();
-                    });
-                }
-            });
-        });
-    }
-
-    retirarPosicion (posiciones: any[], moneda:String) {
-      const dialogRef = this.dialog.open(RetirarEliminarPosicionComponent, {
-        width: '400px',
-        data: {posiciones: posiciones, monedaPosicion: moneda, accion:'Retirar'}
-      });
-
-      dialogRef.componentInstance.posicionElegida.subscribe((idPosicionElegida) => {
-          this.apiService.patch('/mercado/posiciones/' + idPosicionElegida + '/estado', {'estado':'RETIRADA'}).subscribe(() => {
-              this.dataSource.refreshData();
-          });
-      });
-
-    }
-
-    eliminarPosicion (posiciones: any[], moneda: String) {
-      const dialogRef = this.dialog.open(RetirarEliminarPosicionComponent, {
-        width: '400px',
-        data: {posiciones: posiciones, monedaPosicion: moneda, accion:'Eliminar'}
-      });
-
-      dialogRef.componentInstance.posicionElegida.subscribe((idPosicionElegida) => {
-          this.apiService.patch('/mercado/posiciones/' + idPosicionElegida + '/estado', {'estado':'ELIMINADA'}).subscribe(() => {
-              this.dataSource.refreshData();
-          });
-      });
-
-    }
-
-    public puedeDenunciarPosicion(grupo: any): boolean {
-        return grupo.posiciones.filter(posicion => posicion.estado === "DENUNCIADA").length < grupo.posiciones.length;
-    }
-
-    public posicionExcepcional(grupo: any) {
-        return grupo.posiciones.filter(posicion => posicion.posicion_excepcional === 1).length > 0;
-    }
-
-    public volumenLimitado(grupo: any) {
-        return grupo.posiciones.filter(posicion => posicion.volumen_limitado === 1).length > 0;
-    }
-
-    public aTrabajar(grupo: any) {
-        return grupo.posiciones.filter(posicion => posicion.a_trabajar === 1).length > 0;
     }
 
     public selecetionChangeMultiple(event : any, filterName : string) : void {

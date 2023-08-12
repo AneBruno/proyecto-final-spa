@@ -7,11 +7,9 @@ export interface UserInterface {
     nombre: string,
     apellido: string,
     telefono: string | null,
-    avatar: string,
     rol: RolInterface,
-    oficina: OficinaInterface,
     habilitado: number,
-    urlImagen: string
+    empresa_registro:string
 }
 
 
@@ -21,18 +19,9 @@ export class User implements UserInterface {
     nombre: string;
     apellido: string;
     telefono: string | null;
-    avatar: string;
     rol: RolInterface;
-    oficina: OficinaInterface;
     habilitado: number;
-    urlImagen: string;
-
-    aprobacion_cbu                :any;
-    aprobacion_gerencia_comercial :any;
-    aprobacion_dpto_creditos      :any;
-    aprobacion_dpto_finanzas      :any;
-    confirmacion_pagos            :any;
-    suscripto_notificaciones      : any;
+    empresa_registro: string;
 
 
     public nombreCompleto(): string {

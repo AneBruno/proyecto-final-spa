@@ -53,7 +53,8 @@ export class RegistroComponent extends FormBaseComponent implements OnInit {
           apellido    : new FormControl({value: '', disabled: false}),
           telefono    : new FormControl({value: '', disabled: false}),
           email    : new FormControl({value: '', disabled: false}),
-          password : new FormControl({value: '', disabled: false})
+          password : new FormControl({value: '', disabled: false}),
+          empresa : new FormControl({value: '', disabled: false}),
       });
   }
   

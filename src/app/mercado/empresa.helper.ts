@@ -10,8 +10,8 @@ export class EmpresaHelper {
             return abreviacion;
         } else {
             let nombre = empresa.razon_social;
-            if (nombre.length > 14) {
-                return nombre.substr(0, 14) + '...';
+            if (nombre.length > 16) {
+                return nombre.substr(0, 16) + '...';
             } else {
                 return nombre;
             }

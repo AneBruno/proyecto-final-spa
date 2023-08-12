@@ -50,18 +50,13 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
     @Output()
     public clickCancelar: EventEmitter<void> = new EventEmitter<void>();
 
-    public oficinas$: Observable<any[]>
-
     public roles$: Observable<any[]>
 
     public avatarUri: string;
 
     public urlImagen: string;
 
-    public aprobacion_cbu : any;
-    public aprobacion_gerencia_comercial : any;
     public actualizarDatos  : any;
-    public suscripcionEmails: any;
 
 
     constructor(
@@ -72,9 +67,6 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
     }
 
     ngOnInit(): void {
-        this.oficinas$ = this.apiService.getData('/oficinas', {
-            limit: 0,
-        });
         this.roles$    = this.apiService.getData('/roles', {limit:0});
 
         this.form = this.fb.group({
@@ -84,13 +76,8 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
             telefono                      : new FormControl({ value: ''    , disabled: this.disabledFields['telefono'                      ] }),
             email                         : new FormControl({ value: ''    , disabled: this.disabledFields['email'                         ] }),
             rol_id                        : new FormControl({ value: ''    , disabled: this.disabledFields['rol_id'                        ] }),
-            oficina_id                    : new FormControl({ value: ''    , disabled: this.disabledFields['oficina_id'                    ] }),
-            aprobacion_cbu                : new FormControl({ value: false , disabled: this.disabledFields['aprobacion_cbu'                ] }),
-            aprobacion_gerencia_comercial : new FormControl({ value: false , disabled: this.disabledFields['aprobacion_gerencia_comercial' ] }),
-            aprobacion_dpto_creditos      : new FormControl({ value: false , disabled: this.disabledFields['aprobacion_dpto_creditos'      ] }),
-            aprobacion_dpto_finanzas      : new FormControl({ value: false , disabled: this.disabledFields['aprobacion_dpto_finanzas'      ] }),
-            confirmacion_pagos            : new FormControl({ value: false , disabled: this.disabledFields['confirmacion_pagos'            ] }),
-            suscripto_notificaciones      : new FormControl({ value: ''    , disabled: this.disabledFields['suscripto_notificaciones'             ] }),
+            empresa_registro              : new FormControl({ value: ''    , disabled: this.disabledFields['empresa_registro'              ] })
+            
         });
 
         if (this.id) {
@@ -125,16 +112,12 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
 
     public onSubmit() {
         let data = this.form.getRawValue();
-        let file = this.getFile();
-        data['foto'] = file ? file : undefined;
-        //console.log('hola',data);
         this.clickSave.emit(data);
     }
 
     public setUser(user: User) {
         this.user = user;
         console.log("USER TRAE", user);
-        this.urlImagen = user.urlImagen;
         this.form.patchValue({
             id                            : user.id,
             nombre                        : user.nombre,
@@ -142,13 +125,7 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
             telefono                      : user.telefono,
             email                         : user.email,
             rol_id                        : user.rol.id,
-            oficina_id                    : user.oficina?.id,
-            aprobacion_cbu                : user.aprobacion_cbu,
-            aprobacion_gerencia_comercial : user.aprobacion_gerencia_comercial,
-            aprobacion_dpto_creditos      : user.aprobacion_dpto_creditos,
-            aprobacion_dpto_finanzas      : user.aprobacion_dpto_finanzas,
-            confirmacion_pagos            : user.confirmacion_pagos,
-            suscripto_notificaciones      : user.suscripto_notificaciones,
+            empresa_registro              : user.empresa_registro
         });
     }
 

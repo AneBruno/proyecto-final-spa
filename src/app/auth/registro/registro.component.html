@@ -43,6 +43,12 @@
                     </mat-error>
                 </mat-form-field>
 
+                <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
+                    <mat-label>Empresa para la que opera</mat-label>
+                    <input formControlName="empresa" matInput required>
+                    <mat-error *ngIf="error('empresa')">{{error('empresa')}}</mat-error>
+                </mat-form-field>
+
                 <!--<ng-container *ngIf="errorMessage != ''">
                     <span fxFlex="100" fxLayout="row" fxLayoutAlign="center" style="color: red;" >{{errorMessage}}</span>
                 </ng-container>-->

@@ -36,13 +36,8 @@ export class ActualizarRolYOficinaComponent implements OnInit {
         console.log(data,'data en act ryo');
         this.client.post('/usuarios/' + data.id + ':actualizarDatosPorAdministrador', {
             user_id    : data.id,
-            rol_id     : data.rol_id,
-            oficina_id : data.oficina_id,
-            aprobacion_cbu : data.aprobacion_cbu ? 1 : 0,
-            aprobacion_gerencia_comercial : data.aprobacion_gerencia_comercial ? 1 : 0,
-            aprobacion_dpto_creditos : data.aprobacion_dpto_creditos ? 1 : 0,
-            aprobacion_dpto_finanzas : data.aprobacion_dpto_finanzas ? 1 : 0,
-            confirmacion_pagos : data.confirmacion_pagos ? 1 : 0,
+            rol_id     : data.rol_id
+    
         }).pipe(catchError((e: HttpErrorResponse) => {
             this.form.setErrors(e.error.errores);
             return throwError(e);

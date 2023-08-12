@@ -104,14 +104,14 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             '(max-width: 768px)'
         ]).subscribe(result => {
             this.clearColumns();
-            this.addColumn('created_at',    'Fecha',     '120px').renderFn(row => this.formatearFecha(row.created_at));
-            this.addColumn('vendedor',      'Vendedor',  '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
-            this.addColumn('producto',      'Producto',       '200px').renderFn(row => row.producto.nombre);
-            this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => this.calculaDestino(row));
-            this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber().setAlign('right');
-            this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
-            this.addColumn('estado',        'Estado',    '120px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
-            this.addColumn('_acciones',     'Acciones',   '30px').setAsMenu().setAlign('right');
+            this.addColumn('created_at',    'Fecha',     '50px').renderFn(row => this.formatearFecha(row.created_at));
+            this.addColumn('vendedor',      'Empresa vendedora',  '120px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
+            this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre);
+            this.addColumn('destino',       'Puerto de destino',   '100px').renderFn(row => this.calculaDestino(row));
+            this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber();
+            this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('left');
+            this.addColumn('estado',        'Estado',    '90px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
+            this.addColumn('_acciones',     'Acciones',   '10px').setAsMenu().setAlign('right');
 
             if (result.matches) {
                 this.getColumn('producto' ).setWidth('200px');
@@ -142,7 +142,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     }
 
     public formatearFecha(fecha:any) {
-        return moment(fecha).format('DD-MM-YYYY');
+        return moment(fecha).format('DD/MM');
     }
 
 

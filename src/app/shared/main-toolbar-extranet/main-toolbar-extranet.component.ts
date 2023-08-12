@@ -51,8 +51,7 @@ export class MainToolbarExtranetComponent implements OnInit {
     }
     
     getAvatar() {
-        let urlImagen = this.user.urlImagen||'';
-        this.avatar = `url(${urlImagen})`;
+        
     }
 
     logout() {        

@@ -1,49 +1,35 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
-		<titulo>Home</titulo>
-		<!--<botones>
-				<button mat-flat-button routerLink="/app/mercado/panel/agregarPosicion" color="primary">Agregar</button>
-		</botones>
+		<titulo>Mercado del día</titulo>
 		<filtros fxLayout="column">
-
-		<app-chips-input
-            [title]="'Comprador'"
-            [labelColumn]="'razon_social'"
-            [dataUrl]="'/clientes/empresas'"
-            [(selected)]="filtros.empresa_id"
-            (selectionChanged)="refreshList()"
-        ></app-chips-input>
 		
 		<mat-form-field appearance="legacy" >
 			<mat-label>Productos</mat-label>
 			<mat-select multiple [(ngModel)]="filtroProductos" (selectionChange)="selecetionChangeMultiple($event,'producto_id')">
-			<mat-option value="">TODOS</mat-option>
 			<mat-option *ngFor="let row of productos" [value]="row.id">{{row.nombre}}</mat-option>
 			</mat-select>
 		</mat-form-field>
 
         <mat-form-field appearance="legacy" >
-			<mat-label>Puertos</mat-label>
+			<mat-label>Puerto de destino</mat-label>
 			<mat-select multiple [(ngModel)]="filtroPuertos" (selectionChange)="selecetionChangeMultiple($event,'puerto_id')">
-				<mat-option value="" >TODOS</mat-option>
 				<mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
 			</mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="legacy" >
+          <mat-label>Cosecha</mat-label>
+          <mat-select multiple [(ngModel)]="filtroCosecha" (selectionChange)="selecetionChangeMultiple($event,'cosecha_id')">
+            <mat-option *ngFor="let row of cosechas" [value]="row.id">{{row.descripcion}}</mat-option>
+          </mat-select>
         </mat-form-field>
 
 		<mat-form-field appearance="legacy" >
 			<mat-label>Forma de pago</mat-label>
 			<mat-select multiple [(ngModel)]="filtroFormaPago" (selectionChange)="selecetionChangeMultiple($event,'condicion_pago_id')">
-			  <mat-option value="" >TODAS</mat-option>
 			  <mat-option *ngFor="let row of formasPago" [value]="row.id">{{row.descripcion}}</mat-option>
 			</mat-select>
 		</mat-form-field>
-
-        <mat-form-field appearance="legacy" >
-          <mat-label>Cosecha</mat-label>
-          <mat-select multiple [(ngModel)]="filtroCosecha" (selectionChange)="selecetionChangeMultiple($event,'cosecha_id')">
-            <mat-option value="" >TODAS</mat-option>
-            <mat-option *ngFor="let row of cosechas" [value]="row.id">{{row.descripcion}}</mat-option>
-          </mat-select>
-        </mat-form-field>
 		</filtros>
 		<contenido>
 				<div class="table-sticky-wrapper">
@@ -55,11 +41,11 @@
 									mat-sort-header
 									[ngStyle]="{'text-align': column.align, width: column.width, 'font-weight': '600'}"
 								>{{column.title}}</th>
-								<td class="celda" mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}" [attr.data-deExportacion]="getEstadoPosicion(row)">
+								<td class="celda" mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
 									<ng-container *ngIf="column.type==='custom'">
 										<div style="margin: 5px;">
 											<mat-chip-list >
-												<mat-chip *ngIf="row.empresas.length > 1" matTooltip="{{concatenaCompradores(row.empresas)}}">Varios</mat-chip>
+												<!--<mat-chip *ngIf="row.empresas.length > 1" matTooltip="{{concatenaCompradores(row.empresas)}}">Varios</mat-chip>-->
 												<mat-chip *ngIf="row.empresas.length == 1">{{obtenerNombreComprador(row.empresas[0])}}</mat-chip>
 											</mat-chip-list>
 										</div>
@@ -81,14 +67,9 @@
 
 				<mat-menu #menu="matMenu">
 						<ng-template matMenuContent let-aliasMenuItems="row">
-								<button mat-menu-item routerLink="/app/mercado/ordenes/agregar/{{aliasMenuItems.posiciones[0].id}}">Crear Orden</button>
-								<button mat-menu-item routerLink="/app/mercado/panel/gestionar-ofertas/{{aliasMenuItems.clave}}">Gestionar ofertas</button>
-								<button mat-menu-item routerLink="/app/mercado/posiciones/copiar/{{aliasMenuItems.posiciones[0].id}}">Copiar</button>
-								<button mat-menu-item *ngIf="puedeDenunciarPosicion(aliasMenuItems)" (click)="denunciarPosiciones(aliasMenuItems.posiciones)">Denunciar</button>
-								<button mat-menu-item (click)="retirarPosicion(aliasMenuItems.posiciones, aliasMenuItems.moneda)">Retirar</button>
-								<button mat-menu-item (click)="eliminarPosicion(aliasMenuItems.posiciones, aliasMenuItems.moneda)">Eliminar</button>
+								<button mat-menu-item >Ver oportunidades</button>
             			</ng-template>
 				</mat-menu>
 		</contenido>
-	-->
+	
 </app-listado-filtrado>

@@ -17,6 +17,7 @@ import { RetirarEliminarPosicionComponent } from './panel/carteles/retirar-elimi
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MercadoOrdenesFormComponent } from './ordenes/mercado-ordenes-form/mercado-ordenes-form.component';
+import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MercadoOrdenesFormComponent } from './ordenes/mercado-ordenes-form/merc
         CerrarSlipComponent,
         RetirarEliminarPosicionComponent,
         MercadoOrdenesFormComponent,
+        HistorialNegociosComponent,
     ],
     imports: [
         CommonModule,
