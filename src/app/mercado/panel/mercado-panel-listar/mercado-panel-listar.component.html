@@ -45,7 +45,6 @@
 									<ng-container *ngIf="column.type==='custom'">
 										<div style="margin: 5px;">
 											<mat-chip-list >
-												<!--<mat-chip *ngIf="row.empresas.length > 1" matTooltip="{{concatenaCompradores(row.empresas)}}">Varios</mat-chip>-->
 												<mat-chip *ngIf="row.empresas.length == 1">{{obtenerNombreComprador(row.empresas[0])}}</mat-chip>
 											</mat-chip-list>
 										</div>
@@ -54,7 +53,7 @@
 										{{column.valueFn(row) || row[column.name] || null}}
 									</ng-container>
 									<ng-container *ngIf="column.type==='menu'">
-											<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" >
+											<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" [disabled]="row.cantidad_ofertas === 0">
 													<mat-icon aria-hidden="false">more_vert</mat-icon>
 											</button>
 									</ng-container>
@@ -67,7 +66,7 @@
 
 				<mat-menu #menu="matMenu">
 						<ng-template matMenuContent let-aliasMenuItems="row">
-								<button mat-menu-item >Ver oportunidades</button>
+								<button mat-menu-item routerLink="/app/mercado/panel/gestionar-ofertas/{{aliasMenuItems.id}}">Ver oportunidades</button>
             			</ng-template>
 				</mat-menu>
 		</contenido>

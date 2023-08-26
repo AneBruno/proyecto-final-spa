@@ -8,7 +8,7 @@
             <input formControlName="nombre" matInput required />
             <mat-error *ngIf="error('nombre')">{{error('nombre')}}</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <!--<mat-form-field appearance="fill">
             <mat-label>Tipo Producto</mat-label>
             <mat-select formControlName="tipo_producto_id" required>
                 <mat-option *ngFor="let row of tiposProducto$ | async" [value]="row.id">
@@ -16,7 +16,7 @@
                 </mat-option>
             </mat-select>
             <mat-error *ngIf="error('tipo_producto_id')">{{error('tipo_producto_id')}}</mat-error>
-        </mat-form-field>
+        </mat-form-field>-->
         
         <div fxLayout="row" fxLayoutGap="15px">
             <button type="submit" mat-flat-button color="primary">

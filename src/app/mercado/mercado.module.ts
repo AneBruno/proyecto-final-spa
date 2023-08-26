@@ -13,11 +13,11 @@ import { CosechasListarComponent          } from './cosechas/cosechas-listar/cos
 import { CosechasEditarComponent          } from './cosechas/cosechas-editar/cosechas-editar.component';
 import { GestionOfertasComponent          } from './gestion-ofertas/gestion-ofertas.component';
 import { CerrarSlipComponent              } from './gestion-ofertas/cerrar-slip/cerrar-slip.component';
-import { RetirarEliminarPosicionComponent } from './panel/carteles/retirar-eliminar-posicion/retirar-posicion.component';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MercadoOrdenesFormComponent } from './ordenes/mercado-ordenes-form/mercado-ordenes-form.component';
 import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
+import { IndicadoresComponent } from './indicadores/indicadores.component';
 
 
 @NgModule({
@@ -33,9 +33,9 @@ import { HistorialNegociosComponent } from './historial-negocios/historial-negoc
         CosechasEditarComponent,
         GestionOfertasComponent,
         CerrarSlipComponent,
-        RetirarEliminarPosicionComponent,
         MercadoOrdenesFormComponent,
         HistorialNegociosComponent,
+        IndicadoresComponent,
     ],
     imports: [
         CommonModule,

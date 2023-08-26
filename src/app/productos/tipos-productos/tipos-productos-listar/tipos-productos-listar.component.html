@@ -1,4 +1,4 @@
-<app-listado-filtrado [dataSource]="dataSource">
+<!--<app-listado-filtrado [dataSource]="dataSource">
     <titulo>Tipos de producto</titulo>
     <botones>
         <button mat-flat-button color="primary" class= "rounded-button" routerLink="agregar">Agregar</button>
@@ -63,10 +63,10 @@
         <mat-menu #menu="matMenu">
             <ng-template matMenuContent let-aliasMenuItems="element">
                 <button mat-menu-item routerLink="/app/productos/tipo/{{aliasMenuItems.id}}">Editar</button>
-                <!--<button mat-menu-item (click)="eliminar(aliasMenuItems.id)">Eliminar</button>-->
                 <button mat-menu-item (click)="deshabilitar(aliasMenuItems.id)" *ngIf="aliasMenuItems.habilitado">Deshabilitar</button>
                 <button mat-menu-item (click)="habilitar(aliasMenuItems.id)" *ngIf="!aliasMenuItems.habilitado">Habilitar</button>
             </ng-template>
         </mat-menu>
     </contenido>
 </app-listado-filtrado>
+-->

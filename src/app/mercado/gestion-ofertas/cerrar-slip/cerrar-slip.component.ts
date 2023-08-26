@@ -19,15 +19,16 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         return `/mercado/ordenes/${this.orden_id}:cerrarSlip`;
     }
 
-        public title                        : string = "Cerrar slip"
-        public grupo                        : any;
+        public title                        : string = "Cerrar negocio"
+        public posicion                        : any;
         public clave                        : String;
         public orden_id                     : number;
         public listaEmpresas                : Array<any>;
-        public listaPosiciones              : Array<any>;
+        //public listaPosiciones              : Array<any>;
         public moneda_posicion              : string;
         public form                         : FormGroup;
         public autocompletarPosicionForm    : boolean;
+        public orden                        : any ;
         
         protected fb  = LocatorService.injector.get(FormBuilder);
 
@@ -45,83 +46,96 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         this.watchRoute();
     }
 
-
-
-    private watchRoute() {
+    private async watchRoute() {
         this.orden_id = this.route.snapshot.params.orden;
-        
         this.route.params.subscribe(async (params) => {
             if (params.clave) {
                 this.clave = params.clave;
-                this.grupo = await this.apiService.getData(`/mercado/panel/${this.clave}`).toPromise();
-                this.moneda_posicion = this.grupo.moneda;
-                this.listaEmpresas = this.grupo.empresas;
-                this.listaPosiciones = this.grupo.posiciones;
-                this.listaEmpresas.length > 1 ? this.autocompletarPosicionForm = false : this.autocompletarPosicionForm = true;
+                this.posicion = await this.apiService.getData(`/mercado/panel/${this.clave}`).toPromise();
+                this.moneda_posicion = this.posicion.moneda;
+                this.listaEmpresas = [this.posicion.empresa];
+                //this.listaPosiciones = [this.posicion];
+                this.autocompletarPosicionForm = true;
                 
-                if (this.grupo != []) {
+                if (this.posicion) {
                     this.completarFormConPosicion();
                 }
 
                 if (this.autocompletarPosicionForm) {
-                    this.form.get('posicion_id').setValue(this.listaEmpresas[0].posicion_id);
+                    this.form.get('posicion_id').setValue(this.posicion.id);
                 }
             }
-
         });
-
     }
 
-    private createForm() {
+    private async createForm() {
+        this.orden_id = this.route.snapshot.params.orden;
         this.form = this.fb.group({
             volumen                        : new FormControl({ value: '',    disabled: false  }),
             posicion_id                    : new FormControl({ value: '',    disabled: false  }),
             precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
             producto_posicion              : new FormControl({ value: '',    disabled: false  }),
+            empresa_posicion               : new FormControl({ value: '',    disabled: false  }),
             destino_posicion               : new FormControl({ value: '',    disabled: false  }),
-            entrega_posicion               : new FormControl({ value: '',    disabled: false  }),
             precio_posicion                : new FormControl({ value: '',    disabled: false  }),
             forma_pago_posicion            : new FormControl({ value: '',    disabled: false  }),
-            calidad_posicion               : new FormControl({ value: '',    disabled: false  }),
-            posicion_excepcional_posicion  : new FormControl({ value: '',    disabled: false  }),
-            posicion_trabajar_posicion     : new FormControl({ value: '',    disabled: false  }),
-            volumen_limitado_posicion      : new FormControl({ value: '',    disabled: false  }),
-            calidad_observaciones_posicion : new FormControl({ value: '',    disabled: false  }),
+            cosecha_posicion               : new FormControl({ value: '',    disabled: false  }),
             observaciones_posicion         : new FormControl({ value: '',    disabled: false  }),
+            //orden de venta:
+            producto_orden                 : new FormControl({ value: '',    disabled: false  }),
+            empresa_orden                  : new FormControl({ value: '',    disabled: false  }),
+            destino_orden                  : new FormControl({ value: '',    disabled: false  }),
+            precio_orden                   : new FormControl({ value: '',    disabled: false  }),
+            forma_pago_orden               : new FormControl({ value: '',    disabled: false  }),
+            observaciones_orden            : new FormControl({ value: '',    disabled: false  }),
+            cosecha_orden                  : new FormControl({ value: '',    disabled: false  })
         });
 
         this.form.get('posicion_id').valueChanges.subscribe(async (value) => {
             if (value) {
-                this.grupo = await this.apiService.getData(`/mercado/posiciones/${value}`).toPromise();
+                this.posicion = await this.apiService.getData(`/mercado/panel/${value}`).toPromise();
+                
                 this.completarFormConPosicion();
             }
         });
+
+
     }
 
     private async completarFormConPosicion(){
-        this.form.get('producto_posicion').setValue(this.grupo.producto.nombre);
-        this.form.get('destino_posicion').setValue(this.grupo.puerto ? this.grupo.puerto.nombre : this.grupo.establecimiento.nombre);
-        this.form.get('entrega_posicion').setValue(this.grupo.entrega);
-        this.form.get('precio_posicion').setValue(this.grupo.precio ? this.grupo.precio + ' ' + this.grupo.moneda : 'A fijar');
-        this.form.get('precio_cierre_slip').setValue(this.grupo.precio ? this.grupo.precio : '');
-        this.form.get('forma_pago_posicion').setValue(this.grupo.condicion_pago?.descripcion);
-        this.form.get('calidad_posicion').setValue(this.grupo.calidad.nombre);
-        this.form.get('posicion_excepcional_posicion').setValue(this.grupo.posicion_excepcional == true ? 'Si' : 'No');
-        this.form.get('posicion_trabajar_posicion').setValue(this.grupo.a_trabajar == true ? 'Si' : 'No');
-        this.form.get('volumen_limitado_posicion').setValue(this.grupo.volumen_limitado == true ? 'Si' : 'No');
-        this.form.get('calidad_observaciones_posicion').setValue(this.grupo.calidad_observaciones);
-        this.form.get('observaciones_posicion').setValue(this.grupo.observaciones);
+       
+        const relations = 'empresa,producto,puerto,condicionPago';
+        this.orden = await this.apiService.getData('/mercado/ordenes/' + this.orden_id, { with_relation: relations }).toPromise();
+        console.log('this.orden',this.orden);
+        //this.form.get('posicion_id').setValue(this.posicion.id);
+        this.form.get('empresa_posicion').setValue(this.posicion.empresa.razon_social);
+        this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
+        this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
+        this.form.get('precio_posicion').setValue(this.posicion.moneda + '' +this.posicion.precio);
+        this.form.get('precio_cierre_slip').setValue(this.posicion.precio);
+        this.form.get('forma_pago_posicion').setValue(this.posicion.condicion_pago?.descripcion);
+        this.form.get('cosecha_posicion').setValue(this.posicion.cosecha.descripcion);
+        this.form.get('observaciones_posicion').setValue(this.posicion.observaciones? this.posicion.observaciones : '-');
+
+        this.form.get('empresa_orden').setValue(this.orden.empresa.razon_social);
+        this.form.get('volumen').setValue(this.orden.volumen);
+        this.form.get('producto_orden').setValue(this.orden.producto.nombre);
+        this.form.get('observaciones_orden').setValue(this.orden.observaciones? this.orden.observaciones : '-');
+        this.form.get('destino_orden').setValue(this.orden.puerto.nombre);
+        this.form.get('precio_orden').setValue(this.orden.moneda +' '+ this.orden.precio);
+        this.form.get('forma_pago_orden').setValue(this.orden.condicion_pago.descripcion);
+    
     }
 
     public infoEmpresaPosicion(posicion: any) {
-        var precio = posicion.precio ? posicion.precio + ' ' + this.moneda_posicion : 'A fijar';
+        var precio = posicion.precio + ' ' + this.moneda_posicion;
         return (posicion.id + " - " + posicion.empresa.razon_social + ' - ' + precio);
     }
 
 
-    onOrdenFormChange(value) {
+    /*onOrdenFormChange(value) {
         this.form.get('volumen').setValue(value.volumen);
-    }
+    }*/
 
     public guardar() {
         this.enviarDatos().subscribe((data: any) => {

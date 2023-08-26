@@ -8,7 +8,6 @@ import { User } from 'src/app/shared/models/user.model';
 import { ApiService                   } from 'src/app/shared/services/api.service';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { MatDialog } from '@angular/material/dialog';
-import { RetirarEliminarPosicionComponent } from '../carteles/retirar-eliminar-posicion/retirar-posicion.component';
 
 @Component({
     selector    :   'app-mercado-panel-listar',
@@ -46,7 +45,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         private apiService         : ApiService,
         public  authService        : AuthService,
         private userService        : UserService,
-        private confirm            : ConfirmService,
         public dialog              : MatDialog
     ) {
         super();
@@ -55,33 +53,28 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public async ngOnInit(): Promise<void> {
         this.dataSource.uri = '/mercado/panel';
         this.filtros.empresa_id = [];
-
-
         this.currentUser = this.userService.getUser();
-
         await this.loadRelatedData();
-
         this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', {ordenes: {descripcion:'DESC'}}).toPromise();
         this.cosechas   = await this.apiService.getAllData('/mercado/cosechas', {ordenes: {descripcion:'DESC'}}).toPromise();
-
         this.setTable();
-        
         this.actualizarPeriodicamente();
 
     }
 
     private setTable() : void {
         this.clearColumns();
-        this.addColumn('comprador',     'Empresa compradora',      '150px').setAsCustom();
-        this.addColumn('producto',      'Producto',  '150px').renderFn(row => row.producto.nombre             );
+        this.addColumn('comprador',     'Empresa compradora',      '150px').renderFn(row => row.empresa.razon_social             );;
+        this.addColumn('producto',      'Producto',  '100px').renderFn(row => row.producto.nombre             );
         this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => row.puerto.nombre        );
-        this.addColumn('cosecha_nueva', 'Cosecha',    '100px').renderFn(row => this.DescripcionCosecha(row));
-        this.addColumn('forma_pago', 'Forma de Pago', '100px').renderFn(row => row.condicion_pago.descripcion);
+        this.addColumn('cosecha_nueva', 'Cosecha',    '100px').renderFn(row => row.cosecha.descripcion);
+        this.addColumn('forma_pago', 'Forma de Pago', '90px').renderFn(row => row.condicion_pago.descripcion);
         this.addColumn('precio_moneda', 'Precio compra',     '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
-        //Falta todavía. 
-        this.addColumn('ofertas',       'Ofertas',    '80px').renderFn(row => row.id? '-': "-");
+        this.addColumn('cantidad_ofertas', 'Oportunidades encontradas', '80px')
+        .renderFn(row => row.cantidad_ofertas === 0 ? '-' : row.cantidad_ofertas)
+        .setAlign('right');
         //Falta todavía.
-        this.addColumn('toneladas',     'Toneladas',  '80px').renderFn(row => row.id? "-": "-");
+        //this.addColumn('toneladas',     'Toneladas',  '80px').renderFn(row => row.toneladas.toString());
         this.addColumn('_acciones',     'Acciones',   '80px').setAsMenu().setAlign('right');
     }
 
@@ -96,27 +89,27 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
       }).toPromise();
     }
 
-    /*public concatenaCompradores(listaEmpresas: any) {
+    public concatenaCompradores(listaEmpresas: any) {
         var resultado = listaEmpresas.map((empresa) => {
             let razon_social = empresa.razon_social.length > 14 ? empresa.razon_social.substr(0, 14) + '...' : empresa.razon_social;
             return empresa.abreviacion ? empresa.abreviacion : razon_social;
         }).filter((empresa, i, a) => a.indexOf(empresa) == i);
         return resultado.join('\n');
-    }*/
+    }
 
     public obtenerNombreComprador(empresa: any): string {
         return empresa.razon_social;
     }
 
-    public DescripcionCosecha(row: any){
+    /*public DescripcionCosecha(row: any){
         for (const cosecha of this.cosechas) {
             if (cosecha.id == row.cosecha_id) {
                 return cosecha.descripcion;
             }
         }
-    }
+    }*/
 
-//Actualiza el listado del home cada 10segundos asi no queda desactualizado.
+    //Actualiza el listado del home cada 10segundos asi no queda desactualizado.
     private async actualizarPeriodicamente() {
         this.interval = setInterval(async () => {
             await this.dataSource.refreshData();
@@ -124,7 +117,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     }
 
     public obtenerNombreEmpresas(grupo:any) {
-        //grupo.empresas.length > 1 ? this.concatenaCompradores(grupo.empresas) : [this.obtenerNombreComprador(grupo.empresas[0])]
+        grupo.empresas.length > 1 ? this.concatenaCompradores(grupo.empresas) : [this.obtenerNombreComprador(grupo.empresas[0])]
         this.obtenerNombreComprador(grupo.empresas[0]);
     }
 

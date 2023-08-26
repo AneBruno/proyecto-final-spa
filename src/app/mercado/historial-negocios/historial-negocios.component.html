@@ -1,4 +1,38 @@
 <app-listado-filtrado >
     <titulo>Historial de negocios</titulo>
+    <filtros fxLayout="column">
+        <app-search-input fxFlex="100" [(value)]="dataSource.filtros.descripcion" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
+    </filtros>
+    <contenido>
+        <div class="table-sticky-wrapper">
+            <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}" [stickyEnd]="column.type==='menu'">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        [ngStyle]="{'text-align': column.align, width: column.width, 'font-weight': '600'}"
+                    >{{column.title}}</th>
+                    <td class="celda" mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
+                        <ng-container *ngIf="column.type==='text'||column.type===undefined">
+                            {{column.valueFn(row) || row[column.name] || null}}
+                        </ng-container>
+                        <ng-container *ngIf="column.type==='menu'">
+                                <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" [disabled]="row.cantidad_ofertas === 0">
+                                        <mat-icon aria-hidden="false">more_vert</mat-icon>
+                                </button>
+                        </ng-container>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+            </table>
+    </div>
 
+    <mat-menu #menu="matMenu">
+            <ng-template matMenuContent let-aliasMenuItems="row">
+                    <button mat-menu-item>Consultar</button>
+            </ng-template>
+    </mat-menu>
+    </contenido>
 </app-listado-filtrado>

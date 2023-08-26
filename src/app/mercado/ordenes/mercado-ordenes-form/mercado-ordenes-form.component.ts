@@ -35,6 +35,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     private producto_id_to: any;
     public minDate: any = moment().format();
     public direccionCompletaDestino: string;
+    readonlyMode: boolean = false;
 
 
     public constructor(
@@ -59,9 +60,13 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
         this.fetchPuertos();
 
-        if (this.consulta) {
+        /*if (this.consulta) {
             this.form.disable();
+        }*/
+        if (this.consulta) {
+            this.readonlyMode = true;
         }
+        
     }
 
     private async watchInputs() {
@@ -81,7 +86,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     private loadData() {
         if (this.id) {
             this.obtenerYCompletar(this.id, { with_relation: 'estado,empresa,producto,usuarioCarga' });
-            //saqué calidad, de las llaves
+         
         }
     }
 
@@ -106,7 +111,6 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
             precio: new FormControl({ value: '', disabled: false }),
             condicion_pago_id: new FormControl({ value: '', disabled: false }),
             estado_id: new FormControl({ value: '', disabled: false }),
-            comercial: new FormControl({ value: '', disabled: false }),
             observaciones: new FormControl({ value: '', disabled: false }),
             empresa_razon_social: new FormControl({ value: '', disabled: false }),
             direccionCompletaDestino: new FormControl({ value: '', disabled: false })

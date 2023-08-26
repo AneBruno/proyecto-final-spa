@@ -44,7 +44,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="30" fxFlex.xs="100">
-                <mat-label>Comercial asociado</mat-label>
+                <mat-label>Usuario asociado</mat-label>
                 <mat-select formControlName="usuario_comercial_id" required>
                     <mat-option *ngFor="let row of usuarios" [value]="row.id">{{row.nombre}} {{row.apellido}}</mat-option>
                 </mat-select>

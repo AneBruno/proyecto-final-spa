@@ -1,20 +1,13 @@
 <app-listado-filtrado [dataSource]="dataSource">
-    <titulo>Gestión de Ofertas</titulo>
+    <titulo>Oportunidades de negocio</titulo>
     <filtros fxLayout="column" fxLayoutAlign="start stretch">
 
-        <mat-form-field *ngIf="!consumoInterno" appearance="legacy" >
-            <mat-label>Destino</mat-label>
+        <mat-form-field appearance="legacy" >
+            <mat-label>Puerto de destino</mat-label>
             <mat-select multiple [(ngModel)]="dataSource.filtros.puerto_id" (selectionChange)="dataSource.refreshData()">
                 <mat-option *ngFor="let puerto of puertos" [value]="puerto.id">{{puerto.nombre}}</mat-option>
             </mat-select>
         </mat-form-field>
-
-        <mat-form-field *ngIf="consumoInterno " appearance="legacy" >
-          <mat-label>Destino</mat-label>
-          <mat-select multiple [(ngModel)]="dataSource.filtros.localidad_destino" (selectionChange)="dataSource.refreshData()">
-              <mat-option *ngFor="let localidad of localidades" [value]="localidad.localidad_destino">{{localidad.localidad_destino}}</mat-option>
-          </mat-select>
-      </mat-form-field>
 
 
         <mat-form-field appearance="legacy" >
@@ -24,19 +17,6 @@
           </mat-select>
         </mat-form-field>
 
-      <mat-form-field appearance="legacy">
-        <mat-label>Entrega</mat-label>
-        <mat-select multiple [(ngModel)]="dataSource.filtros.entrega" (selectionChange)="dataSource.refreshData()">
-            <mat-option value="DISPONIBLE">Disponible</mat-option>
-            <mat-option value="LIMIT">Limit</mat-option>
-            <mat-option value="CONTRACTUAL">Contractual</mat-option>
-            <mat-option value="FORWARD">Forward</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-        <app-search-input fxFlex="100" [label]="'Precio desde'" [(value)]="dataSource.filtros.precioDesde" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
-        <app-search-input fxFlex="100" [label]="'Precio hasta'" [(value)]="dataSource.filtros.precioHasta" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
-
         <mat-form-field appearance="legacy">
             <mat-label>Moneda</mat-label>
             <mat-select [(ngModel)]="dataSource.filtros.moneda" (selectionChange)="dataSource.refreshData()">
@@ -45,94 +25,92 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy">
-            <mat-label>Fecha de entrega desde</mat-label>
-            <input #filtroFecha matInput [matDatepicker]="picker" (focus)="picker.open()" [(ngModel)]="dataSource.filtros.fechaEntregaInicioDesde" (dateChange)="actualizarConFechaFormateada('fechaEntregaInicioDesde', $event.value)">
-
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="legacy">
-            <mat-label>Fecha de entrega hasta</mat-label>
-            <input #filtroFecha matInput [matDatepicker]="picker1" (focus)="picker1.open()" [(ngModel)]="dataSource.filtros.fechaEntregaFinHasta" (dateChange)="actualizarConFechaFormateada('fechaEntregaFinHasta', $event.value)">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
+        <app-search-input fxFlex="100" [label]="'Precio desde'" [(value)]="dataSource.filtros.precioDesde" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
+        <app-search-input fxFlex="100" [label]="'Precio hasta'" [(value)]="dataSource.filtros.precioHasta" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
     </filtros>
 
     <contenido>
             <!--Cabecera con datos de la posición-->
             <mat-card fxLayout="column" class="posicion-card">
-                <mat-card-title>
-                    <span>Posición:</span>
-                </mat-card-title>
-
-                <mat-chip-list class="empresas-chips">
+                
+                <!--<mat-chip-list class="empresas-chips">
                     <mat-chip
                         *ngFor="let empresa of listaEmpresas"
                         [matTooltip]="listaEmpresas.length > 1 ? empresaTooltip(empresa) : null">
                             {{empresa}}
                     </mat-chip>
-                </mat-chip-list>
+                </mat-chip-list>-->
 
-                <form class="posicion-datos">
+                <!--Datos de la posición-->
+                <form [formGroup]="formularioPosicion" class="formulario-posicion" fxLayout="column" fxLayoutAlign="start stretch">
+                    <div fxLayout="row wrap">
+                        <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Empresa compradora:</mat-label>
+                                <input formControlName="empresa_posicion" matInput readonly/>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Producto:</mat-label>
+                                <input formControlName="producto_posicion" matInput readonly/>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-label>Precio:</mat-label>
+                            <input formControlName="precio_posicion" matInput readonly />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Observaciones:</mat-label>
+                                <input formControlName="observaciones_posicion" matInput readonly />
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Cosecha:</mat-label>
+                                <input formControlName="cosecha_posicion" matInput readonly />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Puerto de destino:</mat-label>
+                                <input formControlName="destino_posicion" matInput readonly />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Forma de pago:</mat-label>
+                                <input formControlName="forma_pago_posicion" matInput readonly />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                
+<!---->
+                <!--<form class="posicion-datos">
                     <div row>
                         <div info>
                             <span label>Producto:</span>
                             <span>{{ posicion?.producto.nombre }}</span>
                         </div>
                         <div info>
-                            <span label>Calidad:</span>
-                            <span>{{ posicion?.calidad }}</span>
+                            <span label>Puerto de destino:</span>
+                            <span>{{ posicion?.puerto }}</span>
                         </div>
                         <div *ngIf="posicionesAgrupadas?.length === 1" info>
                             <span label>Precio:</span>
-                            <span>{{ posicion?.precio }}</span>
+                            <span>{{ posicion?.precio_moneda }}</span>
                         </div>
                     </div>
                     <div row>
-                        <div info>
-                            <span label>Entrega:</span>
-                            <span content>{{ posicion?.entrega }}</span>
-                        </div>
-                        <div info>
-                            <span label>Fecha Inicio:</span>
-                            <span>{{ posicion?.fecha_entrega_inicio }}</span>
-                        </div>
-                        <div info>
-                            <span label>Fecha Fin:</span>
-                            <span>{{ posicion?.fecha_entrega_fin }}</span>
-                        </div>
-                        <div info>
-                            <span label>Destino:</span>
-                            <span>{{ posicion?.destino }}</span>
-                        </div>
                         <div info>
                             <span label>Cosecha:</span>
                             <span>{{ posicion?.cosecha.descripcion }}</span>
                         </div>
                         <div info>
-                            <span label>Forma de Pago:</span>
+                            <span label>Condición de Pago:</span>
                             <span>{{ posicion?.forma_pago }}</span>
                         </div>
                         <ng-container *ngIf="posicionesAgrupadas?.length === 1">
-                            <div info>
-                                <span label>Posición excepcional:</span>
-                                <span>{{ posicionesAgrupadas[0].posicion_excepcional ? 'Si' : 'No' }}</span>
-                            </div>
-                            <div info>
-                                <span label>Posición trabajar:</span>
-                                <span>{{ posicionesAgrupadas[0].a_trabajar ? 'Si' : 'No' }}</span>
-                            </div>
-                            <div info>
-                                <span label>Volumen limitado:</span>
-                                <span>{{ posicionesAgrupadas[0].volumen_limitado ? 'Si' : 'No' }}</span>
-                            </div>
-                            <div info>
-                                <span label>Observación de calidad:</span>
-                                <span>{{ posicionesAgrupadas[0].calidad_observaciones || '-' }}</span>
-                            </div>
                             <div info>
                                 <span label>Observaciones:</span>
                                 <span>{{ posicionesAgrupadas[0].observaciones || '-' }}</span>
@@ -144,14 +122,13 @@
                         </ng-container>
 
                     </div>
-                </form>
+                </form>-->
             </mat-card>
 
             <!--Listado con órdenes-->
             <mat-card class="ordenes-card">
                 <mat-card-title>
-                    <span class="titulo-ordenes">Ofertas</span>
-                    <button mat-flat-button color="primary" class="boton-agregar-orden" routerLink="/app/mercado/ordenes/agregar/{{idBase}}">Crear Orden</button>
+                    <span class="titulo-ordenes">Órdenes de venta coincidentes</span>
                 </mat-card-title>
 
                 <div class="table-sticky-wrapper">
@@ -161,7 +138,7 @@
                                 mat-header-cell
                                 *matHeaderCellDef
                                 mat-sort-header
-                                [ngStyle]="{'text-align': column.align, width: column.width}"
+                                [ngStyle]="{'text-align': column.align, width: column.width,'font-weight': '600'}"
                             >{{column.title}}</th>
                             <td mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
                                 <ng-container *ngIf="column.type==='number'">
@@ -185,7 +162,7 @@
 
                 <mat-menu #menu="matMenu">
                     <ng-template matMenuContent let-aliasMenuItems="row" >
-                       <button  mat-menu-item routerLink="cerrar-slip/{{aliasMenuItems.id}}">Cerrar slip</button>
+                       <button  mat-menu-item routerLink="cerrar-slip/{{aliasMenuItems.id}}">Cerrar negocio</button>
                     </ng-template>
                 </mat-menu>
 

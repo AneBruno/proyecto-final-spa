@@ -25,7 +25,6 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
 
     public filtros              : any = {};
     public formasPago           : Array<any> = [];
-    //public calidades            : any[]    = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
     public id_usuario           : Number;
@@ -37,8 +36,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
     public filtroProductosOpciones : any = {
         ordenes: {
-            uso_frecuente: 'desc',
-            nombre: 'asc',
+            nombre: 'asc'
         }
     }
 

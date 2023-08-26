@@ -4,7 +4,7 @@
 
         <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
             <mat-label>Producto</mat-label>
-            <input formControlName="producto_nombre" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto" (keyup)="producto_id_keyup($event)" required />
+            <input formControlName="producto_nombre" [readonly]="readonlyMode" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto" (keyup)="producto_id_keyup($event)" required />
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="producto_id_selected($event)" panelWidth="400px">
                 <mat-option *ngFor="let row of productos" [value]="row.nombre" [attr.data-id]="row.id">
                     {{row.nombre}}
@@ -15,7 +15,7 @@
 
         <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
             <mat-label>Empresa vendedora</mat-label>
-            <input formControlName="empresa_razon_social" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto2" (keyup)="empresa_id_keyup($event)" required />
+            <input formControlName="empresa_razon_social" placeholder="Escriba para buscar.." matInput [matAutocomplete]="auto2" (keyup)="empresa_id_keyup($event)"  required />
             <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="empresa_id_selected($event)">
                 <mat-option *ngFor="let row of empresas" [value]="row.razon_social" [attr.data-id]="row.id">
                     {{row.razon_social}}
@@ -56,18 +56,11 @@
 
         <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.xs="100">
             <mat-label>Precio</mat-label>
-            <input formControlName="precio" matInput required/>
+            <input formControlName="precio"  matInput required/>
             <mat-error *ngIf="error('precio')">{{error('precio')}}</mat-error>
         </mat-form-field>
     </div>
 
-    <div *ngIf="consulta">
-        <mat-form-field appearance="fill" fxFlex="50">
-            <mat-label>Comercial</mat-label>
-            <input formControlName="comercial" matInput [readonly]="true"/>
-            <mat-error *ngIf="error('comercial')">{{error('comercial')}}</mat-error>
-        </mat-form-field>
-    </div>
 
     <!--<div *ngIf="opcion_destino==='exportacion'">-->
     <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">

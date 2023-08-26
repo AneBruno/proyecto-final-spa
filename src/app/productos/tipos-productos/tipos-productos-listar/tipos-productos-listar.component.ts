@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { ListadoDataSource } from 'src/app/shared/listado.datasource';
 import { ApiService        } from 'src/app/shared/services/api.service';
 import { ConfirmService    } from 'src/app/shared/services/confirm.service';
@@ -23,13 +23,7 @@ export class TiposProductosListarComponent implements OnInit {
         this.dataSource.uri = '/tipos-producto';
     }
 
-    /*public eliminar(id: number) {
-        this.confirm.ask('Borrará el tipo de producto. Continuar?').subscribe(() => {
-            this.client.delete('/tipos-producto', id).subscribe(resp=> {
-                this.dataSource.refreshData();
-            });
-        });
-    }*/
+    
 
     public deshabilitar(id: number) {
         this.confirm.ask('Deshabilitará el tipo de producto. Continuar?').subscribe(() => {
@@ -46,3 +40,4 @@ export class TiposProductosListarComponent implements OnInit {
     }
 
 }
+*/

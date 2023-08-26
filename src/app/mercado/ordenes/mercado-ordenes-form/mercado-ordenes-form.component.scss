@@ -8,3 +8,9 @@
     margin-left: 10px;
     margin-bottom: 15px;
 }
+.mat-select-readonly {
+    background-color: transparent; /* Elimina el fondo */
+    border: none; /* Elimina el borde */
+    color: gray; /* Cambia el color del texto */
+    cursor: default; /* Cambia el cursor */
+}

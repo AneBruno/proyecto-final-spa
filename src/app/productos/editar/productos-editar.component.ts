@@ -14,7 +14,7 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
 
     public id      : number;
     public title   : string = 'Agregar Producto';
-    tiposProducto$: Observable<any[]>;
+    //tiposProducto$: Observable<any[]>;
 
 
     constructor(
@@ -22,9 +22,9 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
         private router   : Router,
     ) {
         super();
-        this.tiposProducto$ = this.apiService.getData('/tipos-producto').pipe(
+        /*this.tiposProducto$ = this.apiService.getData('/tipos-producto').pipe(
             map(tipos => tipos.filter(tipo => tipo.habilitado))
-          );
+          );*/
         
     }
 
@@ -47,7 +47,7 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
         this.form = this.fb.group({
             id               : new FormControl({ value: '', disabled: true  }),
             nombre           : new FormControl({ value: '', disabled: false }),
-            tipo_producto_id : new FormControl({ value: '', disabled: false }, Validators.required),
+           // tipo_producto_id : new FormControl({ value: '', disabled: false }, Validators.required),
         });
     }
 
@@ -55,10 +55,10 @@ export class ProductosEditarComponent extends FormBaseComponent implements OnIni
         return '/productos';
     }
 
-    protected completarCampos(data: any) {
+   /* protected completarCampos(data: any) {
         data.tipo_producto_id = data.tipo_producto.id;
         super.completarCampos(data);
-    }
+    }*/
 
     public onSubmit() {
         this.enviarDatos().subscribe(() => {

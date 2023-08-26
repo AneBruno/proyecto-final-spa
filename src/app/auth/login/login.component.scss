@@ -52,8 +52,16 @@
             margin-top: 10px;
         }
 
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block; /* Agrega esta línea para asegurarte de que el mensaje tenga un comportamiento de bloque */
+        }
+
     }
 
     }
+
 }
 
