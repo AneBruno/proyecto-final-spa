@@ -1,7 +1,52 @@
-<app-listado-filtrado >
+<app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
     <titulo>Historial de negocios</titulo>
-    <filtros fxLayout="column">
-        <app-search-input fxFlex="100" [(value)]="dataSource.filtros.descripcion" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
+    <filtros fxLayout="column" fxLayoutAlign="start stretch">
+
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Desde</mat-label>
+            <input
+                #filtroFechaDesde matInput [matDatepicker]="pickerFechaDesde"
+                [max]="fechaHasta"
+                (focus)="pickerFechaDesde.open()"
+                [(ngModel)]="fechaDesde"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaDesde"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaDesde></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Hasta</mat-label>
+            <input
+                #filtroFechaHasta matInput [matDatepicker]="pickerFechaHasta"
+                [min]="fechaDesde"
+                (focus)="pickerFechaHasta.open()"
+                [(ngModel)]="fechaHasta"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaHasta></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" >
+          <mat-label>Productos</mat-label>
+          <mat-select multiple [(ngModel)]="filtroProductos" (selectionChange)="selecetionChangeMultiple($event,'producto_id')">
+            <mat-option *ngFor="let row of productos" [value]="row.id">{{row.nombre}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy" >
+            <mat-label>Puerto de destino</mat-label>
+            <mat-select multiple [(ngModel)]="filtroPuertos" (selectionChange)="selecetionChangeMultiple($event,'puerto_id')">
+              <mat-option *ngFor="let row of puertos" [value]="row.id">{{row.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" >
+			<mat-label>Forma de pago</mat-label>
+			<mat-select multiple [(ngModel)]="filtroFormaPago" (selectionChange)="selecetionChangeMultiple($event,'condicion_pago_id')">
+			  <mat-option *ngFor="let row of formasPago" [value]="row.id">{{row.descripcion}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+        
     </filtros>
     <contenido>
         <div class="table-sticky-wrapper">
@@ -29,9 +74,14 @@
             </table>
     </div>
 
+    <mat-paginator [length]="dataSource.total"
+        [pageSize]="dataSource.limit"
+        (page)="dataSource.setPageIndex($event.pageIndex)">
+    </mat-paginator>
+
     <mat-menu #menu="matMenu">
             <ng-template matMenuContent let-aliasMenuItems="row">
-                    <button mat-menu-item>Consultar</button>
+                    <button mat-menu-item routerLink="/{{aliasMenuItems.id}}">Consultar</button>
             </ng-template>
     </mat-menu>
     </contenido>

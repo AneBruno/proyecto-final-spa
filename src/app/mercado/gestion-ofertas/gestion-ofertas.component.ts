@@ -20,6 +20,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
     public posicion             : any = null;
     public fecha                : Date;
     public puertos              : any;
+    public usuarios : any;
     public listaEmpresas        : Array<any>;
     public posicionesAgrupadas  : Array<any>;
     public condicionesPago      : Array<any> = [];
@@ -43,7 +44,9 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             destino_posicion: [''],
             forma_pago_posicion: [''],
             empresa_posicion: [''],
-            cosecha_posicion: ['']
+            cosecha_posicion: [''],
+            usuario_carga_posicion: [''],
+            volumen_posicion: ['']
         });
     }
 
@@ -55,7 +58,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
 
         this.dataSource.uri         = '/mercado/ordenes';
         this.dataSource.queryParams = {
-            with_relation : 'puerto,producto,empresa,estado'
+            with_relation : 'puerto,producto,empresa,estado,usuarioCarga,condicionPago'
         };
         //solo las ordenes con estado 1 (activa)
         this.dataSource.fixedFilters.estados = [1];
@@ -68,12 +71,14 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             '(max-width: 768px)'
         ]).subscribe(result => {
             this.clearColumns();
-            this.addColumn('vendedor',    'Empresa vendedora',          '150px').renderFn(row => row.empresa.razon_social);
+            this.addColumn('vendedor',    'Vendedora',          '150px').renderFn(row => row.empresa.razon_social);
+            this.addColumn('producto',    'Producto',          '120px').renderFn(row => row.producto.nombre);
+            this.addColumn('destino',     'Puerto de destino',      '150px').renderFn(row => this.calculaDestinoOfertas(row));
+            this.addColumn('forma_pago',    'Forma de pago',          '120px').renderFn(row => row.condicion_pago.descripcion);
             this.addColumn('tonelada',    'Toneladas',     '100px').renderFn(row => row.volumen).setAsNumber();
             this.addColumn('precio',      'Precio',       '100px').renderFn(row => row.moneda + ''+ row.precio);
-            this.addColumn('destino',     'Puerto de destino',      '150px').renderFn(row => this.calculaDestinoOfertas(row));
-            this.addColumn('estado',      'Estado',       '120px').renderFn(row => row.estado.nombre);
-            this.addColumn('_acciones',   'Acciones',      '30px').setAsMenu().setAlign('right');
+            this.addColumn('usuario_carga',      'Cargada por',       '100px').renderFn(row => row.usuario_carga.nombre + ' '+ row.usuario_carga.apellido);
+            //this.addColumn('_acciones',   'Acciones',      '30px').setAsMenu().setAlign('right');
 
             if (result.matches) {
                 this.getColumn('vendedor' ).setWidth('400px');
@@ -101,8 +106,12 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             'limit' : 0,
         }).toPromise();
         this.condicionesPago = await this.apiService.getData('/mercado/condiciones-pago').toPromise();
+        this.usuarios = await this.apiService.getData('/usuarios').toPromise();
+        //console.log(this.usuarios);
         let clave    = await this.obtenerClavePosicion();
-        let posicion = await this.apiService.getData(`/mercado/panel/${clave}`).toPromise();
+        const relations = 'usuarioCarga';
+        let posicion = await this.apiService.getData('/mercado/panel/' + clave, { with_relation: relations }).toPromise();
+        //console.log(posicion);
         this.completarPosicion(posicion);
         this.completarFiltrosPorDefecto(posicion);
     }
@@ -117,7 +126,9 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             forma_pago            : posicion.condicion_pago.descripcion,
             cosecha               : posicion.cosecha,
             empresa               : posicion.empresa,
-            observaciones         : posicion.observaciones
+            observaciones         : posicion.observaciones,
+            usuario_carga_id      : posicion.usuario_carga_id,
+            volumen               : posicion.volumen
 
         };
         // Agregar localidad de la posición si no se encuentra previamente.
@@ -137,7 +148,11 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             observaciones_posicion: this.posicion.observaciones? this.posicion.observaciones: '-',
             destino_posicion: this.posicion.puerto,
             forma_pago_posicion: this.posicion.forma_pago,
-            cosecha_posicion : this.posicion.cosecha.descripcion
+            cosecha_posicion : this.posicion.cosecha.descripcion,
+            volumen_posicion: this.posicion.volumen,
+            usuario_carga_posicion: this.usuarios.find(usuario => usuario.id == this.posicion.usuario_carga_id).nombreCompleto
+
+
         });
     }
 
@@ -180,6 +195,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         return `
             Precio: ${posicionFiltrada.precio} ${this.posicion.moneda}
             Observaciones: ${posicionFiltrada.observaciones ?? '-'}
+            Comercial: ${posicionFiltrada.usuario_carga.nombre} ${posicionFiltrada.usuario_carga.apellido}
         `;
     }
 

@@ -5,8 +5,32 @@
     </botones>
     <filtros fxLayout="column">
 
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Desde</mat-label>
+            <input
+                #filtroFechaDesde matInput [matDatepicker]="pickerFechaDesde"
+                [max]="fechaHasta"
+                (focus)="pickerFechaDesde.open()"
+                [(ngModel)]="fechaDesde"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaDesde"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaDesde></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Hasta</mat-label>
+            <input
+                #filtroFechaHasta matInput [matDatepicker]="pickerFechaHasta"
+                [min]="fechaDesde"
+                (focus)="pickerFechaHasta.open()"
+                [(ngModel)]="fechaHasta"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaHasta></mat-datepicker>
+        </mat-form-field>
+
         <mat-form-field appearance="legacy" >
-          <mat-label>Productos</mat-label>
+          <mat-label>Producto</mat-label>
           <mat-select multiple [(ngModel)]="filtroProductos" (selectionChange)="selecetionChangeMultiple($event,'producto_id')">
             <mat-option *ngFor="let row of productos" [value]="row.id">{{row.nombre}}</mat-option>
           </mat-select>
@@ -25,30 +49,6 @@
 			  <mat-option *ngFor="let row of formasPago" [value]="row.id">{{row.descripcion}}</mat-option>
 			</mat-select>
 		</mat-form-field>
-
-        <mat-form-field appearance="legacy">
-          <mat-label>Fecha Desde</mat-label>
-          <input
-              #filtroFechaDesde matInput [matDatepicker]="pickerFechaDesde"
-              [max]="fechaHasta"
-              (focus)="pickerFechaDesde.open()"
-              [(ngModel)]="fechaDesde"
-              (dateChange)="actualizarDatos()">
-          <mat-datepicker-toggle matSuffix [for]="pickerFechaDesde"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFechaDesde></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field appearance="legacy">
-          <mat-label>Fecha Hasta</mat-label>
-          <input
-              #filtroFechaHasta matInput [matDatepicker]="pickerFechaHasta"
-              [min]="fechaDesde"
-              (focus)="pickerFechaHasta.open()"
-              [(ngModel)]="fechaHasta"
-              (dateChange)="actualizarDatos()">
-          <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
-          <mat-datepicker #pickerFechaHasta></mat-datepicker>
-      </mat-form-field>
 
         <mat-form-field appearance="legacy">
           <mat-label>Estado</mat-label>

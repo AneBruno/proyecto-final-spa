@@ -6,6 +6,15 @@ table {width:100%;}
 .menu-wrapper {
   padding: 10px 25px;
 }
+.clickable {
+  cursor: pointer;
+}
+.subtitle {
+  font-size: 14px; /* Tamaño de fuente más pequeño */
+  margin-top: 5px; /* Espacio superior para separar del título */
+  color: #777; /* Color de texto más tenue */
+}
+
 .sidenav-container {
   min-height: 1000px;
 }
@@ -74,14 +83,3 @@ mat-chip {
   max-width: 150px;
 }
 
-#rectanguloVerde {
-  background:#386D37;
-}
-
-#rectanguloRojo {
-  background:red;
-}
-
-#rectanguloAmarillo {
-  background:yellow;
-}

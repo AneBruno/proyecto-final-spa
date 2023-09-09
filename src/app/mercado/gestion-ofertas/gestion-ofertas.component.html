@@ -11,7 +11,7 @@
 
 
         <mat-form-field appearance="legacy" >
-          <mat-label>Condición de pago</mat-label>
+          <mat-label>Forma de pago</mat-label>
           <mat-select multiple [(ngModel)]="dataSource.filtros.condicion_pago_id" (selectionChange)="dataSource.refreshData()">
               <mat-option *ngFor="let row of condicionesPago" [value]="row.id">{{row.descripcion}}</mat-option>
           </mat-select>
@@ -32,14 +32,6 @@
     <contenido>
             <!--Cabecera con datos de la posición-->
             <mat-card fxLayout="column" class="posicion-card">
-                
-                <!--<mat-chip-list class="empresas-chips">
-                    <mat-chip
-                        *ngFor="let empresa of listaEmpresas"
-                        [matTooltip]="listaEmpresas.length > 1 ? empresaTooltip(empresa) : null">
-                            {{empresa}}
-                    </mat-chip>
-                </mat-chip-list>-->
 
                 <!--Datos de la posición-->
                 <form [formGroup]="formularioPosicion" class="formulario-posicion" fxLayout="column" fxLayoutAlign="start stretch">
@@ -58,6 +50,11 @@
                             <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                             <mat-label>Precio:</mat-label>
                             <input formControlName="precio_posicion" matInput readonly />
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Toneladas:</mat-label>
+                                <input formControlName="volumen_posicion" matInput readonly />
                             </mat-form-field>
 
                             <mat-form-field appearance="none" fxLayoutAlign="stretch start">
@@ -81,48 +78,14 @@
                                 <mat-label>Forma de pago:</mat-label>
                                 <input formControlName="forma_pago_posicion" matInput readonly />
                             </mat-form-field>
+
+                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                                <mat-label>Cargada por:</mat-label>
+                                <input formControlName="usuario_carga_posicion" matInput readonly />
+                            </mat-form-field>  
                         </div>
                     </div>
                 </form>
-                
-<!---->
-                <!--<form class="posicion-datos">
-                    <div row>
-                        <div info>
-                            <span label>Producto:</span>
-                            <span>{{ posicion?.producto.nombre }}</span>
-                        </div>
-                        <div info>
-                            <span label>Puerto de destino:</span>
-                            <span>{{ posicion?.puerto }}</span>
-                        </div>
-                        <div *ngIf="posicionesAgrupadas?.length === 1" info>
-                            <span label>Precio:</span>
-                            <span>{{ posicion?.precio_moneda }}</span>
-                        </div>
-                    </div>
-                    <div row>
-                        <div info>
-                            <span label>Cosecha:</span>
-                            <span>{{ posicion?.cosecha.descripcion }}</span>
-                        </div>
-                        <div info>
-                            <span label>Condición de Pago:</span>
-                            <span>{{ posicion?.forma_pago }}</span>
-                        </div>
-                        <ng-container *ngIf="posicionesAgrupadas?.length === 1">
-                            <div info>
-                                <span label>Observaciones:</span>
-                                <span>{{ posicionesAgrupadas[0].observaciones || '-' }}</span>
-                            </div>
-                            <div info>
-                                <span label>Comercial:</span>
-                                <span>{{ posicionesAgrupadas[0].usuario_carga.nombre }} {{posicionesAgrupadas[0].usuario_carga.apellido}}</span>
-                            </div>
-                        </ng-container>
-
-                    </div>
-                </form>-->
             </mat-card>
 
             <!--Listado con órdenes-->
@@ -147,24 +110,24 @@
                                 <ng-container *ngIf="column.type==='text'||column.type===undefined">
                                     {{column.valueFn(row) || row[column.name]  || null}}
                                 </ng-container>
-                                <ng-container *ngIf="column.type==='menu'">
+                                <!--<ng-container *ngIf="column.type==='menu'">
                                     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" [ngClass]="{ 'disabled' :row.estado_id === 3 }">
                                         <mat-icon aria-hidden="false">more_vert</mat-icon>
                                     </button>
-                                </ng-container>
+                                </ng-container>-->
                             </td>
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
-                        <tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+                        <tr class="clickable" mat-row *matRowDef="let row; columns: columnsToShow;" [routerLink]="'cerrar-slip/' + row.id"></tr>
                     </table>
                 </div>
 
-                <mat-menu #menu="matMenu">
+                <!--<mat-menu #menu="matMenu">
                     <ng-template matMenuContent let-aliasMenuItems="row" >
                        <button  mat-menu-item routerLink="cerrar-slip/{{aliasMenuItems.id}}">Cerrar negocio</button>
                     </ng-template>
-                </mat-menu>
+                </mat-menu>-->
 
                 <mat-paginator [length]="dataSource.total"
                     [pageSize]="dataSource.limit"

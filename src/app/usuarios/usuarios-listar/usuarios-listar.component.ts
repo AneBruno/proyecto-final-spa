@@ -39,12 +39,6 @@ export class UsuariosListarComponent implements OnInit {
         this.client.getData('/roles', {limit:0}).subscribe((data) => {
             this.roles = data;
         });
-
-        /*this.client.getData('/oficinas', {
-            limit: 0,
-        }).subscribe((data) => {
-            this.oficinas = data;
-        });*/
     }
 
     public habilitar(usuario: any) {

@@ -69,7 +69,10 @@
                 </ng-container>
     
                 <ng-container matColumnDef="_acciones" stickyEnd>
-                    <th mat-header-cell *matHeaderCellDef width="40px">Acciones</th>
+                    <th mat-header-cell 
+                    *matHeaderCellDef 
+                    width="40px"
+                    [ngStyle]="{'font-weight': '600'}">Acciones</th>
                     <td mat-cell *matCellDef="let row">
                         <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" >
                             <mat-icon aria-hidden="false">more_vert</mat-icon>
@@ -90,7 +93,7 @@
             <ng-template matMenuContent let-aliasMenuItems="row">
                 <button mat-menu-item routerLink="/app/usuarios/{{aliasMenuItems.id}}">Editar</button>
                 <button mat-menu-item *ngIf="aliasMenuItems.habilitado"  (click)="deshabilitar(aliasMenuItems)">Deshabilitar</button>
-                <button mat-menu-item *ngIf="!aliasMenuItems.habilitado" (click)="habilitar(aliasMenuItems)">Habilitar</button>
+                <button mat-menu-item *ngIf="!aliasMenuItems.habilitado && aliasMenuItems.rol.id !== 6" (click)="habilitar(aliasMenuItems)">Habilitar</button>
             </ng-template>
         </mat-menu>
     </contenido>

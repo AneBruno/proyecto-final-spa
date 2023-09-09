@@ -14,13 +14,6 @@
 <mat-sidenav-container [class.transparent]="transparent">
     <mat-sidenav class="sidenav-filtros" #sidenav [mode]="sidenavMode" position="end" [ngStyle]="{'display':displayFiltros}">
 
-        <!-- section fxLayout="row" style="margin-bottom:16px;" fxLayoutAlign="space-between center">
-            <div><b>Filtros</b></div>
-            <button mat-icon-button>
-                <mat-icon>close</mat-icon>
-            </button>
-        </section -->
-
         <div fxLayout="column" fxLayoutAlign="start stretch">
 
             <ng-content select="filtros"></ng-content>

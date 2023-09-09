@@ -30,7 +30,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public id_usuario           : Number;
     public rol_id_usuario       : Number;
     public fechaActual          : Date     = new Date();
-    public fechaDesde           : Date     = new Date();
+    public fechaDesde           : Date     ;
     public fechaHasta           : Date;
     public anioActual           : Number   = this.fechaActual.getFullYear();
     public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
@@ -60,20 +60,21 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public async ngOnInit(): Promise<void> {
         this.dataSource.uri       = '/mercado/posiciones';
         this.dataSource.queryParams = {
-            with_relation : 'empresa',
+            with_relation : 'empresa,usuarioCarga',
         };
-        this.filtros.empresa_id = [];
+        //this.filtros.empresa_id = [];
         this.rol_id_usuario       = (await this.user.fetchUserAsync()).rol.id;
         this.id_usuario           = (await this.user.fetchUserAsync()).id;
 
         await this.loadRelatedData();
-        this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', {ordenes: {descripcion:'DESC'}}).toPromise();
-
-        this.addColumn('comprador',     'Empresa compradora', '200px').renderFn(row => this.obtenerComprador(row.empresa)).setAsCustom();
-        this.addColumn('producto',      'Producto',       '200px').renderFn(row => row.producto.nombre             );
-        this.addColumn('destino',       'Puerto de destino',   '200px').renderFn(row => this.calculaDestino(row)        );
-        this.addColumn('moneda_precio', 'Precio',    '200px').renderFn(row => `${row.moneda} ${row.precio}`);
-        this.addColumn('estado', 'Estado', '100px').renderFn(row => row.estado);
+        
+        this.addColumn('created_at',    'Fecha',     '50px').renderFn(row => this.formatearFecha(row.created_at));
+        this.addColumn('comprador',     'Empresa compradora', '180px').renderFn(row => this.obtenerComprador(row.empresa)).setAsCustom();
+        this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre             );
+        this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row)        );
+        this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
+        this.addColumn('moneda_precio', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`);
+        this.addColumn('estado', 'Estado', '80px').renderFn(row => row.estado);
         this.addColumn('_acciones',     'Acciones',   '40px').setAsMenu().setAlign('right');
 
         this.actualizarDatos();
@@ -88,6 +89,8 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
+      this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', 
+      {ordenes: {descripcion:'DESC'}}).toPromise();
     }
 
     public calculaDestino(row:any) {
@@ -95,9 +98,8 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     }
 
     public formatearFecha(fecha:any) {
-        return moment(fecha).format('DD-MM-YYYY');
+        return moment(fecha).format('DD/MM');
     }
-
 
     public actualizarDatos() {
         this.configurarFiltros();
@@ -118,11 +120,10 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public onClearFilters() {
         this.fechaDesde = null;
         this.fechaHasta = null;
-        
         this.filtroProductos    = null;
         this.filtroPuertos      = null;
         this.filtroEstado       = null;
-        this.filtros.empresa_id = [];
+        //this.filtros.empresa_id = [];
         this.filtroFormaPago    = null;
     }      
 

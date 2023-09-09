@@ -54,11 +54,9 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     public currentUser: User;
 
     //Filtros multiples
-
-
     public filtroProductos! : Array<any>;
     public filtroPuertos!   : Array<any>;
-    public filtroComercial  : Array<any>;
+    //public filtroComercial  : Array<any>;
 
 
     public constructor(
@@ -88,12 +86,10 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
                 usuario_carga_id: this.currentUser.id
             }
         }
-
-
         this.estados = await this.apiService.getData('/mercado/ordenes/estados').toPromise();
         this.dataSource.uri         = '/mercado/ordenes';
         this.dataSource.queryParams = {
-            with_relation : 'puerto,producto,empresa',
+            with_relation : 'puerto,producto,empresa,usuarioCarga,condicionPago',
             ordenes: {
                 "id": "DESC"
             }
@@ -105,12 +101,13 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         ]).subscribe(result => {
             this.clearColumns();
             this.addColumn('created_at',    'Fecha',     '50px').renderFn(row => this.formatearFecha(row.created_at));
-            this.addColumn('vendedor',      'Empresa vendedora',  '120px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
+            this.addColumn('vendedor',      'Empresa vendedora',  '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
             this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre);
-            this.addColumn('destino',       'Puerto de destino',   '100px').renderFn(row => this.calculaDestino(row));
-            this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber();
+            this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
+            this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
+            //this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber();
             this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('left');
-            this.addColumn('estado',        'Estado',    '90px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
+            this.addColumn('estado',        'Estado',    '80px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
             this.addColumn('_acciones',     'Acciones',   '10px').setAsMenu().setAlign('right');
 
             if (result.matches) {
@@ -167,7 +164,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
         this.filtroProductos = null;
         this.filtroPuertos   = null;
-        this.filtroComercial = null;
+        //this.filtroComercial = null;
     }
 
 

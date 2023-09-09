@@ -52,6 +52,9 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
 
     public async ngOnInit(): Promise<void> {
         this.dataSource.uri = '/mercado/panel';
+        this.dataSource.queryParams = {
+            with_relation : 'usuarioCarga, empresa'
+        };
         this.filtros.empresa_id = [];
         this.currentUser = this.userService.getUser();
         await this.loadRelatedData();
@@ -71,11 +74,14 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         this.addColumn('forma_pago', 'Forma de Pago', '90px').renderFn(row => row.condicion_pago.descripcion);
         this.addColumn('precio_moneda', 'Precio compra',     '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('right');
         this.addColumn('cantidad_ofertas', 'Oportunidades encontradas', '80px')
-        .renderFn(row => row.cantidad_ofertas === 0 ? '-' : row.cantidad_ofertas)
+        .renderFn(row => {
+            return row.cantidad_ofertas === 0 ? '-' : row.cantidad_ofertas;
+        })
         .setAlign('right');
+        
         //Falta todavía.
         //this.addColumn('toneladas',     'Toneladas',  '80px').renderFn(row => row.toneladas.toString());
-        this.addColumn('_acciones',     'Acciones',   '80px').setAsMenu().setAlign('right');
+        //this.addColumn('_acciones',     'Acciones',   '80px').setAsMenu().setAlign('right');
     }
 
     public async loadRelatedData() {

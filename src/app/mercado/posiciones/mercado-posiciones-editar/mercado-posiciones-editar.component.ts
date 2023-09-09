@@ -87,7 +87,8 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
             empresa_id            : new FormControl({ value: '', disabled: false }),
             empresa_razon_social  : new FormControl({ value: '', disabled: false }),
             puerto_id             : new FormControl({ value: '', disabled: false }),
-            observaciones         : new FormControl({ value: '', disabled: false })
+            observaciones         : new FormControl({ value: '', disabled: false }),
+            volumen               : new FormControl({ value: '', disabled: false }),
         });
 
         this.form.get('empresa_id').valueChanges.subscribe((value) => {

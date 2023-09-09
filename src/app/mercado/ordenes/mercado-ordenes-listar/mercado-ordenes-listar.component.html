@@ -45,19 +45,19 @@
         </mat-form-field>
 
         <mat-form-field appearance="legacy" >
-            <mat-label>Estados</mat-label>
+            <mat-label>Estado</mat-label>
             <mat-select multiple [(ngModel)]="dataSource.filtros.estado_id" (selectionChange)="dataSource.refreshData()">
                 <mat-option *ngFor="let row of estados" [value]="row.id">{{row.nombre}}</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field *ngIf="!isRepresentante()" appearance="legacy" >
-          <mat-label>Comercial</mat-label>
+        <!--<mat-form-field *ngIf="!isRepresentante()" appearance="legacy" >
+          <mat-label>Usuario asociado</mat-label>
           <mat-select multiple [(ngModel)]="filtroComercial" (selectionChange)="selecetionChangeMultiple($event,'usuario_carga_id')">
             <mat-option value="" >TODOS</mat-option>
             <mat-option *ngFor="let row of comerciales" [value]="row.id">{{row.nombreCompleto}}</mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
     </filtros>
     <contenido>

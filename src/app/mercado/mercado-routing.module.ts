@@ -39,6 +39,7 @@ const routes: Routes = [
     { path: 'panel/:agregarPosicion',      component: MercadoPosicionesEditarComponent },
 
     { path: 'historial',                   component: HistorialNegociosComponent      },
+    { path: 'historial/:id',               component: CerrarSlipComponent      },
     
     
 

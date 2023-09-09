@@ -34,7 +34,10 @@
               </ng-container>
 
             <ng-container matColumnDef="_acciones">
-                <th mat-header-cell *matHeaderCellDef width="80px">Acciones</th>
+                <th mat-header-cell 
+                *matHeaderCellDef 
+                width="80px"
+                [ngStyle]="{'font-weight': '600'}">Acciones</th>
                 <td mat-cell *matCellDef="let element">
                     <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{element:element}" >
                         <mat-icon aria-hidden="false">more_vert</mat-icon>

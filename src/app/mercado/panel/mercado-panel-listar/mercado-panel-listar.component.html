@@ -1,5 +1,5 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
-		<titulo>Mercado del día</titulo>
+		<titulo>Posiciones del día</titulo>
 		<filtros fxLayout="column">
 		
 		<mat-form-field appearance="legacy" >
@@ -31,6 +31,7 @@
 			</mat-select>
 		</mat-form-field>
 		</filtros>
+		
 		<contenido>
 				<div class="table-sticky-wrapper">
 						<table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource" matSort>
@@ -52,23 +53,26 @@
 									<ng-container *ngIf="column.type==='text'||column.type===undefined">
 										{{column.valueFn(row) || row[column.name] || null}}
 									</ng-container>
-									<ng-container *ngIf="column.type==='menu'">
+									<!--<ng-container *ngIf="column.type==='menu'">
 											<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" [disabled]="row.cantidad_ofertas === 0">
 													<mat-icon aria-hidden="false">more_vert</mat-icon>
 											</button>
-									</ng-container>
+									</ng-container>-->
 								</td>
 							</ng-container>
 							<tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
-							<tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+							<tr class="clickable" mat-row *matRowDef="let row; columns: columnsToShow" [routerLink]="'/app/mercado/panel/gestionar-ofertas/' + row.id"></tr>
+							
+							
+
 						</table>
 				</div>
 
-				<mat-menu #menu="matMenu">
+				<!--<mat-menu #menu="matMenu">
 						<ng-template matMenuContent let-aliasMenuItems="row">
 								<button mat-menu-item routerLink="/app/mercado/panel/gestionar-ofertas/{{aliasMenuItems.id}}">Ver oportunidades</button>
             			</ng-template>
-				</mat-menu>
+				</mat-menu>-->
 		</contenido>
 	
 </app-listado-filtrado>
