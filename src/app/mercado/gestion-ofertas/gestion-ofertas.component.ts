@@ -20,13 +20,13 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
     public posicion             : any = null;
     public fecha                : Date;
     public puertos              : any;
-    public usuarios : any;
+    public usuarios             : any;
     public listaEmpresas        : Array<any>;
     public posicionesAgrupadas  : Array<any>;
     public condicionesPago      : Array<any> = [];
     public localidades          : Array<any> = [];
     formularioPosicion:         FormGroup;
-     
+    
 
     public constructor(
         public  dataSource         : ListadoDataSource<any>,

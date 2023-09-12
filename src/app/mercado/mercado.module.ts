@@ -18,6 +18,7 @@ import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/mat
 import { MercadoOrdenesFormComponent } from './ordenes/mercado-ordenes-form/mercado-ordenes-form.component';
 import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
+import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { IndicadoresComponent } from './indicadores/indicadores.component';
         MercadoOrdenesFormComponent,
         HistorialNegociosComponent,
         IndicadoresComponent,
+        HistorialConsultarComponent,
     ],
     imports: [
         CommonModule,

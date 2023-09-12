@@ -32,6 +32,8 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
   public puertos                 : Array<any> = [];
   public productos               : Array<any> = [];
   public formasPago              : Array<any> = [];
+  public empresasCompradoras     : Array<any> = [];
+  public empresasVendedoras      : Array<any> = [];
   public fechaDesde              : Date;
   public fechaHasta              : Date;
   public fechaActual             : Date     = new Date();
@@ -39,9 +41,11 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
   public mesActual               : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
 
   //Filtros multiples
-  public filtroProductos!        : Array<any>;
-  public filtroPuertos!          : Array<any>;
-  public filtroFormaPago!          : Array<any>;
+  public filtroProductos!            : Array<any>;
+  public filtroPuertos!              : Array<any>;
+  public filtroFormaPago!            : Array<any>;
+  public filtroEmpresaCompradora!    : Array<any>;
+  public filtroEmpresaVendedora!     : Array<any>;
   
   constructor(
     public  dataSource           : ListadoDataSource<any>,
@@ -83,7 +87,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
     this.addColumn('forma_pago',       'Forma de pago',   '120px').renderFn(row => row.condicion_pago.descripcion);
     this.addColumn('moneda_precio', 'Precio',    '80px').renderFn(row => row.precio_cierre_slip? `${row.moneda} ${row.precio_cierre_slip}`: '-').setAlign('left');
-    this.addColumn('_acciones',     'Acciones',   '40px').setAsMenu().setAlign('right');
+    //this.addColumn('_acciones',     'Acciones',   '40px').setAsMenu().setAlign('right');
   }
 
   public async loadRelatedData() {
@@ -98,6 +102,8 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', {
       ordenes: {descripcion:'DESC'}
     }).toPromise();
+    this.buscarEmpresasCompradoras();
+    this.buscarEmpresasVendedora();
   }
 
   public onClearFilters() {
@@ -106,6 +112,8 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.filtroProductos = null;
     this.filtroPuertos = null;
     this.filtroFormaPago    = null;
+    this.filtroEmpresaCompradora=null;
+    this.filtroEmpresaVendedora=null;
   }
 
   //para filtros de seleccion multiple
@@ -142,5 +150,37 @@ public configurarFiltros() {
       this.dataSource.filtros.fechaHasta = moment(this.fechaHasta).format('YYYY-MM-DD');
   }
 }
+public buscarEmpresasCompradoras(busqueda?: any) {
+  let filtros: any = {};
+  filtros.perfil = "COMPRADOR";
+  if (busqueda) {
+      filtros.busqueda = busqueda;
+  }
+  this.apiService.getData('/clientes/empresas', {
+      filtros: filtros,
+      ordenes: {
+          razon_social:'ASC'
+      }
+  }).subscribe(data => {
+      this.empresasCompradoras = data;
+  });
+}
+
+public buscarEmpresasVendedora(busqueda?: any) {
+  let filtros: any = {};
+  filtros.perfil = "VENDEDOR";
+  if (busqueda) {
+      filtros.busqueda = busqueda;
+  }
+  this.apiService.getData('/clientes/empresas', {
+      filtros: filtros,
+      ordenes: {
+          razon_social:'ASC'
+      }
+  }).subscribe(data => {
+      this.empresasVendedoras = data;
+  });
+}
+
 
 }

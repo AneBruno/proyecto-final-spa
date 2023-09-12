@@ -20,7 +20,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
     }
 
         public title                        : string = "Cerrar negocio"
-        public posicion                        : any;
+        public posicion                     : any;
         public clave                        : String;
         public orden_id                     : number;
         public listaEmpresas                : Array<any>;

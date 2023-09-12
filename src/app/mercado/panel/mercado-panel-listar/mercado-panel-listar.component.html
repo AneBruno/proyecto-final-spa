@@ -1,7 +1,13 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
 		<titulo>Posiciones del día</titulo>
 		<filtros fxLayout="column">
-		
+		<mat-form-field appearance="legacy" >
+			<mat-label>Empresa compradora</mat-label>
+			<mat-select multiple [(ngModel)]="filtroEmpresa" (selectionChange)="selecetionChangeMultiple($event,'empresa_id')">
+				<mat-option *ngFor="let row of empresas" [value]="row.id">{{row.razon_social}}</mat-option>
+			</mat-select>
+			</mat-form-field>
+			
 		<mat-form-field appearance="legacy" >
 			<mat-label>Productos</mat-label>
 			<mat-select multiple [(ngModel)]="filtroProductos" (selectionChange)="selecetionChangeMultiple($event,'producto_id')">

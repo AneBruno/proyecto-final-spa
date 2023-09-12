@@ -30,6 +30,13 @@
         </mat-form-field>
 
         <mat-form-field appearance="legacy" >
+            <mat-label>Empresa compradora</mat-label>
+            <mat-select multiple [(ngModel)]="filtroEmpresa" (selectionChange)="selecetionChangeMultiple($event,'empresa_id')">
+              <mat-option *ngFor="let row of empresas" [value]="row.id">{{row.razon_social}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        <mat-form-field appearance="legacy" >
           <mat-label>Producto</mat-label>
           <mat-select multiple [(ngModel)]="filtroProductos" (selectionChange)="selecetionChangeMultiple($event,'producto_id')">
             <mat-option *ngFor="let row of productos" [value]="row.id">{{row.nombre}}</mat-option>

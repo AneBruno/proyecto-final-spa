@@ -13,6 +13,7 @@ import { MercadoPosicionesEditarComponent } from './posiciones/mercado-posicione
 import { MercadoPosicionesListarComponent } from './posiciones/mercado-posiciones-listar/mercado-posiciones-listar.component';
 import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
+import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
 
 const routes: Routes = [
     { path: 'condicionesPago',             component: CondicionesPagoListarComponent   },
@@ -39,7 +40,7 @@ const routes: Routes = [
     { path: 'panel/:agregarPosicion',      component: MercadoPosicionesEditarComponent },
 
     { path: 'historial',                   component: HistorialNegociosComponent      },
-    { path: 'historial/:id',               component: CerrarSlipComponent      },
+    { path: 'historial/consulta/:orden' , component: HistorialConsultarComponent      },
     
     
 

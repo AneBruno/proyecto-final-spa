@@ -1,0 +1,120 @@
+<mat-card>
+    <app-section-title class="titulo">
+        {{title}}
+    </app-section-title>
+    <form [formGroup]="form" class="formulario-posicion" fxLayout="column" fxLayoutAlign="start stretch">
+        <p class="subtitulo">Posición de compra</p>
+        <!--Datos de la posición-->
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Empresa:</mat-label>
+                    <input formControlName="empresa_posicion" matInput readonly/>
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Producto:</mat-label>
+                    <input formControlName="producto_posicion" matInput readonly/>
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Precio:</mat-label>
+                <input formControlName="precio_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Toneladas:</mat-label>
+                    <input formControlName="volumen_posicion" matInput readonly />
+                    </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                <!--<mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Cosecha:</mat-label>
+                    <input formControlName="cosecha_posicion" matInput readonly />
+                </mat-form-field>-->
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Puerto de destino:</mat-label>
+                    <input formControlName="destino_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Forma de pago:</mat-label>
+                    <input formControlName="forma_pago_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Cargada por:</mat-label>
+                    <input formControlName="usuario_carga_posicion" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_posicion" matInput readonly />
+                </mat-form-field>
+
+            </div>
+        </div>
+        <br>
+
+        <p class="subtitulo">Órden de venta</p>
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Empresa:</mat-label>
+                    <input formControlName="empresa_orden" matInput readonly/>
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Producto:</mat-label>
+                    <input formControlName="producto_orden" matInput readonly/>
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label>Precio:</mat-label>
+                <input formControlName="precio_orden" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Toneladas:</mat-label>
+                    <input formControlName="volumen" matInput readonly />
+                </mat-form-field>                       
+
+            </div>
+            <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Puerto de destino:</mat-label>
+                    <input formControlName="destino_orden" matInput readonly />
+                </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Forma de pago:</mat-label>
+                    <input formControlName="forma_pago_orden" matInput readonly />
+                </mat-form-field>
+
+                
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Cargada por:</mat-label>
+                    <input formControlName="usuario_carga_orden" matInput readonly />
+                </mat-form-field>    
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_orden" matInput readonly />
+                </mat-form-field>
+            </div>
+        </div>
+        <p class="subtitulo">Precio de cierre</p>
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Precio final:</mat-label>
+                    <input formControlName="precio_cierre_slip" matInput readonly/>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-card>

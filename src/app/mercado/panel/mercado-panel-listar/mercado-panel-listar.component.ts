@@ -23,6 +23,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public  formasPago             : any[] = [];
     public  puertos                : Array<any> = [];
     public  productos              : Array<any> = [];
+    public empresas                : Array<any> = [];
     public currentUser             : User;
     public animal: string;
     public name: string;
@@ -38,6 +39,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public filtroPuertos!      : Array<any>;
     public filtroCosecha!      : Array<any>;
     public filtroFormaPago!    : Array<any>;
+    public filtroEmpresa!    : Array<any>;
 
 
     public constructor(
@@ -93,6 +95,23 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
+      this.buscarEmpresas();
+    }
+
+    public buscarEmpresas(busqueda?: any) {
+        let filtros: any = {};
+        filtros.perfil = "COMPRADOR";
+        if (busqueda) {
+            filtros.busqueda = busqueda;
+        }
+        this.apiService.getData('/clientes/empresas', {
+            filtros: filtros,
+            ordenes: {
+                razon_social:'ASC'
+            }
+        }).subscribe(data => {
+            this.empresas = data;
+        });
     }
 
     public concatenaCompradores(listaEmpresas: any) {
@@ -106,14 +125,6 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public obtenerNombreComprador(empresa: any): string {
         return empresa.razon_social;
     }
-
-    /*public DescripcionCosecha(row: any){
-        for (const cosecha of this.cosechas) {
-            if (cosecha.id == row.cosecha_id) {
-                return cosecha.descripcion;
-            }
-        }
-    }*/
 
     //Actualiza el listado del home cada 10segundos asi no queda desactualizado.
     private async actualizarPeriodicamente() {
@@ -149,7 +160,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         this.filtroPuertos      = null;
         this.filtroCosecha      = null;
         this.filtroFormaPago    = null;
-        this.filtros.empresa_id = [];
+        this.filtroEmpresa      = null;
     }
 
     public refreshList() {

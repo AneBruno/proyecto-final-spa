@@ -27,6 +27,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public formasPago           : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
+    public empresas            : Array<any> = [];
     public id_usuario           : Number;
     public rol_id_usuario       : Number;
     public fechaActual          : Date     = new Date();
@@ -45,6 +46,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     public filtroPuertos!      : Array<any>;  
     public filtroEstado!       : Array<any>; 
     public filtroFormaPago!    : Array<any>;
+    public filtroEmpresa!    : Array<any>;
 
 
     public constructor(
@@ -91,6 +93,24 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
       }).toPromise();
       this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', 
       {ordenes: {descripcion:'DESC'}}).toPromise();
+      
+      this.buscarEmpresas();
+    }
+
+    public buscarEmpresas(busqueda?: any) {
+        let filtros: any = {};
+        filtros.perfil = "COMPRADOR";
+        if (busqueda) {
+            filtros.busqueda = busqueda;
+        }
+        this.apiService.getData('/clientes/empresas', {
+            filtros: filtros,
+            ordenes: {
+                razon_social:'ASC'
+            }
+        }).subscribe(data => {
+            this.empresas = data;
+        });
     }
 
     public calculaDestino(row:any) {
@@ -125,6 +145,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         this.filtroEstado       = null;
         //this.filtros.empresa_id = [];
         this.filtroFormaPago    = null;
+        this.filtroEmpresa      =null;
     }      
 
     public estadoPosicion(id:number, estado:string){

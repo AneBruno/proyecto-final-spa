@@ -81,7 +81,7 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
     private loadUsuarios() {
         this.apiService.getData('/usuarios', {
             filtros: {
-                rol_id: [ 2, 3, 4 ]
+                rol_id: [ 4 ]
             },
             limit:0
         }).subscribe((data) => {

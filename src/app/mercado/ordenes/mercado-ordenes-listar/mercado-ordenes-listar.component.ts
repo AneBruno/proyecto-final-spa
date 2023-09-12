@@ -28,16 +28,17 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         read: MatInput
     }) filtroFechaHasta: MatInput;
 
-    public fechaDesde    : Date;
-    public fechaHasta    : Date;
+    public fechaDesde           : Date;
+    public fechaHasta           : Date;
     public comerciales          : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
+    public empresas             : Array<any> = [];
     public fechaActual          : Date     = new Date();
     public anioActual           : Number   = this.fechaActual.getFullYear();
     public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
     public estados              : any;
-    public rol_id_usuario       : Number;
+    public rol_id_usuario            : Number;
     private ESTADO_ELIMINADA = 5;
     public filtroProductosOpciones : any = {
         ordenes: {
@@ -56,7 +57,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     //Filtros multiples
     public filtroProductos! : Array<any>;
     public filtroPuertos!   : Array<any>;
-    //public filtroComercial  : Array<any>;
+    public filtroEmpresa!    : Array<any>;
 
 
     public constructor(
@@ -128,6 +129,23 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         'ordenes[nombre]': 'asc',
         'limit' : 0,
       }).toPromise();
+      this.buscarEmpresas();
+    }
+
+    public buscarEmpresas(busqueda?: any) {
+        let filtros: any = {};
+        filtros.perfil = "VENDEDOR";
+        if (busqueda) {
+            filtros.busqueda = busqueda;
+        }
+        this.apiService.getData('/clientes/empresas', {
+            filtros: filtros,
+            ordenes: {
+                razon_social:'ASC'
+            }
+        }).subscribe(data => {
+            this.empresas = data;
+        });
     }
 
     public calculaDestino(row:any) {
@@ -164,6 +182,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
         this.filtroProductos = null;
         this.filtroPuertos   = null;
+        this.filtroEmpresa   = null;
         //this.filtroComercial = null;
     }
 
