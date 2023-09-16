@@ -107,12 +107,19 @@
                 </mat-form-field>
             </div>
         </div>
-        <p class="subtitulo">Precio de cierre</p>
+        <p class="subtitulo">Datos de cierre</p>
         <div fxLayout="row wrap">
             <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Precio final:</mat-label>
                     <input formControlName="precio_cierre_slip" matInput readonly/>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Toneladas finales:</mat-label>
+                    <input formControlName="toneladas_cierre" matInput readonly/>
                 </mat-form-field>
             </div>
         </div>

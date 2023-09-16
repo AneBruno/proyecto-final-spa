@@ -99,9 +99,10 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
             email                 : new FormControl({ value: '', disabled: false }),
             perfil                : new FormControl({ value: '', disabled: false }),
             usuario_comercial_id  : new FormControl({ value: '', disabled: false }),
-            direccion  : new FormControl({ value: '', disabled: false }),
-            localidad : new FormControl({value: '', disabled: false}),
-            provincia  : new FormControl({ value: '', disabled: false })
+            direccion             : new FormControl({ value: '', disabled: false }),
+            localidad             : new FormControl({value: '', disabled: false}),
+            provincia             : new FormControl({ value: '', disabled: false }),
+            comision              : new FormControl({ value: '', disabled: false })
         });
         this.form.get('perfil').valueChanges.subscribe((value) => {
             this.perfil = value;
@@ -122,9 +123,6 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
                 }
             });
         });
-    }
-
-    
-
+    } 
 
 }

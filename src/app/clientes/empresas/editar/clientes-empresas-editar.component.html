@@ -42,6 +42,7 @@
                 </mat-select>
                 <mat-error *ngIf="error('perfil')">{{error('perfil')}}</mat-error>
             </mat-form-field>
+            
 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="30" fxFlex.xs="100">
                 <mat-label>Usuario asociado</mat-label>
@@ -66,7 +67,7 @@
             </mat-form-field>
         </div>
 
-        <div>
+        <div fxLayout.lg="row" fxLayout.md="row" fxLayout.xs="column" fxLayoutGap="10px"> 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Provincia</mat-label>
                 <mat-select formControlName="provincia">
@@ -74,7 +75,15 @@
                 </mat-select>
                 <mat-error *ngIf="error('provincia')">{{error('provincia')}}</mat-error>
             </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
+                <mat-label>Comisión</mat-label>
+                <input formControlName="comision" matInput style="text-align:right;" />
+                <span matSuffix>&nbsp; %</span>
+                <mat-error *ngIf="error('comision')">{{error('comision')}}</mat-error>
+            </mat-form-field>
         </div>
+
         <div fxLayout="row" fxLayoutGap="15px">
             <button mat-flat-button color="primary" (click)="guardar()">
                 Guardar

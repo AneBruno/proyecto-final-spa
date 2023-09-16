@@ -50,6 +50,12 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="legacy" >
+			<mat-label>Forma de pago</mat-label>
+			<mat-select multiple [(ngModel)]="filtroFormaPago" (selectionChange)="selecetionChangeMultiple($event,'condicion_pago_id')">
+			  <mat-option *ngFor="let row of formasPago" [value]="row.id">{{row.descripcion}}</mat-option>
+			</mat-select>
+		</mat-form-field>
 
         <mat-form-field appearance="legacy" >
             <mat-label>Estado</mat-label>

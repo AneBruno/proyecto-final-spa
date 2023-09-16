@@ -30,6 +30,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     public fechaDesde           : Date;
     public fechaHasta           : Date;
+    public formasPago           : Array<any> = [];
     public comerciales          : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos            : Array<any> = [];
@@ -58,6 +59,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     public filtroProductos! : Array<any>;
     public filtroPuertos!   : Array<any>;
     public filtroEmpresa!    : Array<any>;
+    public filtroFormaPago!    : Array<any>;
 
 
     public constructor(
@@ -82,11 +84,6 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
         await this.loadRelatedData();
 
-        if (this.currentUser.rol.id == 4) {
-            this.dataSource.fixedFilters = {
-                usuario_carga_id: this.currentUser.id
-            }
-        }
         this.estados = await this.apiService.getData('/mercado/ordenes/estados').toPromise();
         this.dataSource.uri         = '/mercado/ordenes';
         this.dataSource.queryParams = {
@@ -130,6 +127,8 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         'limit' : 0,
       }).toPromise();
       this.buscarEmpresas();
+      this.formasPago = await this.apiService.getAllData('/mercado/condiciones-pago', 
+      {ordenes: {descripcion:'DESC'}}).toPromise();
     }
 
     public buscarEmpresas(busqueda?: any) {
@@ -183,6 +182,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         this.filtroProductos = null;
         this.filtroPuertos   = null;
         this.filtroEmpresa   = null;
+        this.filtroFormaPago    = null;
         //this.filtroComercial = null;
     }
 

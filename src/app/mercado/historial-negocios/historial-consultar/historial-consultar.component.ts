@@ -68,7 +68,7 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
       //orden de venta:
       volumen                        : new FormControl({ value: '',    disabled: false  }),
       posicion_id                    : new FormControl({ value: '',    disabled: false  }),
-      precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
+      
       producto_orden                 : new FormControl({ value: '',    disabled: false  }),
       empresa_orden                  : new FormControl({ value: '',    disabled: false  }),
       destino_orden                  : new FormControl({ value: '',    disabled: false  }),
@@ -77,6 +77,10 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
       observaciones_orden            : new FormControl({ value: '',    disabled: false  }),
       cosecha_orden                  : new FormControl({ value: '',    disabled: false  }),
       usuario_carga_orden            : new FormControl({ value: '',    disabled: false  }),
+
+      //datos cierre
+      precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
+      toneladas_cierre               : new FormControl({ value: '',    disabled: false  }),
     });
 
     //obtengo orden.
@@ -104,7 +108,6 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
     this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
     this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
     this.form.get('precio_posicion').setValue(this.posicion.moneda + '' +this.posicion.precio);
-    this.form.get('precio_cierre_slip').setValue(this.orden.precio_cierre_slip);
     this.form.get('forma_pago_posicion').setValue(this.posicion.condicion_pago?.descripcion);
     this.form.get('cosecha_posicion').setValue(this.posicion.cosecha.descripcion);
     this.form.get('volumen_posicion').setValue(this.posicion.volumen);
@@ -120,6 +123,9 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
     this.form.get('usuario_carga_orden').setValue(this.orden.usuario_carga.nombreCompleto);
     this.form.get('forma_pago_orden').setValue(this.orden.condicion_pago.descripcion);
 
+    //datos de cierre
+    this.form.get('precio_cierre_slip').setValue(this.orden.precio_cierre_slip);
+    this.form.get('toneladas_cierre').setValue(this.orden.toneladas_cierre? this.orden.toneladas_cierre:'-');
 }
 
 }

@@ -2,7 +2,7 @@
     <app-section-title class="titulo">
         {{title}}
     </app-section-title>
-    <p>Revise los datos e ingrese el precio final acordado para cerrar el negocio.</p>
+    <p>Revise y complete los datos para cerrar el negocio.</p>
     <br>
 
     <form [formGroup]="form" fxLayout="column" fxLayoutAlign="start stretch">
@@ -108,10 +108,17 @@
                 </mat-form-field>
             </div>
         </div>
-        <div>
-            <mat-form-field appearance="fill" fxFlex.lg="35" fxFlex.xs="100">
-                <mat-label>Precio final</mat-label>
+
+        <p class="subtitulo">Datos de cierre</p>
+        <div fxLayout.lg="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field appearance="fill" fxFlex.lg="30" fxFlex.xs="100">
+                <mat-label>Precio</mat-label>
                 <input formControlName="precio_cierre_slip" matInput required/>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" fxFlex.lg="30" fxFlex.xs="100">
+                <mat-label>Toneladas</mat-label>
+                <input formControlName="toneladas_cierre" matInput required/>
             </mat-form-field>
         </div>
 

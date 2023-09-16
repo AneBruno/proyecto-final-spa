@@ -73,10 +73,10 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             this.clearColumns();
             this.addColumn('vendedor',    'Vendedora',          '150px').renderFn(row => row.empresa.razon_social);
             this.addColumn('producto',    'Producto',          '120px').renderFn(row => row.producto.nombre);
+            this.addColumn('tonelada',    'Toneladas',     '100px').renderFn(row => row.volumen).setAsNumber();
             this.addColumn('destino',     'Puerto de destino',      '150px').renderFn(row => this.calculaDestinoOfertas(row));
             this.addColumn('forma_pago',    'Forma de pago',          '120px').renderFn(row => row.condicion_pago.descripcion);
-            this.addColumn('tonelada',    'Toneladas',     '100px').renderFn(row => row.volumen).setAsNumber();
-            this.addColumn('precio',      'Precio',       '100px').renderFn(row => row.moneda + ''+ row.precio);
+            this.addColumn('precio',      'Precio',       '100px').renderFn(row => row.moneda + ' '+ row.precio);
             this.addColumn('usuario_carga',      'Cargada por',       '100px').renderFn(row => row.usuario_carga.nombre + ' '+ row.usuario_carga.apellido);
             //this.addColumn('_acciones',   'Acciones',      '30px').setAsMenu().setAlign('right');
 

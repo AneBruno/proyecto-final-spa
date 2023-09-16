@@ -86,7 +86,6 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             //orden de venta:
             volumen                        : new FormControl({ value: '',    disabled: false  }),
             posicion_id                    : new FormControl({ value: '',    disabled: false  }),
-            precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
             producto_orden                 : new FormControl({ value: '',    disabled: false  }),
             empresa_orden                  : new FormControl({ value: '',    disabled: false  }),
             destino_orden                  : new FormControl({ value: '',    disabled: false  }),
@@ -95,6 +94,10 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             observaciones_orden            : new FormControl({ value: '',    disabled: false  }),
             cosecha_orden                  : new FormControl({ value: '',    disabled: false  }),
             usuario_carga_orden            : new FormControl({ value: '',    disabled: false  }),
+
+            //datos de cierre
+            precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
+            toneladas_cierre               : new FormControl({ value: '',    disabled: false  }),
         });
 
         this.form.get('posicion_id').valueChanges.subscribe(async (value) => {
@@ -118,14 +121,14 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         this.form.get('empresa_posicion').setValue(this.posicion.empresa.razon_social);
         this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
         this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
-        this.form.get('precio_posicion').setValue(this.posicion.moneda + '' +this.posicion.precio);
-        this.form.get('precio_cierre_slip').setValue(this.posicion.precio);
+        this.form.get('precio_posicion').setValue(this.posicion.moneda + ' ' +this.posicion.precio);
         this.form.get('forma_pago_posicion').setValue(this.posicion.condicion_pago?.descripcion);
         this.form.get('cosecha_posicion').setValue(this.posicion.cosecha.descripcion);
         this.form.get('volumen_posicion').setValue(this.posicion.volumen);
         this.form.get('usuario_carga_posicion').setValue(this.usuarios.find(usuario => usuario.id == this.posicion.usuario_carga_id).nombreCompleto);
         this.form.get('observaciones_posicion').setValue(this.posicion.observaciones? this.posicion.observaciones : '-');
 
+        //orden de venta
         this.form.get('empresa_orden').setValue(this.orden.empresa.razon_social);
         this.form.get('volumen').setValue(this.orden.volumen);
         this.form.get('producto_orden').setValue(this.orden.producto.nombre);
@@ -134,6 +137,10 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         this.form.get('precio_orden').setValue(this.orden.moneda +' '+ this.orden.precio);
         this.form.get('usuario_carga_orden').setValue(this.orden.usuario_carga.nombreCompleto);
         this.form.get('forma_pago_orden').setValue(this.orden.condicion_pago.descripcion);
+
+        //datos cierre
+        this.form.get('precio_cierre_slip').setValue(this.posicion.precio);
+        this.form.get('toneladas_cierre').setValue(this.posicion.volumen);
     
     }
 

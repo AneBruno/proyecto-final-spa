@@ -84,6 +84,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.addColumn('comprador',     'Comprador', '180px').renderFn(row => row.posicion? (this.empresas.find(empre => empre.id == row.posicion.empresa_id)).razon_social : '-');
     this.addColumn('vendedor',     'Vendedor', '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa));
     this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre);
+    this.addColumn('toneladas_cierre',      'Toneladas',       '120px').renderFn(row => row.toneladas_cierre? row.toneladas_cierre: '-');
     this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
     this.addColumn('forma_pago',       'Forma de pago',   '120px').renderFn(row => row.condicion_pago.descripcion);
     this.addColumn('moneda_precio', 'Precio',    '80px').renderFn(row => row.precio_cierre_slip? `${row.moneda} ${row.precio_cierre_slip}`: '-').setAlign('left');
