@@ -14,10 +14,11 @@ import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localiza
 })
 export class RegistroComponent extends FormBaseComponent implements OnInit {
 
-  public form!            : FormGroup;
-  public hidePassword     : boolean = true;
-  public isSubmitAttempted = false;
-  public errorMessage: string = ''; // Inicialización vacía
+  public form!                        : FormGroup;
+  public hidePassword                 : boolean = true;
+  public isSubmitAttempted            = false;
+  public errorMessage                 : string = ''; // Inicialización vacía
+  public isLoading                    : boolean = false;
   
   constructor(
     private dialog      : MatDialog,
@@ -37,8 +38,10 @@ export class RegistroComponent extends FormBaseComponent implements OnInit {
   }
 
   public async submit() {
+    this.isLoading = true;
     if (this.form.valid) {
       await this.apiService.post('/auth/registro', this.form.value).toPromise();
+      this.isLoading = false;
       this.router.navigateByUrl('/registro-exito');
     }
   }

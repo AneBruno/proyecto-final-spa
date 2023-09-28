@@ -8,17 +8,19 @@ import { Location                     } from '@angular/common';
 import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localizacion.component';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector    :   'app-mercado-posiciones-editar',
     templateUrl :   './mercado-posiciones-editar.component.html',
     styleUrls   : [ './mercado-posiciones-editar.component.scss' ]
 })
+
 export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionComponent implements OnInit {
 
     public  title                    : string  = 'Agregar Posición';
     public  productos                : any[]   = [];
-    public  condiciones_pago$         : Observable<any[]>;
+    public  condiciones_pago$        : Observable<any[]>;
     public  empresas                 : any[]   = [];
     public  empresa_id               : number;
     public  puertos                  : any[]   = [];
@@ -28,6 +30,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
     private producto_id_to           : any;
     private empresa_id_to            : any;
     public minDate                   : any = moment().format();
+    public isLoading                 : boolean = false;
 
 
     public constructor(
@@ -126,14 +129,24 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
     }
 
     public async guardar() {
+        this.isLoading = true;
         this.id = null; //Con esto hago que se copie la posicion en vez de sobreescribirla
+
+        // Obtener el valor del campo de entrada y reemplazar comas por puntos.
+        const volumen = this.form.get('volumen').value.replace(',', '.');
+
+        // Asignar el valor transformado de vuelta al campo de entrada.
+        this.form.get('volumen').setValue(volumen);
+        
         this.enviarDatos().subscribe((data: any) => {
+            this.isLoading = false;
             this.messages.show('Datos guardados correctamente').subscribe(() => {
 
             this._location.back();
             this.router.navigateByUrl(this.desdePanel ? '/app/mercado/panel' : '/app/mercado/posiciones');
             });
         });
+        this.isLoading = false;
     }
 
     public buscarProductos(busqueda?: any) {

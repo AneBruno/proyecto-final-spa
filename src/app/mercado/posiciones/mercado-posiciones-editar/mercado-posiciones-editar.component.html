@@ -102,6 +102,10 @@
             </mat-form-field>
         </div>
 
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+        
         <div fxLayout="row" fxLayoutGap="15px">
             <button mat-flat-button color="primary" (click)="guardar()" *ngIf="!consulta">
                 Guardar

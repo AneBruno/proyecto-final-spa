@@ -78,12 +78,16 @@
 
             <mat-form-field appearance="fill" fxFlex.lg="50" fxFlex.md="50" fxFlex.xs="100">
                 <mat-label>Comisión</mat-label>
-                <input formControlName="comision" matInput style="text-align:right;" />
+                <input formControlName="comision" matInput required style="text-align:right;" />
                 <span matSuffix>&nbsp; %</span>
                 <mat-error *ngIf="error('comision')">{{error('comision')}}</mat-error>
             </mat-form-field>
         </div>
 
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+        
         <div fxLayout="row" fxLayoutGap="15px">
             <button mat-flat-button color="primary" (click)="guardar()">
                 Guardar

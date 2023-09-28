@@ -36,6 +36,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     public minDate: any = moment().format();
     public direccionCompletaDestino: string;
     readonlyMode: boolean = false;
+    public isLoading                    : boolean = false;
 
 
     public constructor(
@@ -156,15 +157,23 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     }
 
     public guardar() {
+        this.isLoading = true;
         if (this.accion === 'copiar' || this.accion === 'agregar') {
             this.id = null;
         }
+        // Obtener el valor del campo de entrada y reemplazar comas por puntos.
+        const volumen = this.form.get('volumen').value.replace(',', '.');
+
+        // Asignar el valor transformado de vuelta al campo de entrada.
+        this.form.get('volumen').setValue(volumen);
 
         this.enviarDatos().subscribe((data: any) => {
+            this.isLoading = false;
             this.messages.show('Datos guardados correctamente').subscribe(() => {
                 this.datosGuardados.emit();
             });
         });
+        this.isLoading = false;
     }
 
     public empresa_id_keyup(ev: any) {

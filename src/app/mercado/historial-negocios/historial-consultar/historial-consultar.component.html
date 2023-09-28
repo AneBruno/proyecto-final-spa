@@ -27,6 +27,11 @@
                     <mat-label>Toneladas:</mat-label>
                     <input formControlName="volumen_posicion" matInput readonly />
                     </mat-form-field>
+                
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_posicion" matInput readonly />
+                </mat-form-field>
             </div>
 
             <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
@@ -34,6 +39,11 @@
                     <mat-label>Cosecha:</mat-label>
                     <input formControlName="cosecha_posicion" matInput readonly />
                 </mat-form-field>-->
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión comprador</mat-label>
+                    <input formControlName="comision_comprador_cierre" matInput readonly/>
+                </mat-form-field>
 
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Puerto de destino:</mat-label>
@@ -49,12 +59,7 @@
                     <mat-label>Cargada por:</mat-label>
                     <input formControlName="usuario_carga_posicion" matInput readonly />
                 </mat-form-field>
-
-                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Observaciones:</mat-label>
-                    <input formControlName="observaciones_posicion" matInput readonly />
-                </mat-form-field>
-
+   
             </div>
         </div>
         <br>
@@ -80,11 +85,21 @@
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Toneladas:</mat-label>
                     <input formControlName="volumen" matInput readonly />
-                </mat-form-field>                       
+                </mat-form-field>     
+                
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_orden" matInput readonly />
+                </mat-form-field>
 
             </div>
             <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
                 
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión vendedor</mat-label>
+                    <input formControlName="comision_vendedor_cierre" matInput readonly/>
+                </mat-form-field>
+
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Puerto de destino:</mat-label>
                     <input formControlName="destino_orden" matInput readonly />
@@ -95,32 +110,49 @@
                     <input formControlName="forma_pago_orden" matInput readonly />
                 </mat-form-field>
 
-                
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Cargada por:</mat-label>
                     <input formControlName="usuario_carga_orden" matInput readonly />
-                </mat-form-field>    
-
-                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Observaciones:</mat-label>
-                    <input formControlName="observaciones_orden" matInput readonly />
-                </mat-form-field>
+                </mat-form-field>                  
             </div>
         </div>
         <p class="subtitulo">Datos de cierre</p>
         <div fxLayout="row wrap">
             <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Precio final:</mat-label>
+                    <mat-label>Precio:</mat-label>
                     <input formControlName="precio_cierre_slip" matInput readonly/>
                 </mat-form-field>
             </div>
 
             <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Toneladas finales:</mat-label>
+                    <mat-label>Toneladas:</mat-label>
                     <input formControlName="toneladas_cierre" matInput readonly/>
                 </mat-form-field>
+            </div>
+        </div>
+        
+        <div fxLayout="row wrap" fxFlex="33" fxFlex.xs="50">
+            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                <mat-label style="font-weight: 600;">Precio total:</mat-label>
+                <input formControlName="precio_total" matInput readonly/>
+            </mat-form-field>
+        </div>
+
+        <p class="subtitulo">Comisiones</p>
+        <div fxLayout="row wrap">
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión comprador total:</mat-label>
+                    <input formControlName="precio_comision_comprador" matInput readonly/>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión vendedor total:</mat-label>
+                    <input formControlName="precio_comision_vendedor" matInput readonly/>
+                </mat-form-field>  
             </div>
         </div>
     </form>

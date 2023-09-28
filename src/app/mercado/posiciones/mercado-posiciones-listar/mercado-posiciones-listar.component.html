@@ -79,9 +79,10 @@
                     >{{column.title}}</th>
                     <td mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
                         <ng-container *ngIf="column.type==='custom'">
+                            {{ column.valueFn(row) }}
                                 {{column.valueFn(row)}}
                         </ng-container>
-                        <ng-container *ngIf="column.type==='text'||column.type===undefined">
+                        <ng-container *ngIf="column.type==='text'||column.type===undefined" >
                             {{column.valueFn(row) || row[column.name]  || null}}
                         </ng-container>
                         <ng-container *ngIf="column.type==='menu'">

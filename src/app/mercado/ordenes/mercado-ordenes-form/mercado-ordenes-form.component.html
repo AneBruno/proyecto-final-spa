@@ -21,7 +21,7 @@
                     {{row.razon_social}}
                 </mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="error('empresa_razon_social')">{{error('empresa_razon_social')}}</mat-error>
+            <mat-error *ngIf="error('empresa_id')">{{error('empresa_id')}}</mat-error>
         </mat-form-field>
 
     </div>
@@ -79,6 +79,10 @@
             <input formControlName="observaciones" matInput />
             <mat-error *ngIf="error('observaciones')">{{error('observaciones')}}</mat-error>
         </mat-form-field>
+    </div>
+
+    <div class="loading-overlay" *ngIf="isLoading">
+        <div class="spinner"></div>
     </div>
 
     <div *ngIf="mostrarBotones" fxLayout="row" fxLayoutGap="15px">

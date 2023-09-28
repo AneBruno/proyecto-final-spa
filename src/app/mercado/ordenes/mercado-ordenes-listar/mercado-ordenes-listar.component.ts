@@ -101,6 +101,20 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             this.addColumn('created_at',    'Fecha',     '50px').renderFn(row => this.formatearFecha(row.created_at));
             this.addColumn('vendedor',      'Empresa vendedora',  '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa)).setAsCustom();
             this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre);
+            //this.addColumn('toneladas', 'Toneladas', '80px').renderFn(row => row.volumen? row.volumen : '0');
+            this.addColumn('toneladas', 'Toneladas', '80px').renderFn(row =>  {
+            
+                const toneladas = parseFloat(row.volumen); // Convierte el valor a número decimal
+                if (row.volumen === null || toneladas === 0) {
+                    return '0'; // Si row.volumen es null, muestra "0"
+                }
+                // Verifica si los decimales son distintos de cero
+                if (toneladas === Math.floor(toneladas)) {
+                    return Math.floor(toneladas); // Si son iguales a cero, muestra solo el número entero
+                } else {
+                    return toneladas.toFixed(2); // Si son distintos de cero, muestra dos decimales
+                }
+            });
             this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
             this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
             //this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber();
@@ -219,5 +233,18 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         this.dataSource.filtros[filterName] = filtro;
         this.dataSource.refreshData();
     }
+
+    getEstadoColor(estado: string): string {
+        switch (estado) {
+          case 'Activa': // Reemplaza 'Valor1' con el valor real
+            return 'green'; // Color para Valor1
+          case 'Confirmada': // Reemplaza 'Valor2' con el valor real
+            return 'blue'; // Color para Valor2
+          case 'Eliminada': // Reemplaza 'Valor3' con el valor real
+            return 'red'; // Color para Valor3
+          default:
+            return 'black'; // Color predeterminado si no coincide con ningún valor
+        }
+      }
 
 }

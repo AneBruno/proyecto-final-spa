@@ -29,6 +29,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         public autocompletarPosicionForm    : boolean;
         public orden                        : any ;
         public usuarios                     : Array<any>;
+        public isLoading                    : boolean = false; // Variable para controlar el spinner
         
         protected fb  = LocatorService.injector.get(FormBuilder);
 
@@ -75,6 +76,8 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             //posicion de compra
             producto_posicion              : new FormControl({ value: '',    disabled: false  }),
             empresa_posicion               : new FormControl({ value: '',    disabled: false  }),
+            comision_comprador             : new FormControl({ value: '',    disabled: false  }),
+            comision_comprador_cierre      : new FormControl({ value: '',    disabled: false  }),
             destino_posicion               : new FormControl({ value: '',    disabled: false  }),
             precio_posicion                : new FormControl({ value: '',    disabled: false  }),
             forma_pago_posicion            : new FormControl({ value: '',    disabled: false  }),
@@ -88,6 +91,8 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             posicion_id                    : new FormControl({ value: '',    disabled: false  }),
             producto_orden                 : new FormControl({ value: '',    disabled: false  }),
             empresa_orden                  : new FormControl({ value: '',    disabled: false  }),
+            comision_vendedor              : new FormControl({ value: '',    disabled: false  }),
+            comision_vendedor_cierre       : new FormControl({ value: '',    disabled: false  }),
             destino_orden                  : new FormControl({ value: '',    disabled: false  }),
             precio_orden                   : new FormControl({ value: '',    disabled: false  }),
             forma_pago_orden               : new FormControl({ value: '',    disabled: false  }),
@@ -98,6 +103,8 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             //datos de cierre
             precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
             toneladas_cierre               : new FormControl({ value: '',    disabled: false  }),
+            
+            
         });
 
         this.form.get('posicion_id').valueChanges.subscribe(async (value) => {
@@ -119,6 +126,9 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         this.usuarios = await this.apiService.getData('/usuarios').toPromise();
         //this.form.get('posicion_id').setValue(this.posicion.id);
         this.form.get('empresa_posicion').setValue(this.posicion.empresa.razon_social);
+        this.form.get('comision_comprador').setValue(this.posicion.empresa.comision? this.posicion.empresa.comision+'%': 0+'%');
+        this.form.get('comision_comprador_cierre').setValue(this.posicion.empresa.comision? this.posicion.empresa.comision :0);
+        
         this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
         this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
         this.form.get('precio_posicion').setValue(this.posicion.moneda + ' ' +this.posicion.precio);
@@ -130,6 +140,8 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
 
         //orden de venta
         this.form.get('empresa_orden').setValue(this.orden.empresa.razon_social);
+        this.form.get('comision_vendedor').setValue(this.orden.empresa.comision?this.orden.empresa.comision+'%': 0+'%');
+        this.form.get('comision_vendedor_cierre').setValue(this.orden.empresa.comision?this.orden.empresa.comision: 0);
         this.form.get('volumen').setValue(this.orden.volumen);
         this.form.get('producto_orden').setValue(this.orden.producto.nombre);
         this.form.get('observaciones_orden').setValue(this.orden.observaciones? this.orden.observaciones : '-');
@@ -141,7 +153,6 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         //datos cierre
         this.form.get('precio_cierre_slip').setValue(this.posicion.precio);
         this.form.get('toneladas_cierre').setValue(this.posicion.volumen);
-    
     }
 
     public infoEmpresaPosicion(posicion: any) {
@@ -149,14 +160,18 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         return (posicion.id + " - " + posicion.empresa.razon_social + ' - ' + precio);
     }
 
-
-    /*onOrdenFormChange(value) {
-        this.form.get('volumen').setValue(value.volumen);
-    }*/
-
     public guardar() {
+        this.isLoading = true;
+
+        // Obtener el valor del campo de entrada y reemplazar comas por puntos.
+        const volumen = this.form.get('toneladas_cierre').value.replace(',', '.');
+
+        // Asignar el valor transformado de vuelta al campo de entrada.
+        this.form.get('toneladas_cierre').setValue(volumen);
+
         this.enviarDatos().subscribe((data: any) => {
         this.messages.show('Datos guardados correctamente').subscribe(() => {
+                this.isLoading = false; // Ocultar el spinner cuando finalice la carga
                 this.router.navigateByUrl(`/app/mercado/panel`);
             });
         });

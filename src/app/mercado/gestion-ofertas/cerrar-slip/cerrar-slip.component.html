@@ -30,6 +30,11 @@
                     <mat-label>Toneladas:</mat-label>
                     <input formControlName="volumen_posicion" matInput readonly />
                     </mat-form-field>
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_posicion" matInput readonly />
+                </mat-form-field>
             </div>
 
             <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
@@ -37,6 +42,11 @@
                     <mat-label>Cosecha:</mat-label>
                     <input formControlName="cosecha_posicion" matInput readonly />
                 </mat-form-field>-->
+
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión comprador</mat-label>
+                    <input formControlName="comision_comprador" matInput readonly/>
+                </mat-form-field>
 
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Puerto de destino:</mat-label>
@@ -52,12 +62,6 @@
                     <mat-label>Cargada por:</mat-label>
                     <input formControlName="usuario_carga_posicion" matInput readonly />
                 </mat-form-field>
-
-                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Observaciones:</mat-label>
-                    <input formControlName="observaciones_posicion" matInput readonly />
-                </mat-form-field>
-
             </div>
         </div>
 
@@ -79,14 +83,25 @@
                 <input formControlName="precio_orden" matInput readonly />
                 </mat-form-field>
 
+                 
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Cargada por:</mat-label>
-                    <input formControlName="usuario_carga_orden" matInput readonly />
-                </mat-form-field>           
+                    <mat-label>Toneladas:</mat-label>
+                    <input formControlName="volumen" matInput readonly />
+                </mat-form-field>
+                
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Observaciones:</mat-label>
+                    <input formControlName="observaciones_orden" matInput readonly />
+                </mat-form-field>
 
             </div>
             <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
                 
+                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                    <mat-label>Comisión vendedor</mat-label>
+                    <input formControlName="comision_vendedor" matInput readonly/>
+                </mat-form-field>
+
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
                     <mat-label>Puerto de destino:</mat-label>
                     <input formControlName="destino_orden" matInput readonly />
@@ -98,14 +113,10 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Volumen:</mat-label>
-                    <input formControlName="volumen" matInput readonly />
-                </mat-form-field>
+                    <mat-label>Cargada por:</mat-label>
+                    <input formControlName="usuario_carga_orden" matInput readonly />
+                </mat-form-field>  
 
-                <mat-form-field appearance="none" fxLayoutAlign="stretch start">
-                    <mat-label>Observaciones:</mat-label>
-                    <input formControlName="observaciones_orden" matInput readonly />
-                </mat-form-field>
             </div>
         </div>
 
@@ -120,6 +131,10 @@
                 <mat-label>Toneladas</mat-label>
                 <input formControlName="toneladas_cierre" matInput required/>
             </mat-form-field>
+        </div>
+
+        <div class="loading-overlay" *ngIf="isLoading">
+            <div class="spinner"></div>
         </div>
 
         <div fxLayout="row" fxLayoutGap="15px">

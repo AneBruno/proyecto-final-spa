@@ -91,9 +91,17 @@
                         <ng-container *ngIf="column.type==='number'">
                             {{ column.valueFn(row) | number:'':'es' }}
                         </ng-container>
-                        <ng-container *ngIf="column.type==='text'||column.type===undefined">
+                        <!--<ng-container *ngIf="column.type==='text'||column.type===undefined" >
+                            {{column.valueFn(row) || row[column.name]  || null}}
+                        </ng-container>-->
+                        <ng-container *ngIf="(column.type==='text'||column.type===undefined)&&column.name !='estado'">
                             {{column.valueFn(row) || row[column.name]  || null}}
                         </ng-container>
+                        <ng-container *ngIf="column.name === 'estado'">
+                            <span [ngStyle]="{ 'color': getEstadoColor(row[column.name]) }">
+                                {{column.valueFn(row) || row[column.name]  || null}}
+                            </span>
+                          </ng-container>
                         <ng-container *ngIf="column.type==='menu'">
                             <button mat-icon-button color="primary" [matMenuTriggerFor]="menu" [matMenuTriggerData]="{row:row}" >
                                 <mat-icon aria-hidden="false">more_vert</mat-icon>

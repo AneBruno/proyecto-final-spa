@@ -54,6 +54,10 @@
                     Registrarme
                 </button>
 
+                <div class="loading-overlay" *ngIf="isLoading">
+                    <div class="spinner"></div>
+                </div>
+                
                 <div fxFlex="100" fxLayout="row" fxLayoutAlign="center">
                     <span class="mat-body-strong" style="margin:2px;">
                         <a>¿Ya tenés una cuenta?   </a>

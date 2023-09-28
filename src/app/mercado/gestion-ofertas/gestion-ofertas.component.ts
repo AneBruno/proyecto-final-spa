@@ -190,14 +190,6 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         this.dataSource.refreshData();
     }
 
-    empresaTooltip(razonSocial: string) {
-        const posicionFiltrada = this.getPosicionByRazonSocialAndPrecio(razonSocial);
-        return `
-            Precio: ${posicionFiltrada.precio} ${this.posicion.moneda}
-            Observaciones: ${posicionFiltrada.observaciones ?? '-'}
-            Comercial: ${posicionFiltrada.usuario_carga.nombre} ${posicionFiltrada.usuario_carga.apellido}
-        `;
-    }
 
     private getPosicionByRazonSocialAndPrecio(razonSocial: string) {
         return this.posicionesAgrupadas.reduce((previousPosicion, currentPosicion) => {

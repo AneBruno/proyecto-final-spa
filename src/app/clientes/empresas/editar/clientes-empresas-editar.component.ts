@@ -15,6 +15,7 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
     public title                    : string = 'Agregar Empresa'
     public usuarios                 : any[]  = [];
     public perfil                   : string;
+    public isLoading                : boolean = false;
     public opciones: string[] = [
         'Buenos Aires',
         'Capital Federal',
@@ -114,11 +115,14 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
     }
 
     public guardar() {
+        this.isLoading = true;
         this.enviarDatos().subscribe((data: any) => {
             this.messages.show('Datos guardados correctamente').subscribe(() => {
                 if (this.id) {
+                    this.isLoading = false; 
                     this.router.navigateByUrl('/app/clientes/empresas');
                 } else {
+                    this.isLoading = false; 
                     this.router.navigateByUrl('/app/clientes/empresas/' + data.id);
                 }
             });

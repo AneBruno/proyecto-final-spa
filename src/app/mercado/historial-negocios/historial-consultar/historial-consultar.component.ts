@@ -57,6 +57,7 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
       //posicion de compra
       producto_posicion              : new FormControl({ value: '',    disabled: false  }),
       empresa_posicion               : new FormControl({ value: '',    disabled: false  }),
+      comision_comprador_cierre      : new FormControl({ value: '',    disabled: false  }),
       destino_posicion               : new FormControl({ value: '',    disabled: false  }),
       precio_posicion                : new FormControl({ value: '',    disabled: false  }),
       forma_pago_posicion            : new FormControl({ value: '',    disabled: false  }),
@@ -71,6 +72,7 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
       
       producto_orden                 : new FormControl({ value: '',    disabled: false  }),
       empresa_orden                  : new FormControl({ value: '',    disabled: false  }),
+      comision_vendedor_cierre       : new FormControl({ value: '',    disabled: false  }),
       destino_orden                  : new FormControl({ value: '',    disabled: false  }),
       precio_orden                   : new FormControl({ value: '',    disabled: false  }),
       forma_pago_orden               : new FormControl({ value: '',    disabled: false  }),
@@ -81,6 +83,9 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
       //datos cierre
       precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
       toneladas_cierre               : new FormControl({ value: '',    disabled: false  }),
+      precio_total                   : new FormControl({ value: '',    disabled: false  }),
+      precio_comision_comprador      : new FormControl({ value: '',    disabled: false  }),
+      precio_comision_vendedor       : new FormControl({ value: '',    disabled: false  }),
     });
 
     //obtengo orden.
@@ -105,6 +110,7 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
     this.usuarios = await this.apiService.getData('/usuarios').toPromise();
     //this.form.get('posicion_id').setValue(this.posicion.id);
     this.form.get('empresa_posicion').setValue(this.posicion.empresa.razon_social);
+    this.form.get('comision_comprador_cierre').setValue(this.orden.comision_comprador_cierre? this.orden.comision_comprador_cierre +'%':0+'%');
     this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
     this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
     this.form.get('precio_posicion').setValue(this.posicion.moneda + '' +this.posicion.precio);
@@ -115,6 +121,7 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
     this.form.get('observaciones_posicion').setValue(this.posicion.observaciones? this.posicion.observaciones : '-');
 
     this.form.get('empresa_orden').setValue(this.orden.empresa.razon_social);
+    this.form.get('comision_vendedor_cierre').setValue(this.orden.comision_vendedor_cierre? this.orden.comision_vendedor_cierre+'%' :0+'%');
     this.form.get('volumen').setValue(this.orden.volumen);
     this.form.get('producto_orden').setValue(this.orden.producto.nombre);
     this.form.get('observaciones_orden').setValue(this.orden.observaciones? this.orden.observaciones : '-');
@@ -124,8 +131,11 @@ export class HistorialConsultarComponent extends ListadoComponent implements OnI
     this.form.get('forma_pago_orden').setValue(this.orden.condicion_pago.descripcion);
 
     //datos de cierre
-    this.form.get('precio_cierre_slip').setValue(this.orden.precio_cierre_slip);
+    this.form.get('precio_cierre_slip').setValue(this.orden.moneda + ' '+this.orden.precio_cierre_slip);
     this.form.get('toneladas_cierre').setValue(this.orden.toneladas_cierre? this.orden.toneladas_cierre:'-');
+    this.form.get('precio_total').setValue(this.orden.moneda +' '+ this.orden.precio_cierre_slip * this.orden.toneladas_cierre);
+    this.form.get('precio_comision_comprador').setValue(this.orden.moneda + ' '+(this.orden.comision_comprador_cierre/100) * this.orden.toneladas_cierre * this.orden.precio_cierre_slip);
+    this.form.get('precio_comision_vendedor').setValue(this.orden.moneda + ' '+(this.orden.comision_vendedor_cierre/100) * this.orden.toneladas_cierre  * this.orden.precio_cierre_slip);
 }
 
 }

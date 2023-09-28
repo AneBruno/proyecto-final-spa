@@ -81,10 +81,12 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
   private setTable() : void {
     this.clearColumns();
     this.addColumn('fecha',     'Fecha cierre', '110px').renderFn(row => this.formatearFecha(row.updated_at));
-    this.addColumn('comprador',     'Comprador', '180px').renderFn(row => row.posicion? (this.empresas.find(empre => empre.id == row.posicion.empresa_id)).razon_social : '-');
-    this.addColumn('vendedor',     'Vendedor', '180px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa));
+    this.addColumn('comprador',     'Comprador', '150px').renderFn(row => row.posicion? (this.empresas.find(empre => empre.id == row.posicion.empresa_id)).razon_social : '-');
+    this.addColumn('comision_comprador',     'Comisión comprador', '100px').renderFn(row => row.comision_comprador_cierre?  row.comision_comprador_cierre+'%': 0);
+    this.addColumn('vendedor',     'Vendedor', '150px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa));
+    this.addColumn('comision_vendedor',     'Comisión vendedor', '100px').renderFn(row => row.comision_vendedor_cierre? row.comision_vendedor_cierre+'%': 0);
     this.addColumn('producto',      'Producto',       '120px').renderFn(row => row.producto.nombre);
-    this.addColumn('toneladas_cierre',      'Toneladas',       '120px').renderFn(row => row.toneladas_cierre? row.toneladas_cierre: '-');
+    this.addColumn('toneladas_cierre',      'Toneladas',       '90px').renderFn(row => row.toneladas_cierre? row.toneladas_cierre: '-');
     this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
     this.addColumn('forma_pago',       'Forma de pago',   '120px').renderFn(row => row.condicion_pago.descripcion);
     this.addColumn('moneda_precio', 'Precio',    '80px').renderFn(row => row.precio_cierre_slip? `${row.moneda} ${row.precio_cierre_slip}`: '-').setAlign('left');
@@ -127,61 +129,74 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     }
     this.dataSource.filtros[filterName] = filtro;
     this.dataSource.refreshData();
-}
+  }
 
-public calculaDestino(row:any) {
+  public selecetionChangeMultipleEmpresaCompradora(event: any): void {
+    let filtro: Array<any> = event.source.value;
+    if (filtro.length === 0 || filtro.includes('')) {
+      delete this.dataSource.filtros['empresa_id.posicion']; 
+      this.dataSource.refreshData();
+      return;
+    } 
+    this.dataSource.filtros['empresa_id.posicion'] = filtro; // Usar el nombre de columna adecuado
+    this.dataSource.refreshData();
+    
+  }   
+
+
+  public calculaDestino(row:any) {
   return row.puerto?.nombre
   }
 
-public formatearFecha(fecha:any) {
-  return moment(fecha).format('DD/MM');
-}
+  public formatearFecha(fecha:any) {
+    return moment(fecha).format('DD/MM');
+  }
 
 public actualizarDatos() {
   this.configurarFiltros();
   this.dataSource.refreshData();
 }
 
-public configurarFiltros() {
-  if (this.fechaDesde) {
-      this.dataSource.filtros.fechaDesde = moment(this.fechaDesde).format('YYYY-MM-DD');
+  public configurarFiltros() {
+    if (this.fechaDesde) {
+        this.dataSource.filtros.fechaDesde = moment(this.fechaDesde).format('YYYY-MM-DD');
+    }
+
+    if (this.fechaHasta) {
+        this.dataSource.filtros.fechaHasta = moment(this.fechaHasta).format('YYYY-MM-DD');
+    }
+  }
+  public buscarEmpresasCompradoras(busqueda?: any) {
+    let filtros: any = {};
+    filtros.perfil = "COMPRADOR";
+    if (busqueda) {
+        filtros.busqueda = busqueda;
+    }
+    this.apiService.getData('/clientes/empresas', {
+        filtros: filtros,
+        ordenes: {
+            razon_social:'ASC'
+        }
+    }).subscribe(data => {
+        this.empresasCompradoras = data;
+    });
   }
 
-  if (this.fechaHasta) {
-      this.dataSource.filtros.fechaHasta = moment(this.fechaHasta).format('YYYY-MM-DD');
+  public buscarEmpresasVendedora(busqueda?: any) {
+    let filtros: any = {};
+    filtros.perfil = "VENDEDOR";
+    if (busqueda) {
+        filtros.busqueda = busqueda;
+    }
+    this.apiService.getData('/clientes/empresas', {
+        filtros: filtros,
+        ordenes: {
+            razon_social:'ASC'
+        }
+    }).subscribe(data => {
+        this.empresasVendedoras = data;
+    });
   }
-}
-public buscarEmpresasCompradoras(busqueda?: any) {
-  let filtros: any = {};
-  filtros.perfil = "COMPRADOR";
-  if (busqueda) {
-      filtros.busqueda = busqueda;
-  }
-  this.apiService.getData('/clientes/empresas', {
-      filtros: filtros,
-      ordenes: {
-          razon_social:'ASC'
-      }
-  }).subscribe(data => {
-      this.empresasCompradoras = data;
-  });
-}
-
-public buscarEmpresasVendedora(busqueda?: any) {
-  let filtros: any = {};
-  filtros.perfil = "VENDEDOR";
-  if (busqueda) {
-      filtros.busqueda = busqueda;
-  }
-  this.apiService.getData('/clientes/empresas', {
-      filtros: filtros,
-      ordenes: {
-          razon_social:'ASC'
-      }
-  }).subscribe(data => {
-      this.empresasVendedoras = data;
-  });
-}
 
 
 }
