@@ -131,17 +131,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.dataSource.refreshData();
   }
 
-  public selecetionChangeMultipleEmpresaCompradora(event: any): void {
-    let filtro: Array<any> = event.source.value;
-    if (filtro.length === 0 || filtro.includes('')) {
-      delete this.dataSource.filtros['empresa_id.posicion']; 
-      this.dataSource.refreshData();
-      return;
-    } 
-    this.dataSource.filtros['empresa_id.posicion'] = filtro; // Usar el nombre de columna adecuado
-    this.dataSource.refreshData();
-    
-  }   
+ 
 
 
   public calculaDestino(row:any) {

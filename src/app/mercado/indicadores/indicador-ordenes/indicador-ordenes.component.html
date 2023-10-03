@@ -1,0 +1,48 @@
+<app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
+    <titulo>Indicadores - Órdenes de venta</titulo>
+    <filtros fxLayout="column">
+        <mat-form-field appearance="legacy">
+            <mat-label>Período</mat-label>
+            <mat-select [(ngModel)]="filtroPeriodo" (selectionChange)="onFiltroPeriodoChange($event)">
+                <mat-option value="%Y-%m-%d">Por día</mat-option>
+                <mat-option value="%Y-%m">Mensual</mat-option>
+                <mat-option value="%Y">Anual</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </filtros>
+    <contenido>
+        <div class="table-sticky-wrapper">
+            <table mat-table matSort [dataSource]="dataSource" matSort style="min-width:700px;">
+
+                <ng-container *ngFor="let column of columns" matColumnDef="{{column.name}}" [stickyEnd]="column.type === 'menu'">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef
+                        mat-sort-header
+                        [ngStyle]="{'text-align': column.align, width: column.width, 'font-weight': '600'}"
+                    >{{column.title}}</th>
+                    <td mat-cell *matCellDef="let row" [ngStyle]="{'text-align': column.align}">
+                        <ng-container *ngIf="column.type==='custom'">
+                            {{ column.valueFn(row) }}
+                                {{column.valueFn(row)}}
+                        </ng-container>
+                        <ng-container *ngIf="column.type==='text'||column.type===undefined" >
+                            {{column.valueFn(row) || row[column.name]  || null}}
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>
+            </table>
+        </div>
+        <mat-paginator [length]="dataSource.total"
+            [pageSize]="dataSource.limit"
+            (page)="dataSource.setPageIndex($event.pageIndex)">
+        </mat-paginator>
+
+        <!--<canvasjs-chart [options]="chartOptions"></canvasjs-chart>-->
+    </contenido>
+</app-listado-filtrado>
+
+

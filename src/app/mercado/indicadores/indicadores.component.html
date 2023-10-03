@@ -1,4 +1,49 @@
-<app-listado-filtrado >
+<app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
     <titulo>Indicadores</titulo>
+    <filtros fxLayout="column">
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Desde</mat-label>
+            <input
+                #filtroFechaDesde matInput [matDatepicker]="pickerFechaDesde"
+                [max]="fechaHasta"
+                (focus)="pickerFechaDesde.open()"
+                [(ngModel)]="fechaDesde"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaDesde"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaDesde></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field appearance="legacy">
+            <mat-label>Fecha Hasta</mat-label>
+            <input
+                #filtroFechaHasta matInput [matDatepicker]="pickerFechaHasta"
+                [min]="fechaDesde"
+                (focus)="pickerFechaHasta.open()"
+                [(ngModel)]="fechaHasta"
+                (dateChange)="actualizarDatos()">
+            <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
+            <mat-datepicker #pickerFechaHasta></mat-datepicker>
+        </mat-form-field>
+    </filtros>
+    <contenido>
+        <div class="table-sticky-wrapper">
+            <table mat-table [dataSource]="items">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef class="custom-header"> Id </th>
+                  <td mat-cell *matCellDef="let item"> {{ item.id }} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="nombre">
+                  <th mat-header-cell *matHeaderCellDef class="custom-header"> Descripción </th>
+                  <td mat-cell *matCellDef="let item"> {{ item.nombre }} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="['id', 'nombre']"></tr>
+                <tr class="clickable" mat-row *matRowDef="let row; columns: ['id', 'nombre']" (click)="redirectToDetails(row.id)"></tr>
+              </table>
+        </div>
 
+       <!-- <canvasjs-chart [options]="chartOptions"></canvasjs-chart>-->
+    </contenido>
 </app-listado-filtrado>
+

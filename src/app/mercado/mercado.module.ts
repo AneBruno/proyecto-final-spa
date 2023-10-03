@@ -19,6 +19,8 @@ import { MercadoOrdenesFormComponent } from './ordenes/mercado-ordenes-form/merc
 import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
 import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
+import { IndicadorOrdenesComponent } from './indicadores/indicador-ordenes/indicador-ordenes.component';
+import { IndicadorPosicionesComponent } from './indicadores/indicador-posiciones/indicador-posiciones.component';
 
 
 @NgModule({
@@ -38,6 +40,8 @@ import { HistorialConsultarComponent } from './historial-negocios/historial-cons
         HistorialNegociosComponent,
         IndicadoresComponent,
         HistorialConsultarComponent,
+        IndicadorOrdenesComponent,
+        IndicadorPosicionesComponent,
     ],
     imports: [
         CommonModule,

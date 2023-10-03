@@ -14,35 +14,37 @@ import { MercadoPosicionesListarComponent } from './posiciones/mercado-posicione
 import { HistorialNegociosComponent } from './historial-negocios/historial-negocios.component';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
 import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
+import { IndicadorOrdenesComponent } from './indicadores/indicador-ordenes/indicador-ordenes.component';
 
 const routes: Routes = [
-    { path: 'condicionesPago',             component: CondicionesPagoListarComponent   },
-    { path: 'condicionesPago/agregar',     component: CondicionesPagoEditarComponent   },
-    { path: 'condicionesPago/:id',         component: CondicionesPagoEditarComponent   },
+    { path: 'condicionesPago',                                  component: CondicionesPagoListarComponent   },
+    { path: 'condicionesPago/agregar',                          component: CondicionesPagoEditarComponent   },
+    { path: 'condicionesPago/:id',                              component: CondicionesPagoEditarComponent   },
 
-    { path: 'cosechas',                    component: CosechasListarComponent          },
-    { path: 'cosechas/agregar',            component: CosechasEditarComponent          },
-    { path: 'cosechas/:id',                component: CosechasEditarComponent          },
+    { path: 'cosechas',                                         component: CosechasListarComponent          },
+    { path: 'cosechas/agregar',                                 component: CosechasEditarComponent          },
+    { path: 'cosechas/:id',                                     component: CosechasEditarComponent          },
 
-    { path: 'ordenes',                     component: MercadoOrdenesListarComponent    },
-    { path: 'ordenes/agregar',             component: MercadoOrdenesEditarComponent    },
-    { path: 'ordenes/agregar/:id',         component: MercadoOrdenesEditarComponent },
-    { path: 'ordenes/:accion/:id',         component: MercadoOrdenesEditarComponent    },
+    { path: 'ordenes',                                          component: MercadoOrdenesListarComponent    },
+    { path: 'ordenes/agregar',                                  component: MercadoOrdenesEditarComponent    },
+    { path: 'ordenes/agregar/:id',                              component: MercadoOrdenesEditarComponent },
+    { path: 'ordenes/:accion/:id',                              component: MercadoOrdenesEditarComponent    },
 
-    { path: 'posiciones',                  component: MercadoPosicionesListarComponent },
-    { path: 'posiciones/agregar',          component: MercadoPosicionesEditarComponent },
-    { path: 'posiciones/copiar/:id',       component: MercadoPosicionesEditarComponent },
-    { path: 'posiciones/:accion/:id',      component: MercadoPosicionesEditarComponent },
+    { path: 'posiciones',                                       component: MercadoPosicionesListarComponent },
+    { path: 'posiciones/agregar',                               component: MercadoPosicionesEditarComponent },
+    { path: 'posiciones/copiar/:id',                            component: MercadoPosicionesEditarComponent },
+    { path: 'posiciones/:accion/:id',                           component: MercadoPosicionesEditarComponent },
 
-    { path: 'panel',                       component: MercadoPanelListarComponent      },
+    { path: 'panel',                                             component: MercadoPanelListarComponent      },
     { path: 'panel/gestionar-ofertas/:clave',                    component: GestionOfertasComponent  },
     { path: 'panel/gestionar-ofertas/:clave/cerrar-slip/:orden', component: CerrarSlipComponent      },
-    { path: 'panel/:agregarPosicion',      component: MercadoPosicionesEditarComponent },
+    { path: 'panel/:agregarPosicion',                            component: MercadoPosicionesEditarComponent },
 
-    { path: 'historial',                   component: HistorialNegociosComponent      },
-    { path: 'historial/consulta/:orden' , component: HistorialConsultarComponent      },
-    
-    
+    { path: 'historial',                                         component: HistorialNegociosComponent      },
+    { path: 'historial/consulta/:orden' ,                        component: HistorialConsultarComponent      },
+            
+    { path: 'indicadores',                                       component: IndicadoresComponent      },
+    { path: 'indicadores/ordenes',                               component: IndicadorOrdenesComponent      }
 
 ];
 

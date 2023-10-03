@@ -90,6 +90,7 @@ import { TableComponent                  } from './table/table.component';
 import { ToolbarComponent                } from './toolbar/toolbar.component';
 import { TreeComponent                   } from './tree/tree.component';
 import { UserSectionComponent            } from './user-section/user-section.component';
+// import { CanvasJSAngularChartsModule     } from '@canvasjs/angular-charts';
 
 // Directivas
 import { InputNumericDirective } from './input-numeric.directive';
@@ -130,6 +131,7 @@ import { InputNumericDirective } from './input-numeric.directive';
         UserSectionComponent,
     ],
     imports: [
+        // CanvasJSAngularChartsModule,
         CdkTableModule,
         CommonModule,
         CKEditorModule,
@@ -167,6 +169,7 @@ import { InputNumericDirective } from './input-numeric.directive';
     exports: [
 
         // Modules
+        // CanvasJSAngularChartsModule,
         CdkTableModule,
         CKEditorModule,
         FormsModule,

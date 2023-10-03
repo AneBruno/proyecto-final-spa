@@ -37,13 +37,6 @@ table {
     }
 }
 
-.clickable {
-  cursor: pointer;
-}
-.mat-header-cell.custom-header {
-  font-weight: 600; 
-}
-
 .celda{
     &[data-DeExportacion='exportacion'] {
         background: #F7FEEF;
@@ -81,14 +74,3 @@ mat-chip {
   max-width: 150px;
 }
 
-#rectanguloVerde {
-  background:#386D37;
-}
-
-#rectanguloRojo {
-  background:red;
-}
-
-#rectanguloAmarillo {
-  background:yellow;
-}

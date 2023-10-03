@@ -7,6 +7,7 @@ import { ColumnDef         } from './column-def';
 export class ListadoComponent {
     // public    dataSource         : ListadoDataSource<any> = LocatorService.injector.get(ListadoDataSource);
     public    columns            : ColumnDef[] = [];
+    public rows: any[] = [];
     // protected apiService         : ApiService = LocatorService.injector.get(ApiService);
 
     public clearColumns() {
@@ -34,4 +35,23 @@ export class ListadoComponent {
         this.columns.push(columnDef);
         return columnDef;
     }
+
+    public addRow(data: { [key: string]: any }): void {
+        // Verifica que se haya proporcionado un objeto de datos
+        if (!data) {
+          return;
+        }
+        // Crea una nueva fila y agrega los datos proporcionados
+        const newRow: { [key: string]: any } = {};
+
+        // Itera sobre las columnas existentes y asigna los valores de datos correspondientes
+        this.columns.forEach((column) => {
+        const columnName = column.name;
+        newRow[columnName] = data[columnName] !== undefined ? data[columnName] : null;
+        });
+
+        // Agrega la nueva fila al conjunto de filas de datos
+        this.rows.push(newRow);
+    }
+
 }

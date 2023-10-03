@@ -28,7 +28,7 @@
 
         <mat-form-field appearance="legacy" >
             <mat-label>Empresa compradora</mat-label>
-            <mat-select multiple [(ngModel)]="filtroEmpresaCompradora" (selectionChange)="selecetionChangeMultipleEmpresaCompradora($event)">
+            <mat-select multiple [(ngModel)]="filtroEmpresaCompradora" (selectionChange)="selecetionChangeMultiple($event, 'comprador_empresa_id')">
               <mat-option *ngFor="let row of empresasCompradoras" [value]="row.id">{{row.razon_social}}</mat-option>
             </mat-select>
           </mat-form-field>
