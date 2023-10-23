@@ -50,16 +50,16 @@ export class ServerAutocompleteComponent implements OnInit, ControlValueAccessor
     public listIcon: string = '';
 
     @Input()
-    public listIconFn: (row: any) => string | null = null;
+    public listIconFn: ((row: any) => string | null) | null = null;
 
     @Input()
-    public appearance: string = 'legacy';
+    public appearance: 'outline' | 'fill' = 'fill';
 
     /*@Input() 
     public formControlName: string;*/
 
     @Input() 
-    public error: string;
+    public error: string = '';
 
     @Output()
     public valueChange: EventEmitter<any> = new EventEmitter<any>();
@@ -70,7 +70,7 @@ export class ServerAutocompleteComponent implements OnInit, ControlValueAccessor
     @Output()
     public optionSelected: EventEmitter<any> = new EventEmitter<any>();
 
-    public displayWithFn: Function;
+    public displayWithFn!: ((value: any) => string) | null;
 
     public data : any[] = [];
 
@@ -157,7 +157,7 @@ export class ServerAutocompleteComponent implements OnInit, ControlValueAccessor
     }
 
     public getIcon(row: any): string {
-        let icon = this.listIcon;
+        let icon: string | null = this.listIcon;
         if (this.listIconFn) {
             icon = this.listIconFn(row);
         }

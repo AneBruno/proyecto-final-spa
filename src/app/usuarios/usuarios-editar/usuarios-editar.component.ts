@@ -21,13 +21,13 @@ import { ViewChild                 } from '@angular/core';
 export class UsuariosEditarComponent extends FormBaseComponent implements OnInit {
 
     @ViewChild(FileUploadButtonComponent)
-    public uploadComponent: FileUploadButtonComponent;
+    public uploadComponent?: FileUploadButtonComponent;
 
     @Input()
-    public user: User;
+    public user?: User;
 
     @Input()
-    public id: number;
+    public id: any;
 
     @Input()
     public title: string = 'Editar usuario';
@@ -50,11 +50,11 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
     @Output()
     public clickCancelar: EventEmitter<void> = new EventEmitter<void>();
 
-    public roles$: Observable<any[]>
+    public roles$?: Observable<any[]>
 
-    public avatarUri: string;
+    public avatarUri?: string;
 
-    public urlImagen: string;
+    public urlImagen?: string;
 
     public actualizarDatos  : any;
 
@@ -107,18 +107,18 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
         if (!this.uploadComponent) {
             return null;
         }
-        return this.uploadComponent.choosenFile;
+        return this.uploadComponent?.choosenFile?? null;
     }
 
     public onSubmit() {
-        let data = this.form.getRawValue();
+        let data = this.form?.getRawValue();
         this.clickSave.emit(data);
     }
 
     public setUser(user: User) {
         this.user = user;
         console.log("USER TRAE", user);
-        this.form.patchValue({
+        this.form?.patchValue({
             id                            : user.id,
             nombre                        : user.nombre,
             apellido                      : user.apellido,
@@ -130,7 +130,7 @@ export class UsuariosEditarComponent extends FormBaseComponent implements OnInit
     }
 
     public dataSaved() {
-        this.uploadComponent.reset();
+        this.uploadComponent?.reset();
     }
 
     public cancelar() {

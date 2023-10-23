@@ -12,7 +12,7 @@ import { FormBaseComponent       } from 'src/app/shared/form-base.component';
 })
 export class ProductosEditarComponent extends FormBaseComponent implements OnInit {
 
-    public id      : number;
+    //public id      : number;
     public title   : string = 'Agregar Producto';
     //tiposProducto$: Observable<any[]>;
 

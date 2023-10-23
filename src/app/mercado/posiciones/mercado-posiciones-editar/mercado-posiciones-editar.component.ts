@@ -20,11 +20,11 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
 
     public  title                    : string  = 'Agregar Posición';
     public  productos                : any[]   = [];
-    public  condiciones_pago$        : Observable<any[]>;
+    public  condiciones_pago$?       : Observable<any[]>;
     public  empresas                 : any[]   = [];
-    public  empresa_id               : number;
+    public  empresa_id?              : number;
     public  puertos                  : any[]   = [];
-    public  cosechas                 : any[]   = null;
+    public  cosechas?                : any[];
     public  consulta                 : boolean = false;
     public  desdePanel               : boolean = false;
     private producto_id_to           : any;
@@ -52,7 +52,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
         this.buscarEmpresas();
         this.cosechas         = await this.apiService.getAllData('/mercado/cosechas', {ordenes: {descripcion:'DESC'}, filtros: {habilitado: 1}}).toPromise();
         this.condiciones_pago$ = this.apiService.getAllData('/mercado/condiciones-pago').pipe(
-            map(condiciones => condiciones.filter(condicion => condicion.habilitado))
+            map(condiciones => condiciones.filter((condicion: any)=> condicion.habilitado))
         ); 
         this.fetchPuertos();
     }
@@ -94,7 +94,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
             volumen               : new FormControl({ value: '', disabled: false }),
         });
 
-        this.form.get('empresa_id').valueChanges.subscribe((value) => {
+        this.form?.get('empresa_id')?.valueChanges.subscribe((value) => {
             this.empresa_id = value;
         });
         
@@ -108,19 +108,20 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
         super.completarCampos(data);
         var cosechaDeshabilitada = data.cosecha.habilitado ? false : true;
         if (this.consulta && cosechaDeshabilitada) {
-            this.cosechas.unshift(data.cosecha);
-            this.form.get('cosecha_id').setValue(this.cosechas[0].id);
+            this.cosechas?.unshift(data.cosecha);
+            //@ts-ignore
+            this.form?.get('cosecha_id')?.setValue(this.cosechas[0].id);
         }
         if (!this.consulta && cosechaDeshabilitada) {
-            this.form.get('cosecha_id').setValue(null);
+            this.form?.get('cosecha_id')?.setValue(null);
         } else {
-            this.form.get('cosecha_id').setValue(data.cosecha.id);
+            this.form?.get('cosecha_id')?.setValue(data.cosecha.id);
         }
-        this.form.patchValue({ 'producto_nombre'      : data.producto.nombre                      });
-        this.form.patchValue({ 'empresa_razon_social' : data.empresa.razon_social                 });
+        this.form?.patchValue({ 'producto_nombre'      : data.producto.nombre                      });
+        this.form?.patchValue({ 'empresa_razon_social' : data.empresa.razon_social                 });
 
         if (data.puerto_id !== null) {
-            this.form.patchValue({ 'puerto_id': data.puerto_id });
+            this.form?.patchValue({ 'puerto_id': data.puerto_id });
 
         } /*else {
             this.direccionCompleta = this.obtenerUbicacion(data)
@@ -133,10 +134,10 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
         this.id = null; //Con esto hago que se copie la posicion en vez de sobreescribirla
 
         // Obtener el valor del campo de entrada y reemplazar comas por puntos.
-        const volumen = this.form.get('volumen').value.replace(',', '.');
+        const volumen = this.form?.get('volumen')?.value.replace(',', '.');
 
         // Asignar el valor transformado de vuelta al campo de entrada.
-        this.form.get('volumen').setValue(volumen);
+        this.form?.get('volumen')?.setValue(volumen);
         
         this.enviarDatos().subscribe((data: any) => {
             this.isLoading = false;
@@ -192,7 +193,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
 
     public producto_id_selected(ev: MatAutocompleteSelectedEvent) {
         let id = ev.option._getHostElement().getAttribute('data-id');
-        this.form.patchValue({producto_id: id});
+        this.form?.patchValue({producto_id: id});
     }
 
     /*public autocompletarEstablecimientoUbicacion(direccion){
@@ -210,7 +211,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
 
     public empresa_id_selected(ev: MatAutocompleteSelectedEvent) {
         let id = ev.option._getHostElement().getAttribute('data-id');
-        this.form.patchValue({empresa_id: id});
+        this.form?.patchValue({empresa_id: id});
     }
 
     private fetchPuertos() {
@@ -226,7 +227,7 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
         });
     }
 
-    public obtenerUbicacion(posicion): string {
+    public obtenerUbicacion(posicion:any): string {
         const localidad = posicion.localidad_destino ? posicion.localidad_destino + ', ' : '';
         const departamento = posicion.departamento_destino ? posicion.departamento_destino + ', ': '';
         const provincia = posicion.provincia_destino ? posicion.provincia_destino: '';

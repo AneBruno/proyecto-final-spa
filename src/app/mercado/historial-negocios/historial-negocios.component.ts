@@ -8,6 +8,7 @@ import { EmpresaHelper } from '../empresa.helper';
 import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { MatInput } from '@angular/material/input';
+import { ConfirmService } from 'src/app/shared/services/confirm.service';
 
 @Component({
   selector: 'app-historial-negocios',
@@ -19,23 +20,23 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
 
   @ViewChild('filtroFechaDesde', {
     read: MatInput
-  }) filtroFechaDesde: MatInput;
+  }) filtroFechaDesde?: MatInput;
   @ViewChild('filtroFechaHasta', {
       read: MatInput
-  }) filtroFechaHasta: MatInput;
+  }) filtroFechaHasta?: MatInput;
   
-  public currentUser             : User;
+  public currentUser?             : User;
   public estados                 : any;
   public posicion                : any = null;
   public empresa                 : any;
-  public empresas                : Array<any>;
+  public empresas?                : Array<any>;
   public puertos                 : Array<any> = [];
   public productos               : Array<any> = [];
   public formasPago              : Array<any> = [];
   public empresasCompradoras     : Array<any> = [];
   public empresasVendedoras      : Array<any> = [];
-  public fechaDesde              : Date;
-  public fechaHasta              : Date;
+  public fechaDesde?              : Date;
+  public fechaHasta?              : Date;
   public fechaActual             : Date     = new Date();
   public anioActual              : Number   = this.fechaActual.getFullYear();
   public mesActual               : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
@@ -53,6 +54,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     private userService          : UserService,
     private empresaHelper        : EmpresaHelper,
     private route                : ActivatedRoute,
+    private confirm              : ConfirmService,
     
   ) {
     super();
@@ -64,6 +66,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
         with_relation : 'puerto,producto,empresa,estado,posicion,condicionPago'
       };
       this.dataSource.fixedFilters.estados = [3];
+      //@ts-ignore
       window['dataSource'] = this.dataSource;
 
       this.dataSource.ordenes = {
@@ -77,11 +80,10 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
       this.actualizarDatos();
   }
 
-
   private setTable() : void {
     this.clearColumns();
     this.addColumn('fecha',     'Fecha cierre', '110px').renderFn(row => this.formatearFecha(row.updated_at));
-    this.addColumn('comprador',     'Comprador', '150px').renderFn(row => row.posicion? (this.empresas.find(empre => empre.id == row.posicion.empresa_id)).razon_social : '-');
+    this.addColumn('comprador',     'Comprador', '150px').renderFn(row => row.posicion? (this.empresas?.find(empre => empre.id == row.posicion.empresa_id)).razon_social : '-');
     this.addColumn('comision_comprador',     'Comisión comprador', '100px').renderFn(row => row.comision_comprador_cierre?  row.comision_comprador_cierre+'%': 0);
     this.addColumn('vendedor',     'Vendedor', '150px').renderFn(row => this.empresaHelper.obtenerNombreEmpresa(row.empresa));
     this.addColumn('comision_vendedor',     'Comisión vendedor', '100px').renderFn(row => row.comision_vendedor_cierre? row.comision_vendedor_cierre+'%': 0);
@@ -90,7 +92,7 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.addColumn('destino',       'Puerto de destino',   '120px').renderFn(row => this.calculaDestino(row));
     this.addColumn('forma_pago',       'Forma de pago',   '120px').renderFn(row => row.condicion_pago.descripcion);
     this.addColumn('moneda_precio', 'Precio',    '80px').renderFn(row => row.precio_cierre_slip? `${row.moneda} ${row.precio_cierre_slip}`: '-').setAlign('left');
-    //this.addColumn('_acciones',     'Acciones',   '40px').setAsMenu().setAlign('right');
+    this.addColumn('_acciones',     'Acciones',   '40px').setAsMenu().setAlign('right');
   }
 
   public async loadRelatedData() {
@@ -110,13 +112,13 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
   }
 
   public onClearFilters() {
-    this.fechaDesde = null;
-    this.fechaHasta = null;
-    this.filtroProductos = null;
-    this.filtroPuertos = null;
-    this.filtroFormaPago    = null;
-    this.filtroEmpresaCompradora=null;
-    this.filtroEmpresaVendedora=null;
+    this.fechaDesde = undefined;
+    this.fechaHasta = undefined;
+    this.filtroProductos = [];
+    this.filtroPuertos = [];
+    this.filtroFormaPago    = [];
+    this.filtroEmpresaCompradora=[];
+    this.filtroEmpresaVendedora=[];
   }
 
   //para filtros de seleccion multiple
@@ -131,9 +133,6 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     this.dataSource.refreshData();
   }
 
- 
-
-
   public calculaDestino(row:any) {
   return row.puerto?.nombre
   }
@@ -142,10 +141,10 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
     return moment(fecha).format('DD/MM');
   }
 
-public actualizarDatos() {
-  this.configurarFiltros();
-  this.dataSource.refreshData();
-}
+  public actualizarDatos() {
+    this.configurarFiltros();
+    this.dataSource.refreshData();
+  }
 
   public configurarFiltros() {
     if (this.fechaDesde) {
@@ -156,6 +155,7 @@ public actualizarDatos() {
         this.dataSource.filtros.fechaHasta = moment(this.fechaHasta).format('YYYY-MM-DD');
     }
   }
+
   public buscarEmpresasCompradoras(busqueda?: any) {
     let filtros: any = {};
     filtros.perfil = "COMPRADOR";
@@ -188,5 +188,23 @@ public actualizarDatos() {
     });
   }
 
+  public async cancelarNegocio(orden_id: any){
+      var mensaje;
+      mensaje = 'Desea cancelar el negocio?';
+      this.confirm.ask(mensaje).subscribe(() => {
+        this.apiService.put('/mercado/historial/' + orden_id + '/cancelarSlip', {}).subscribe( () => {
+              this.dataSource.refreshData();
+            }
+          );
+      });
+  }
+
+  public isInterno(): any {
+    if(this.currentUser?.rol_id === 1 || this.currentUser?.rol_id===3){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 }

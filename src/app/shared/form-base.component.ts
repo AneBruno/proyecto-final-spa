@@ -9,12 +9,13 @@ import { ApiService        } from "./services/api.service";
 import { ConfirmService    } from "./services/confirm.service";
 import { LocatorService    } from "./services/locator.service";
 import { MessagesService   } from "./services/messages.service";
+import { Injectable, Input } from "@angular/core";
 
-
+@Injectable()
 export abstract class FormBaseComponent {
-
-    public    id   : any;
-    public    form : FormGroup;
+    @Input()
+    public    id             : any = null;
+    public    form!          : FormGroup;
     public    apiService     = LocatorService.injector.get(ApiService     );
     protected fb             = LocatorService.injector.get(FormBuilder    );
     protected messages       = LocatorService.injector.get(MessagesService);
@@ -24,14 +25,14 @@ export abstract class FormBaseComponent {
     public setErrors(errors: {[key: string]: any}) {
         for (let fieldName in errors) {
             let errorMessage = errors[fieldName][0];
-            this.form.get(fieldName)?.setErrors({
+            this.form?.get(fieldName)?.setErrors({
                 'error': errorMessage,
             });
         }
     }
 
     public error(fieldName: string, errorCode: string = 'error'): string {
-        return this.form.get(fieldName).getError(errorCode);
+        return this.form?.get(fieldName)?.getError(errorCode);
     }
 
     public errorObligatorio(fieldname : string){
@@ -68,12 +69,12 @@ export abstract class FormBaseComponent {
     }
 
     protected getFormData(): any {
-        return this.form.getRawValue();
+        return this.form?.getRawValue();
     }
 
     protected completarCampos(data: any): void {
         this.id = data.id;
-        this.form.patchValue(data);
+        this.form?.patchValue(data);
     }
 
     public async obtenerYCompletar(id: any, params?: any): Promise<any> {
@@ -83,11 +84,14 @@ export abstract class FormBaseComponent {
     }
 
     public getFormControls(): AbstractControl[] {
-        let result = [];
+        let result: AbstractControl[] = [];
 
-        for (let name in this.form.value) {
+        for (let name in this.form?.value) {
             console.log('control name', name);
-            result.push(this.form.get(name));
+            if (this.form.get(name)) {
+                //@ts-ignore
+                result.push(this.form.get(name));
+            }
         }
 
         return result;

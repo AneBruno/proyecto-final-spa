@@ -15,14 +15,14 @@ import { Router                } from '@angular/router';
 export class MainToolbarExtranetComponent implements OnInit {
     @Output() toogleSideNav: EventEmitter<boolean> = new EventEmitter<boolean>();
     
-    accessGroups = {};
-    avatar: string;
-    user: User;
+    accessGroups: any = {};
+    avatar: string ='';
+    user?: User;
     public isExtranet : boolean = false;
 
-    private navigationSubscription: Subscription;
+    private navigationSubscription?: Subscription;
 
-    currentSection: AccessGroup;
+    currentSection?: AccessGroup;
 
     constructor(
         private authService: AuthService,
@@ -64,6 +64,6 @@ export class MainToolbarExtranetComponent implements OnInit {
     }
     
     ngOnDestroy() {
-        this.navigationSubscription.unsubscribe();
+        this.navigationSubscription?.unsubscribe();
     }
 }

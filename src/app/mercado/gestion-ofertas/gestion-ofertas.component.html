@@ -37,49 +37,49 @@
                 <form [formGroup]="formularioPosicion" class="formulario-posicion" fxLayout="column" fxLayoutAlign="start stretch">
                     <div fxLayout="row wrap">
                         <div fxLayout="column" fxFlex="33" fxFlex.xs="50">
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" fxLayoutAlign="stretch start">
                                 <mat-label>Empresa compradora:</mat-label>
                                 <input formControlName="empresa_posicion" matInput readonly/>
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" fxLayoutAlign="stretch start">
                                 <mat-label>Producto:</mat-label>
-                                <input formControlName="producto_posicion" matInput readonly/>
+                                <input formControlName="producto_posicion" matInput readonly />
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" fxLayoutAlign="stretch start">
                             <mat-label>Precio:</mat-label>
                             <input formControlName="precio_posicion" matInput readonly />
                             </mat-form-field>
                             
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" fxLayoutAlign="stretch start">
                                 <mat-label>Toneladas:</mat-label>
                                 <input formControlName="volumen_posicion" matInput readonly />
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" fxLayoutAlign="stretch start">
                                 <mat-label>Observaciones:</mat-label>
                                 <input formControlName="observaciones_posicion" matInput readonly />
                             </mat-form-field>
                         </div>
 
-                        <div fxLayout="column" fxFlex=33 fxFlex.xs="50">
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                        <div  fxLayout="column" fxFlex=33 fxFlex.xs="50">
+                            <mat-form-field appearance="standard" class="transparent-background" fxLayoutAlign="stretch start">
                                 <mat-label>Cosecha:</mat-label>
                                 <input formControlName="cosecha_posicion" matInput readonly />
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" class="transparent-background" fxLayoutAlign="stretch start">
                                 <mat-label>Puerto de destino:</mat-label>
                                 <input formControlName="destino_posicion" matInput readonly />
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" class="transparent-background" fxLayoutAlign="stretch start">
                                 <mat-label>Forma de pago:</mat-label>
                                 <input formControlName="forma_pago_posicion" matInput readonly />
                             </mat-form-field>
 
-                            <mat-form-field appearance="none" fxLayoutAlign="stretch start">
+                            <mat-form-field appearance="standard" class="transparent-background" fxLayoutAlign="stretch start">
                                 <mat-label>Cargada por:</mat-label>
                                 <input formControlName="usuario_carga_posicion" matInput readonly />
                             </mat-form-field>  
@@ -119,7 +119,8 @@
                         </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="columnsToShow"></tr>
-                        <tr class="clickable" mat-row *matRowDef="let row; columns: columnsToShow;" [routerLink]="'cerrar-slip/' + row.id"></tr>
+                        <tr class="clickable" mat-row *matRowDef="let row; columns: columnsToShow;" [routerLink]="isInterno() ? 'cerrar-slip/' + row.id : null"></tr>
+                        <!--<tr mat-row *matRowDef="let row; columns: columnsToShow;"></tr>-->
                     </table>
                 </div>
 

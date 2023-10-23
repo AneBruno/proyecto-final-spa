@@ -13,18 +13,18 @@ import { ListadoDataSource     } from '../listado.datasource';
 export class ListadoFiltradoComponent implements OnInit {
 
     @Input()
-    public dataSource: ListadoDataSource<any>;
+    public dataSource?: ListadoDataSource<any>;
 
     @Output()
     public onClearFilters: EventEmitter<void> = new EventEmitter<void>();
 
     @ViewChild('sidenav', { static: true })
-    public sidenav: MatSidenav;
+    public sidenav?: MatSidenav;
 
     @Input()
     public transparent : boolean = false;
 
-    public sidenavMode : string;
+    public sidenavMode! : 'over' | 'push' | 'side';
 
     public displayFiltros : string = 'none';
 
@@ -40,13 +40,13 @@ export class ListadoFiltradoComponent implements OnInit {
 
             if (!result.matches) {
                 this.displayFiltros ='unset';
-                this.sidenav.open();
+                this.sidenav?.open();
             } else {
-                this.sidenav.close();
+                this.sidenav?.close();
             }
         });
 
-        this.sidenav._closedStream.subscribe(()=>{
+        this.sidenav?._closedStream.subscribe(()=>{
             if(this.displayFiltros === 'none'){
                 this.displayFiltros = 'unset';
             }
@@ -65,8 +65,8 @@ export class ListadoFiltradoComponent implements OnInit {
     
 
     public clickFiltrosMobile() {
-        if(this.sidenav.opened){
-            this.sidenav.toggle();
+        if(this.sidenav?.opened){
+            this.sidenav?.toggle();
             return;
         }
         if(this.displayFiltros === 'none'){
@@ -75,7 +75,7 @@ export class ListadoFiltradoComponent implements OnInit {
         else{
             this.displayFiltros = 'none';
         }
-        this.sidenav.toggle()
+        this.sidenav?.toggle()
     }
 
 }

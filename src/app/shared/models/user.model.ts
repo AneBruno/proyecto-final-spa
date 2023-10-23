@@ -9,19 +9,21 @@ export interface UserInterface {
     telefono: string | null,
     rol: RolInterface,
     habilitado: number,
-    empresa_registro:string
+    empresa_registro:string,
+    rol_id: number
 }
 
 
 export class User implements UserInterface {
-    id: number;
-    email: string;
-    nombre: string;
-    apellido: string;
-    telefono: string | null;
-    rol: RolInterface;
-    habilitado: number;
-    empresa_registro: string;
+    id!: number;
+    email: string = '';
+    nombre: string = '';
+    apellido: string = '';
+    telefono: string | null = '';
+    rol!: RolInterface;
+    habilitado!: number;
+    empresa_registro: string = '';
+    rol_id!: number;
 
 
     public nombreCompleto(): string {

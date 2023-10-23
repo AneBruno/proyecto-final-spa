@@ -32,6 +32,7 @@ export class InputNumericDirective {
             event.target.value = `${event.target.value},`;
             return false;
         }
+        return true;
     }
 
     @HostListener('keypress', ['$event'])
@@ -65,7 +66,7 @@ export class InputNumericDirective {
         // No se incluye la , porque si hay una "," ya no hay
         // que trabajar decimales.
         if (!/^(\d)([0-9\.]*)(\d)$/.test(event.target.value)) {
-            return;
+            return false;
         }
 
         // Se transforma en array

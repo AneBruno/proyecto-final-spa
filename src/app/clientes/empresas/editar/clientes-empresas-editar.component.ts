@@ -11,10 +11,10 @@ import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localiza
 })
 export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionComponent implements OnInit {
 
-    public id                       : number;    
+    //public id?                       : number;    
     public title                    : string = 'Agregar Empresa'
     public usuarios                 : any[]  = [];
-    public perfil                   : string;
+    public perfil?                   : string;
     public isLoading                : boolean = false;
     public opciones: string[] = [
         'Buenos Aires',
@@ -105,7 +105,7 @@ export class ClientesEmpresasEditarComponent extends FormBaseLocalizacionCompone
             provincia             : new FormControl({ value: '', disabled: false }),
             comision              : new FormControl({ value: '', disabled: false })
         });
-        this.form.get('perfil').valueChanges.subscribe((value) => {
+        this.form?.get('perfil')?.valueChanges.subscribe((value) => {
             this.perfil = value;
         });
     }

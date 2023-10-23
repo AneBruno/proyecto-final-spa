@@ -39,7 +39,6 @@ import { MatTreeModule                   } from '@angular/material/tree';
 import { ReactiveFormsModule             } from '@angular/forms';
 import { RouterModule                    } from '@angular/router';
 
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 // App libraries
@@ -64,7 +63,6 @@ import { ConfirmYesNoComponent           } from './confirmYesNo/confirm.componen
 import { DashboardComponent              } from './dashboard/dashboard.component';
 import { DatePickerComponent             } from './date-picker/date-picker.component';
 import { DatepickerInputComponent        } from './datepicker-input/component';
-import { DateTimePickerComponent         } from './date-time-picker/component';
 import { FileUploadButtonComponent       } from './file-upload-button/file-upload-button.component';
 import { FormTextComponent               } from './form-text/form-text.component';
 import { FormSectionComponent            } from './form-section/form-section.component';
@@ -79,7 +77,6 @@ import { MatRadioModule                  } from '@angular/material/radio';
 import { MessageComponent                } from './message/message.component';
 import { NgxMatDatetimePickerModule      } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule              } from '@angular-material-components/moment-adapter';
-import { RichTextFieldComponent          } from './rich-text-field/rich-text-field.component';
 import { SectionTitleComponent           } from './section-title/section-title.component';
 import { SectionTitleExtranetComponent   } from './section-title-extranet/section-title.component-extranet';
 import { SearchInputComponent            } from './search-input/search-input.component';
@@ -90,7 +87,8 @@ import { TableComponent                  } from './table/table.component';
 import { ToolbarComponent                } from './toolbar/toolbar.component';
 import { TreeComponent                   } from './tree/tree.component';
 import { UserSectionComponent            } from './user-section/user-section.component';
-// import { CanvasJSAngularChartsModule     } from '@canvasjs/angular-charts';
+import { CanvasJSAngularChartsModule     } from '@canvasjs/angular-charts';
+import {ListadoSinFiltrosComponent       } from './listado-sin-filtros/listado-sin-filtros.component';
 
 // Directivas
 import { InputNumericDirective } from './input-numeric.directive';
@@ -105,7 +103,6 @@ import { InputNumericDirective } from './input-numeric.directive';
         DashboardComponent,
         DatePickerComponent,
         DatepickerInputComponent,
-        DateTimePickerComponent,
         FileUploadButtonComponent,
         FormSectionComponent,
         FormSectionExtranetComponent,
@@ -115,10 +112,10 @@ import { InputNumericDirective } from './input-numeric.directive';
         ListadoEncabezadoComponent,
         ListadoFiltradoComponent,
         ListadoFiltrosComponent,
+        ListadoSinFiltrosComponent,
         MessageComponent,
         MainToolbarComponent,
         MainToolbarExtranetComponent,
-        RichTextFieldComponent,
         SearchInputComponent,
         SectionTitleComponent,
         SectionTitleExtranetComponent,
@@ -131,10 +128,9 @@ import { InputNumericDirective } from './input-numeric.directive';
         UserSectionComponent,
     ],
     imports: [
-        // CanvasJSAngularChartsModule,
+        CanvasJSAngularChartsModule,
         CdkTableModule,
         CommonModule,
-        CKEditorModule,
         FormsModule,
         FlexLayoutModule,
         HttpClientModule,
@@ -169,9 +165,8 @@ import { InputNumericDirective } from './input-numeric.directive';
     exports: [
 
         // Modules
-        // CanvasJSAngularChartsModule,
+        CanvasJSAngularChartsModule,
         CdkTableModule,
-        CKEditorModule,
         FormsModule,
         FlexLayoutModule,
         MatAutocompleteModule,
@@ -207,7 +202,6 @@ import { InputNumericDirective } from './input-numeric.directive';
         DashboardComponent,
         DatePickerComponent,
         DatepickerInputComponent,
-        DateTimePickerComponent,
         FileUploadButtonComponent,
         FormSectionComponent,
         FormSectionExtranetComponent,
@@ -215,7 +209,7 @@ import { InputNumericDirective } from './input-numeric.directive';
         ListadoFiltradoComponent,
         ListadoFiltrosComponent,
         ListadoEncabezadoComponent,
-        RichTextFieldComponent,
+        ListadoSinFiltrosComponent,
         SectionTitleComponent,
         SectionTitleExtranetComponent,
         SearchInputComponent,

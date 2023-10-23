@@ -15,10 +15,10 @@ import { Router } from '@angular/router';
 })
 export class ActualizarDatosPersonalesComponent implements OnInit {
 
-    public id: number;
+    public id: any;
 
     @ViewChild(UsuariosEditarComponent)
-    public form:UsuariosEditarComponent;
+    public form?:UsuariosEditarComponent;
 
     constructor(
         private client: ApiService,
@@ -34,11 +34,11 @@ export class ActualizarDatosPersonalesComponent implements OnInit {
     public onClickSave(data: any) {
         this.client.post('/usuarios/actualizarDatosPersonales', data)
         .pipe(catchError((e: HttpErrorResponse) => {
-            this.form.setErrors(e.error.errors);
+            this.form?.setErrors(e.error.errors);
             return throwError(e);
         })).subscribe((data: any) => {
             this.userService.setUser(data.data);
-            this.form.dataSaved();
+            this.form?.dataSaved();
             this.snackBar.show('Datos actualizados');
         });
     }

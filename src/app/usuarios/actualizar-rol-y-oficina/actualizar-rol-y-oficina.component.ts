@@ -14,9 +14,9 @@ import { UsuariosEditarComponent      } from '../usuarios-editar/usuarios-editar
 export class ActualizarRolYOficinaComponent implements OnInit {
 
     @ViewChild(UsuariosEditarComponent)
-    public form: UsuariosEditarComponent;
+    public form?: UsuariosEditarComponent;
 
-    public id: number;
+    public id: any;
 
     constructor(
         private client   : ApiService,
@@ -39,7 +39,7 @@ export class ActualizarRolYOficinaComponent implements OnInit {
             rol_id     : data.rol_id
     
         }).pipe(catchError((e: HttpErrorResponse) => {
-            this.form.setErrors(e.error.errores);
+            this.form?.setErrors(e.error.errores);
             return throwError(e);
         })).subscribe(() => {
             this.router.navigateByUrl('/app/usuarios');

@@ -11,9 +11,8 @@ import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localiza
 })
 export class MercadoOrdenesEditarComponent extends FormBaseLocalizacionComponent implements OnInit {
 
-    public title     : string = 'Agregar Orden'
+    public title     : string = 'Agregar Orden';
     public accion    : string = 'agregar';
-    public id        : number;
 
 
     public constructor(

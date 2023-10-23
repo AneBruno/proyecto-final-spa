@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
         return '/login';
     }
 
-    public form            : FormGroup;
+    public form!            : FormGroup;
     public hidePassword     : boolean = true;
     public isSubmitAttempted = false;
     public errorMessage: string = ''; // Inicialización vacía
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
 
     public async submit() : Promise<any>{
-        if (this.form.valid) {
+        if (this.form?.valid) {
             const email = this.form.value.email;
             const password = this.form.value.password;
     
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
                 const response = await this.authService.login(email, password);
                 // Redirigir o realizar otras acciones en caso de éxito
                 this.router.navigateByUrl('/app');
-            } catch (error) {
+            } catch (error: any) {
                 if (error.error && error.error.message) {
                     // Mostrar el mensaje de error recibido de la API
                     this.errorMessage = error.error.message;

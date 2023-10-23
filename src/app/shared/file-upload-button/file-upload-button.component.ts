@@ -16,9 +16,9 @@ export class FileUploadButtonComponent implements OnInit {
     @Output()
     public change: EventEmitter<any> = new EventEmitter<any>();
 
-    public choosenFile: File | null;
+    public choosenFile?: File | null;
 
-    public choosenFileContent: string | ArrayBuffer | null
+    public choosenFileContent: string | ArrayBuffer | null = null;
 
     constructor() { }
     

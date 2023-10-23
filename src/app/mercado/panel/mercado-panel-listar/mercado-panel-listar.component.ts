@@ -24,9 +24,9 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     public  puertos                : Array<any> = [];
     public  productos              : Array<any> = [];
     public empresas                : Array<any> = [];
-    public currentUser             : User;
-    public animal: string;
-    public name: string;
+    public currentUser?             : User;
+    public animal?: string;
+    public name?: string;
 
     public filtroProductosOpciones : any = {
         ordenes: {
@@ -35,11 +35,11 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     }
 
     //Filtros Multiples
-    public filtroProductos!    : Array<any>;
-    public filtroPuertos!      : Array<any>;
-    public filtroCosecha!      : Array<any>;
-    public filtroFormaPago!    : Array<any>;
-    public filtroEmpresa!    : Array<any>;
+    public filtroProductos    : Array<any> = [];
+    public filtroPuertos      : Array<any> = [];
+    public filtroCosecha      : Array<any> = [];
+    public filtroFormaPago    : Array<any> = [];
+    public filtroEmpresa      : Array<any> = [];
 
 
     public constructor(
@@ -71,6 +71,7 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
         this.clearColumns();
         this.addColumn('comprador',     'Empresa compradora',      '150px').renderFn(row => row.empresa.razon_social             );;
         this.addColumn('producto',      'Producto',  '100px').renderFn(row => row.producto.nombre             );
+        this.addColumn('volumen',      'Toneladas',  '100px').renderFn(row => (row.volumen-row.toneladas_cerradas)             );
         this.addColumn('destino',       'Puerto de destino',   '150px').renderFn(row => row.puerto.nombre        );
         this.addColumn('cosecha_nueva', 'Cosecha',    '100px').renderFn(row => row.cosecha.descripcion);
         this.addColumn('forma_pago', 'Forma de Pago', '90px').renderFn(row => row.condicion_pago.descripcion);
@@ -115,10 +116,10 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     }
 
     public concatenaCompradores(listaEmpresas: any) {
-        var resultado = listaEmpresas.map((empresa) => {
+        var resultado = listaEmpresas.map((empresa: any) => {
             let razon_social = empresa.razon_social.length > 14 ? empresa.razon_social.substr(0, 14) + '...' : empresa.razon_social;
             return empresa.abreviacion ? empresa.abreviacion : razon_social;
-        }).filter((empresa, i, a) => a.indexOf(empresa) == i);
+        }).filter((empresa: any, i: any, a: any) => a.indexOf(empresa) == i);
         return resultado.join('\n');
     }
 
@@ -156,15 +157,15 @@ export class MercadoPanelListarComponent extends ListadoComponent implements OnI
     }
 
     public onClearFilters() : void {
-        this.filtroProductos    = null;
-        this.filtroPuertos      = null;
-        this.filtroCosecha      = null;
-        this.filtroFormaPago    = null;
-        this.filtroEmpresa      = null;
+        this.filtroProductos    = [];
+        this.filtroPuertos      = [];
+        this.filtroCosecha      = [];
+        this.filtroFormaPago    = [];
+        this.filtroEmpresa      = [];
     }
 
     public refreshList() {
-        this.dataSource.filtros.empresa_id = this.filtros.empresa_id.map((item) => item.id);
+        this.dataSource.filtros.empresa_id = this.filtros.empresa_id.map((item: any) => item.id);
         this.dataSource.pageIndex = 0;
         this.dataSource.refreshData();
     }

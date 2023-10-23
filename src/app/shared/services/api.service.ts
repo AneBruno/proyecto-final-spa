@@ -38,7 +38,7 @@ export class ApiService {
         return this.http.post(environment.apiUrl + '/auth:logout', {}, options);
     }
 
-    observeResponse(options?) {
+    observeResponse(options: any = null) {
         return {
             observe: 'response',
             ...options

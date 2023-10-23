@@ -11,12 +11,12 @@ import { NavigationService } from './shared/services/navigation.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    @ViewChild('sidenav') sidenav: MatSidenav;
+    @ViewChild('sidenav') sidenav!: MatSidenav;
 
     accessGroups = {};
-    avatar: string;
+    avatar!: string;
 
-    private navigationSubscription: Subscription;
+    private navigationSubscription!: Subscription;
 
     ngDestroy$ = new Subject();
 
@@ -37,7 +37,7 @@ export class AppComponent {
     }
 
     close() {
-        this.sidenav.close();
+        this.sidenav?.close();
     }
 
     logout() {
@@ -46,8 +46,8 @@ export class AppComponent {
         this.authService.signOut();
     }
 
-    openSideNav($event) {
-        this.sidenav.open();
+    openSideNav($event: any) {
+        this.sidenav?.open();
     }
     
     ngOnDestroy() {

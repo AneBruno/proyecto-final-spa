@@ -19,17 +19,16 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         return `/mercado/ordenes/${this.orden_id}:cerrarSlip`;
     }
 
-        public title                        : string = "Cerrar negocio"
-        public posicion                     : any;
-        public clave                        : String;
-        public orden_id                     : number;
-        public listaEmpresas                : Array<any>;
-        public moneda_posicion              : string;
-        public form                         : FormGroup;
-        public autocompletarPosicionForm    : boolean;
-        public orden                        : any ;
-        public usuarios                     : Array<any>;
-        public isLoading                    : boolean = false; // Variable para controlar el spinner
+        public title                         : string = "Cerrar negocio"
+        public posicion                      : any;
+        public clave?                        : String;
+        public orden_id?                     : number;
+        public listaEmpresas?                : Array<any>;
+        public moneda_posicion?              : string;
+        public autocompletarPosicionForm?    : boolean;
+        public orden                         : any ;
+        public usuarios?                     : Array<any>;
+        public isLoading                     : boolean = false; // Variable para controlar el spinner
         
         protected fb  = LocatorService.injector.get(FormBuilder);
 
@@ -63,7 +62,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
                 }
 
                 if (this.autocompletarPosicionForm) {
-                    this.form.get('posicion_id').setValue(this.posicion.id);
+                    this.form?.get('posicion_id')?.setValue(this.posicion.id);
                 }
             }
         });
@@ -107,7 +106,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
             
         });
 
-        this.form.get('posicion_id').valueChanges.subscribe(async (value) => {
+        this.form?.get('posicion_id')?.valueChanges.subscribe(async (value) => {
             if (value) {
                 this.posicion = await this.apiService.getData(`/mercado/panel/${value}`).toPromise();
                 
@@ -125,34 +124,34 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         console.log('this.orden',this.orden);
         this.usuarios = await this.apiService.getData('/usuarios').toPromise();
         //this.form.get('posicion_id').setValue(this.posicion.id);
-        this.form.get('empresa_posicion').setValue(this.posicion.empresa.razon_social);
-        this.form.get('comision_comprador').setValue(this.posicion.empresa.comision? this.posicion.empresa.comision+'%': 0+'%');
-        this.form.get('comision_comprador_cierre').setValue(this.posicion.empresa.comision? this.posicion.empresa.comision :0);
+        this.form?.get('empresa_posicion')?.setValue(this.posicion.empresa.razon_social);
+        this.form?.get('comision_comprador')?.setValue(this.posicion.empresa.comision? this.posicion.empresa.comision+'%': 0+'%');
+        this.form?.get('comision_comprador_cierre')?.setValue(this.posicion.empresa.comision? this.posicion.empresa.comision :0);
         
-        this.form.get('producto_posicion').setValue(this.posicion.producto.nombre);
-        this.form.get('destino_posicion').setValue(this.posicion.puerto.nombre);
-        this.form.get('precio_posicion').setValue(this.posicion.moneda + ' ' +this.posicion.precio);
-        this.form.get('forma_pago_posicion').setValue(this.posicion.condicion_pago?.descripcion);
-        this.form.get('cosecha_posicion').setValue(this.posicion.cosecha.descripcion);
-        this.form.get('volumen_posicion').setValue(this.posicion.volumen);
-        this.form.get('usuario_carga_posicion').setValue(this.usuarios.find(usuario => usuario.id == this.posicion.usuario_carga_id).nombreCompleto);
-        this.form.get('observaciones_posicion').setValue(this.posicion.observaciones? this.posicion.observaciones : '-');
+        this.form?.get('producto_posicion')?.setValue(this.posicion.producto.nombre);
+        this.form?.get('destino_posicion')?.setValue(this.posicion.puerto.nombre);
+        this.form?.get('precio_posicion')?.setValue(this.posicion.moneda + ' ' +this.posicion.precio);
+        this.form?.get('forma_pago_posicion')?.setValue(this.posicion.condicion_pago?.descripcion);
+        this.form?.get('cosecha_posicion')?.setValue(this.posicion.cosecha.descripcion);
+        this.form?.get('volumen_posicion')?.setValue(this.posicion.volumen);
+        this.form?.get('usuario_carga_posicion')?.setValue(this.usuarios?.find(usuario => usuario.id == this.posicion.usuario_carga_id).nombreCompleto);
+        this.form?.get('observaciones_posicion')?.setValue(this.posicion.observaciones? this.posicion.observaciones : '-');
 
         //orden de venta
-        this.form.get('empresa_orden').setValue(this.orden.empresa.razon_social);
-        this.form.get('comision_vendedor').setValue(this.orden.empresa.comision?this.orden.empresa.comision+'%': 0+'%');
-        this.form.get('comision_vendedor_cierre').setValue(this.orden.empresa.comision?this.orden.empresa.comision: 0);
-        this.form.get('volumen').setValue(this.orden.volumen);
-        this.form.get('producto_orden').setValue(this.orden.producto.nombre);
-        this.form.get('observaciones_orden').setValue(this.orden.observaciones? this.orden.observaciones : '-');
-        this.form.get('destino_orden').setValue(this.orden.puerto.nombre);
-        this.form.get('precio_orden').setValue(this.orden.moneda +' '+ this.orden.precio);
-        this.form.get('usuario_carga_orden').setValue(this.orden.usuario_carga.nombreCompleto);
-        this.form.get('forma_pago_orden').setValue(this.orden.condicion_pago.descripcion);
+        this.form?.get('empresa_orden')?.setValue(this.orden.empresa.razon_social);
+        this.form?.get('comision_vendedor')?.setValue(this.orden.empresa.comision?this.orden.empresa.comision+'%': 0+'%');
+        this.form?.get('comision_vendedor_cierre')?.setValue(this.orden.empresa.comision?this.orden.empresa.comision: 0);
+        this.form?.get('volumen')?.setValue(this.orden.volumen);
+        this.form?.get('producto_orden')?.setValue(this.orden.producto.nombre);
+        this.form?.get('observaciones_orden')?.setValue(this.orden.observaciones? this.orden.observaciones : '-');
+        this.form?.get('destino_orden')?.setValue(this.orden.puerto.nombre);
+        this.form?.get('precio_orden')?.setValue(this.orden.moneda +' '+ this.orden.precio);
+        this.form?.get('usuario_carga_orden')?.setValue(this.orden.usuario_carga.nombreCompleto);
+        this.form?.get('forma_pago_orden')?.setValue(this.orden.condicion_pago.descripcion);
 
         //datos cierre
-        this.form.get('precio_cierre_slip').setValue(this.posicion.precio);
-        this.form.get('toneladas_cierre').setValue(this.posicion.volumen);
+        this.form?.get('precio_cierre_slip')?.setValue(this.posicion.precio);
+        this.form?.get('toneladas_cierre')?.setValue(this.posicion.volumen);
     }
 
     public infoEmpresaPosicion(posicion: any) {
@@ -164,10 +163,10 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         this.isLoading = true;
 
         // Obtener el valor del campo de entrada y reemplazar comas por puntos.
-        const volumen = this.form.get('toneladas_cierre').value.replace(',', '.');
+        const volumen = this.form?.get('toneladas_cierre')?.value.replace(',', '.');
 
         // Asignar el valor transformado de vuelta al campo de entrada.
-        this.form.get('toneladas_cierre').setValue(volumen);
+        this.form?.get('toneladas_cierre')?.setValue(volumen);
 
         this.enviarDatos().subscribe((data: any) => {
         this.messages.show('Datos guardados correctamente').subscribe(() => {

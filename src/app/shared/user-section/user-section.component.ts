@@ -12,7 +12,7 @@ import { User } from '../models/user.model';
 })
 export class UserSectionComponent implements OnInit {
 
-    public user: User;
+    public user!: User;
     public userExtranet : any;
     public razon_social : any;
     public isExtranet : boolean = false;

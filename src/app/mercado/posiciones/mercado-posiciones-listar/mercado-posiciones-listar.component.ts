@@ -18,23 +18,23 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
 
     @ViewChild('filtroFechaDesde', {
         read: MatInput
-    }) filtroFechaDesde: MatInput;
+    }) filtroFechaDesde?: MatInput;
     @ViewChild('filtroFechaHasta', {
         read: MatInput
-    }) filtroFechaHasta: MatInput;
+    }) filtroFechaHasta?: MatInput;
 
     public filtros              : any = {};
     public formasPago           : Array<any> = [];
     public puertos              : Array<any> = [];
-    public productos            : Array<any> = [];
-    public empresas            : Array<any> = [];
-    public id_usuario           : Number;
-    public rol_id_usuario       : Number;
-    public fechaActual          : Date     = new Date();
-    public fechaDesde           : Date     ;
-    public fechaHasta           : Date;
-    public anioActual           : Number   = this.fechaActual.getFullYear();
-    public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
+    public productos             : Array<any> = [];
+    public empresas              : Array<any> = [];
+    public id_usuario?           : Number;
+    public rol_id_usuario?       : Number;
+    public fechaActual           : Date     = new Date();
+    public fechaDesde?           : Date     ;
+    public fechaHasta?           : Date;
+    public anioActual            : Number   = this.fechaActual.getFullYear();
+    public mesActual             : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
     public filtroProductosOpciones : any = {
         ordenes: {
             nombre: 'asc'
@@ -152,14 +152,13 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
 
 
     public onClearFilters() {
-        this.fechaDesde = null;
-        this.fechaHasta = null;
-        this.filtroProductos    = null;
-        this.filtroPuertos      = null;
-        this.filtroEstado       = null;
-        //this.filtros.empresa_id = [];
-        this.filtroFormaPago    = null;
-        this.filtroEmpresa      =null;
+        this.fechaDesde = undefined;
+        this.fechaHasta = undefined;
+        this.filtroProductos    = [];
+        this.filtroPuertos      = [];
+        this.filtroEstado       = [];
+        this.filtroFormaPago    = [];
+        this.filtroEmpresa      = [];
     }      
 
     public estadoPosicion(id:number, estado:string){
@@ -194,7 +193,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     }
 
     public refreshList() {
-        this.dataSource.filtros.empresa_id = this.filtros.empresa_id.map((item) => item.id);
+        this.dataSource.filtros.empresa_id = this.filtros.empresa_id.map((item: any) => item.id);
         this.dataSource.pageIndex = 0;
         this.dataSource.refreshData();
     }

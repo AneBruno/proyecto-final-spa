@@ -1,0 +1,83 @@
+@import 'src/assets/scss/variables.scss';
+
+table {width:100%;}
+[toolbar] { margin: 20px 10px; }
+
+.menu-wrapper {
+  padding: 10px 25px;
+}
+.sidenav-container {
+  min-height: 1000px;
+}
+.sidenav-filtros {
+  width: calc(100% - 56px);
+  max-width: 320px;
+  padding: 20px;
+}
+
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+table {
+    min-width:1100px;
+}
+
+@media only screen and (max-width: 768px) {
+    .table-sticky-wrapper {
+        width      : 100%;
+        overflow-x : scroll;
+        overflow-y : auto;
+
+        [mat-table] {
+            min-width: 1120px /*!important*/ ;
+        }
+    }
+}
+
+.clickable {
+  cursor: pointer;
+}
+.mat-header-cell.custom-header {
+  font-weight: 600; 
+}
+
+.celda{
+    &[data-DeExportacion='exportacion'] {
+        background: #F7FEEF;
+    }
+
+    &[data-DeExportacion='denunciada'] {
+        background: $alert;
+    }
+
+    
+    &[data-DeExportacion='importacion'] {
+        background: white;
+    }
+}
+
+.mat-cell {
+  padding-right: 10px;
+}
+
+.mat-header-cell {
+  padding-right: 10px;
+}
+
+mat-chip {
+  margin: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  max-width: 150px;
+}
+
+.mat-chip-list-stacked {
+  padding: 2px;
+  max-width: 150px;
+}
+

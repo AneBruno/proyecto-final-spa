@@ -105,7 +105,10 @@ export class UserService {
         
         if (arrayToGroupBy != undefined) {
             arrayToGroupBy.map(x => {
+                //@ts-ignore
                 groupedArray[x[key]] = groupedArray[x[key]] || [];
+
+                //@ts-ignore
                 groupedArray[x[key]].push(x)
             });
         }

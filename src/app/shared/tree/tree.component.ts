@@ -9,8 +9,8 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 })
 export class TreeComponent implements OnInit {
 
-    public treeControl : FlatTreeControl<any>;
-    public dataSource  : MatTreeFlatDataSource<any, any>;
+    public treeControl? : FlatTreeControl<any>;
+    public dataSource?  : MatTreeFlatDataSource<any, any>;
     
     @Input()
     public data: any[] = [];
@@ -50,7 +50,7 @@ export class TreeComponent implements OnInit {
     public onNodeClick(node: any) {
         this.nodeClick.emit(node);
         setTimeout(() => {
-            this.treeControl.collapseAll();
+            this.treeControl?.collapseAll();
         }, 800);
         
     }

@@ -58,8 +58,8 @@ export class AuthService {
 
         this.userService.fetchUserAsync().then((user: any) => {
             $puedeNavegar.next(user.accesos
-                .filter(row => row.tipo === 'menu'    )
-                .filter(row => uri.startsWith(row.uri))
+                .filter((row: any) => row.tipo === 'menu'    )
+                .filter((row: any) => uri.startsWith(row.uri))
                 .length > 0
             );
         });

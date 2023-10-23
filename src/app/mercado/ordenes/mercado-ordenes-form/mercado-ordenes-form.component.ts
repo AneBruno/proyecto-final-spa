@@ -15,8 +15,8 @@ import { FormBaseLocalizacionComponent } from "src/app/shared/form-base-localiza
   styleUrls: ['./mercado-ordenes-form.component.scss']
 })
 export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent implements OnInit {
-    @Input() id: number;
-    @Input() accion: string;
+    @Input() accion?: string;
+    @Input() id: number=0;
     @Input() mostrarBotones: boolean = true;
 
     @Output() datosGuardados = new EventEmitter<any>();
@@ -24,17 +24,17 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
 
     public productos: any[] = [];
-    public condiciones_pago$ : Observable<any[]>;
+    public condiciones_pago$? : Observable<any[]>;
     public empresas: any[] = [];
     public puertos: any[] = [];
     public posicion: any;
     public consulta: boolean = false;
-    public empresa_id: number;
+    public empresa_id?: number;
     public campoVendedorModificado: boolean = false;
     private empresa_id_to: any;
     private producto_id_to: any;
     public minDate: any = moment().format();
-    public direccionCompletaDestino: string;
+    public direccionCompletaDestino?: string;
     readonlyMode: boolean = false;
     public isLoading                    : boolean = false;
 
@@ -56,7 +56,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         this.buscarProductos();
         this.buscarEmpresas();
         this.condiciones_pago$ = this.apiService.getAllData('/mercado/condiciones-pago').pipe(
-            map(condiciones => condiciones.filter(condicion => condicion.habilitado))
+            map(condiciones => condiciones.filter((condicion: any) => condicion.habilitado))
         );
 
         this.fetchPuertos();
@@ -78,27 +78,28 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
         else if (this.accion === 'copiar') {
             this.loadData();
         }
-        else if (this.accion === 'agregar' && this.id) {
+        else if (this.accion === 'agregar' && this.id!=0) {
             this.posicion = await this.apiService.getData(`/mercado/posiciones/${this.id}`).toPromise();
-            this.completarFormConPosicion();
+            //this.completarFormConPosicion();
         }
     }
 
     private loadData() {
-        if (this.id) {
+        console.log("this.id", this.id);
+        if (this.id!=0) {
             this.obtenerYCompletar(this.id, { with_relation: 'estado,empresa,producto,usuarioCarga' });
          
         }
     }
 
-    private completarFormConPosicion() {
-        this.form.get('producto_id').setValue(this.posicion.producto_id);
-        this.form.get('producto_nombre').setValue(this.posicion.producto.nombre);
-        this.form.get('puerto_id').setValue(this.posicion.puerto_id);
-        this.form.get('moneda').setValue(this.posicion.moneda);
-        this.form.get('precio').setValue(this.posicion.precio);
-        this.form.get('condicion_pago_id').setValue(this.posicion.condicion_pago_id);
-    }
+   /* private completarFormConPosicion() {
+        this.form?.get('producto_id')?.setValue(this.posicion.producto_id);
+        this.form?.get('producto_nombre')?.setValue(this.posicion.producto.nombre);
+        this.form?.get('puerto_id')?.setValue(this.posicion.puerto_id);
+        this.form?.get('moneda')?.setValue(this.posicion.moneda);
+        this.form?.get('precio')?.setValue(this.posicion.precio);
+        this.form?.get('condicion_pago_id')?.setValue(this.posicion.condicion_pago_id);
+    }*/
 
     private createForm() {
         this.form = this.fb.group({
@@ -117,7 +118,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
             direccionCompletaDestino: new FormControl({ value: '', disabled: false })
         });
 
-        this.form.get('empresa_id').valueChanges.subscribe((value) => {
+        this.form?.get('empresa_id')?.valueChanges.subscribe((value) => {
             this.empresa_id = value;
         });
 
@@ -132,19 +133,19 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     protected completarCampos(data: any) {
         super.completarCampos(data);
-        this.form.patchValue({ 'empresa_razon_social': data.empresa.razon_social });
+        this.form?.patchValue({ 'empresa_razon_social': data.empresa.razon_social });
 
         if (/*data.estado_id == 4 ||*/ data.estado_id == 5 || data.estado_id == 3) {
-            this.form.patchValue({ 'estado_id': "" });
+            this.form?.patchValue({ 'estado_id': "" });
         } else {
-            this.form.patchValue({ 'estado_id': data.estado_id });
+            this.form?.patchValue({ 'estado_id': data.estado_id });
         }
-        this.form.patchValue({ 'producto_nombre': data.producto.nombre });
-        this.form.patchValue({ 'comercial': (data.usuario_carga.nombreCompleto) });
+        this.form?.patchValue({ 'producto_nombre': data.producto.nombre });
+        this.form?.patchValue({ 'comercial': (data.usuario_carga.nombreCompleto) });
 
         //Lógica para completar campos de destino:
         if (data.puerto_id !== null) {
-            this.form.patchValue({ 'puerto_id': data.puerto_id });
+            this.form?.patchValue({ 'puerto_id': data.puerto_id });
 
         } else {
             this.direccionCompletaDestino = data.localidad_destino + ', ' + data.departamento_destino + ', ' + data.provincia_destino;
@@ -159,13 +160,13 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     public guardar() {
         this.isLoading = true;
         if (this.accion === 'copiar' || this.accion === 'agregar') {
-            this.id = null;
+            this.id = 0;
         }
         // Obtener el valor del campo de entrada y reemplazar comas por puntos.
-        const volumen = this.form.get('volumen').value.replace(',', '.');
+        const volumen = this.form?.get('volumen')?.value.replace(',', '.');
 
         // Asignar el valor transformado de vuelta al campo de entrada.
-        this.form.get('volumen').setValue(volumen);
+        this.form?.get('volumen')?.setValue(volumen);
 
         this.enviarDatos().subscribe((data: any) => {
             this.isLoading = false;
@@ -187,7 +188,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     public empresa_id_selected(ev: MatAutocompleteSelectedEvent) {
         let id = ev.option._getHostElement().getAttribute('data-id');
-        this.form.patchValue({ empresa_id: id });
+        this.form?.patchValue({ empresa_id: id });
     }
 
     public buscarEmpresas(busqueda?: any) {
@@ -208,7 +209,7 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
 
     public producto_id_selected(ev: MatAutocompleteSelectedEvent) {
         let id = ev.option._getHostElement().getAttribute('data-id');
-        this.form.patchValue({ producto_id: id });
+        this.form?.patchValue({ producto_id: id });
     }
 
     public producto_id_keyup(ev: any) {

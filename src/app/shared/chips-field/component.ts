@@ -31,8 +31,8 @@ export class ChipsFieldComponent implements OnInit {
     private timeOutId          : any      = null;
     public  disabled           : boolean  = false;
     
-    @ViewChild('dataInput') dataInput        : ElementRef<HTMLInputElement>;
-    @ViewChild('auto'     ) matAutocomplete  : MatAutocomplete;
+    @ViewChild('dataInput') dataInput!        : ElementRef<HTMLInputElement>;
+    @ViewChild('auto'     ) matAutocomplete!  : MatAutocomplete;
     
     @Input() public title                  : string  = '';
     @Input() public dataUrl                : string  = '';    
@@ -63,7 +63,7 @@ export class ChipsFieldComponent implements OnInit {
             this.selected = value;
         });
 
-        this.getControl().statusChanges.subscribe(value => {
+        this.getControl()?.statusChanges.subscribe(value => {
             if (value === 'DISABLED') {
                 this.disabled = true;
                 return;
@@ -79,6 +79,7 @@ export class ChipsFieldComponent implements OnInit {
     }
 
     public getControl(): AbstractControl | null {
+        //@ts-ignore
         return this.controlContainer.control.get(this.fieldName)
     }
 
@@ -98,13 +99,13 @@ export class ChipsFieldComponent implements OnInit {
     }
 
     public fetchForSelected(value: any[]) {
-        let params = {};
+        let params: any = {};
         params[this.searchParamForSelected] = value;
         return this.fetchData(params);
     }
 
     public fetchForList(value: string) {
-        let params = {};
+        let params: any = {};
         params[this.searchParamForList] = value;
         return this.fetchData(params);
 
@@ -160,13 +161,14 @@ export class ChipsFieldComponent implements OnInit {
 
     public getLabelValue(row: any): string {
         if ((typeof this.labelColumnFn) === 'function') {
+            //@ts-ignore
             return this.labelColumnFn(row);
         } else {
             return row[this.labelColumn]
         }
     }
 
-    public onChipClick(row) {
+    public onChipClick(row: any) {
         if (this.disabled) {
             return;
         }

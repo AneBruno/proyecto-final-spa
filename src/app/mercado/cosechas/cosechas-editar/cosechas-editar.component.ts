@@ -10,7 +10,7 @@ import { FormBaseComponent } from 'src/app/shared/form-base.component';
 })
 export class CosechasEditarComponent extends FormBaseComponent implements OnInit {
 
-    public id      : number;
+    //public id      : number;
     public title   : string = 'Agregar Cosecha';
 
     constructor(

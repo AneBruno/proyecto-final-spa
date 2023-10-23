@@ -14,13 +14,13 @@ export class StaticMapPlaceComponent implements OnInit {
     public sessionToken : string = '';
 
     @Input()
-    public direccion : string;
+    public direccion? : string;
 
     @Input()
-    public placeId : string;
+    public placeId? : string;
 
     @Input()
-    public url : string;
+    public url? : string;
 
     @Input()
     public error : string = '';

@@ -16,7 +16,7 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
     public displayedColumns     : string[] = [];
     public usuarios             : any[]  = [];
     public usuarioLogueado      : any;
-    public rol_usuarioLogueado  : Number;
+    public rol_usuarioLogueado?  : Number;
     public accesoDeshabilitar   : boolean = false;
     public accesoHabilitar      : boolean = true;
 

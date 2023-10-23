@@ -20,18 +20,19 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
   items: Item[] = [
     { id: 1, nombre: 'Órdenes de venta' },
     { id: 2, nombre: 'Posiciones de compra' },
-    { id: 3, nombre: 'Clientes' }
+    { id: 3, nombre: 'Clientes compradores' },
+    { id: 4, nombre: 'Clientes vendedores' }
   ];
-  public currentUser          : User;
+  public currentUser?         : User;
   public fechaActual          : Date     = new Date();
-  public fechaDesde           : Date     ;
-  public fechaHasta           : Date;
+  public fechaDesde?          : Date     ;
+  public fechaHasta?          : Date;
   public anioActual           : Number   = this.fechaActual.getFullYear();
   public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
   public empresa              : any;
-  public empresas             : Array<any>;
-  public ordenes              : Array<any>;
-  public posiciones           : Array<any>;
+  public empresas?            : Array<any>;
+  public ordenes?             : Array<any>;
+  public posiciones?          : Array<any>;
   public chartOptions         : Array<any> = [];
 
   constructor(
@@ -87,21 +88,22 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
   }
 
   public onClearFilters() {
-    this.fechaDesde = null;
-    this.fechaHasta = null;
+    this.fechaDesde = undefined;
+    this.fechaHasta = undefined;
   }  
 
   redirectToDetails(id: number): void {
-    let url: string;
+    let url: string = '';
 
     if(id===1){
       url = `/app/mercado/indicadores/ordenes`;
     }else if (id==2){
-      url = `/app/mercado/indicadores/ordenes`;
+      url = `/app/mercado/indicadores/posiciones`;
     }else if(id===3){
-      url = `/app/mercado/indicadores/ordenes`;
+      url = `/app/mercado/indicadores/clientes`;
+    }else if(id===4){
+      url = `/app/mercado/indicadores/clientes-vendedores`;
     }
-    // Luego, navegas a la URL utilizando Router.navigate()
     this.router.navigate([url]);
   }
 

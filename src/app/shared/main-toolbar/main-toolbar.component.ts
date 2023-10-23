@@ -16,14 +16,14 @@ import { User                  } from '../models/user.model';
 export class MainToolbarComponent implements OnInit {
     @Output() toogleSideNav: EventEmitter<boolean> = new EventEmitter<boolean>();
     
-    accessGroups = {};
+    accessGroups: any = {};
     //avatar: string;
-    user: User;
+    user?: User;
     //public isExtranet : boolean = false;
 
-    private navigationSubscription: Subscription;
+    private navigationSubscription?: Subscription;
 
-    currentSection: AccessGroup;
+    currentSection?: AccessGroup;
 
     constructor(
         private authService: AuthService,
@@ -60,6 +60,6 @@ export class MainToolbarComponent implements OnInit {
     }
     
     ngOnDestroy() {
-        this.navigationSubscription.unsubscribe();
+        this.navigationSubscription?.unsubscribe();
     }
 }

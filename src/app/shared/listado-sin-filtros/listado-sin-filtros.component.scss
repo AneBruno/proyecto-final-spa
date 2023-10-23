@@ -1,0 +1,24 @@
+.listado-sin-filtros {
+    display: block;
+  
+    .mat-sidenav-container {
+      overflow: unset;
+  
+      .mat-sidenav {
+        display: none;
+      }
+    }
+  
+    .sidenav-content {
+      min-height: 1000px;
+    }
+  
+    .transparent {
+      background: transparent;
+    }
+  
+    .spacer {
+      flex: 1;
+    }
+  }
+  

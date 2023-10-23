@@ -21,6 +21,8 @@ import { IndicadoresComponent } from './indicadores/indicadores.component';
 import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
 import { IndicadorOrdenesComponent } from './indicadores/indicador-ordenes/indicador-ordenes.component';
 import { IndicadorPosicionesComponent } from './indicadores/indicador-posiciones/indicador-posiciones.component';
+import { IndicadorClientesComponent } from './indicadores/indicador-clientes/indicador-clientes.component';
+import { IndicadorVendedoresComponent } from './indicadores/indicador-vendedores/indicador-vendedores.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { IndicadorPosicionesComponent } from './indicadores/indicador-posiciones
         HistorialConsultarComponent,
         IndicadorOrdenesComponent,
         IndicadorPosicionesComponent,
+        IndicadorClientesComponent,
+        IndicadorVendedoresComponent,
     ],
     imports: [
         CommonModule,

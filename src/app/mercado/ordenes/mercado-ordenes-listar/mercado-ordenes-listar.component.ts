@@ -23,13 +23,13 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
 
     @ViewChild('filtroFechaDesde', {
         read: MatInput
-    }) filtroFechaDesde: MatInput;
+    }) filtroFechaDesde?: MatInput;
     @ViewChild('filtroFechaHasta', {
         read: MatInput
-    }) filtroFechaHasta: MatInput;
+    }) filtroFechaHasta?: MatInput;
 
-    public fechaDesde           : Date;
-    public fechaHasta           : Date;
+    public fechaDesde?           : Date | null;
+    public fechaHasta?           : Date | null;
     public formasPago           : Array<any> = [];
     public comerciales          : Array<any> = [];
     public puertos              : Array<any> = [];
@@ -39,7 +39,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     public anioActual           : Number   = this.fechaActual.getFullYear();
     public mesActual            : Number   = this.fechaActual.getMonth() + 1; //Le sumo 1 porque enero es el mes 0
     public estados              : any;
-    public rol_id_usuario            : Number;
+    public rol_id_usuario?            : Number;
     private ESTADO_ELIMINADA = 5;
     public filtroProductosOpciones : any = {
         ordenes: {
@@ -53,7 +53,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             nombre_completo: 'asc'
         }
     }
-    public currentUser: User;
+    public currentUser?: User;
 
     //Filtros multiples
     public filtroProductos! : Array<any>;
@@ -119,7 +119,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
             this.addColumn('forma_pago', 'Forma de Pago', '120px').renderFn(row => row.condicion_pago.descripcion);
             //this.addColumn('volumen',       'Toneladas',   '50px').renderFn(row => row.volumen).setAsNumber();
             this.addColumn('precio_moneda', 'Precio',    '100px').renderFn(row => `${row.moneda} ${row.precio}`).setAlign('left');
-            this.addColumn('estado',        'Estado',    '80px').renderFn(row => (this.estados.find(estado => estado.id == row.estado_id)).nombre)
+            this.addColumn('estado',        'Estado',    '80px').renderFn(row => (this.estados.find((estado: any) => estado.id == row.estado_id)).nombre)
             this.addColumn('_acciones',     'Acciones',   '10px').setAsMenu().setAlign('right');
 
             if (result.matches) {
@@ -193,16 +193,16 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         this.fechaDesde = null;
         this.fechaHasta = null;
 
-        this.filtroProductos = null;
-        this.filtroPuertos   = null;
-        this.filtroEmpresa   = null;
-        this.filtroFormaPago    = null;
+        this.filtroProductos = [];
+        this.filtroPuertos   = [];
+        this.filtroEmpresa   = [];
+        this.filtroFormaPago = [];
         //this.filtroComercial = null;
     }
 
 
     public estadoPosicion(id:number, estado:number){
-      var mensaje;
+      var mensaje = '';
       if (estado == this.ESTADO_ELIMINADA) {
         mensaje = 'Desea eliminar la orden?';
       }
@@ -214,7 +214,7 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
     }
 
     isRepresentante() {
-        return this.currentUser.rol.id === 4;
+        return this.currentUser?.rol.id === 4;
     }
 
     getPuertoParams() {

@@ -12,9 +12,9 @@ import { AuthService                  } from 'src/app/auth/shared/services/auth.
 })
 export class DashboardComponent implements OnInit {
 
-    @ViewChild('sidenav') sidenav: MatSidenav;
+    @ViewChild('sidenav') sidenav?: MatSidenav;
 
-    private navigationSubscription: Subscription;
+    private navigationSubscription?: Subscription;
 
     ngDestroy$ = new Subject();
 
@@ -26,13 +26,13 @@ export class DashboardComponent implements OnInit {
     ngOnInit(): void {
         var self = this;
 
-        this.navigationSubscription = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((s: NavigationEnd) => {
+        this.navigationSubscription = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((s: any) => {
            this.close();
         });
     }
 
     close() {
-        this.sidenav.close();
+        this.sidenav?.close();
     }
 
     logout() {
@@ -41,19 +41,19 @@ export class DashboardComponent implements OnInit {
         this.authService.signOut();
     }
 
-    openSideNav($event) {
-        console.log(this.sidenav.opened, 'opened?')
-        if(!this.sidenav.opened){
-            this.sidenav.open();
+    openSideNav($event: any) {
+        console.log(this.sidenav?.opened, 'opened?')
+        if(!this.sidenav?.opened){
+            this.sidenav?.open();
         }
         else{
-            this.sidenav.close();
+            this.sidenav?.close();
         }
     }
     
     ngOnDestroy() {
         this.ngDestroy$.complete();
-        this.navigationSubscription.unsubscribe();
+        this.navigationSubscription?.unsubscribe();
     }
 
 }

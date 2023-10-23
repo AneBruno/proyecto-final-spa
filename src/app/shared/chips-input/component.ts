@@ -27,8 +27,8 @@ export class ChipsInputComponent implements OnInit {
     public  separatorKeysCodes : number[] = [ENTER, COMMA];
     private timeOutId          : any      = null;
     
-    @ViewChild('dataInput') public dataInput        : ElementRef<HTMLInputElement>;
-    @ViewChild('auto'     ) public matAutocomplete  : MatAutocomplete;
+    @ViewChild('dataInput') public dataInput!        : ElementRef<HTMLInputElement>;
+    @ViewChild('auto'     ) public matAutocomplete!  : MatAutocomplete;
     
     @Input()  public selected               : any[] = [];
     @Output() public selectedChange         : EventEmitter<any> = new EventEmitter<any>();
@@ -47,7 +47,7 @@ export class ChipsInputComponent implements OnInit {
     @Input()  public readonly               : boolean = false;
     @Input()  public disabled               : boolean = false;
     @Input()  public queryParams            : any     = {};
-    @Input()  public appearance             : string  = 'fill';
+    @Input()  public appearance             : any  = 'fill';
     @Output() public inputClick             : EventEmitter<any> = new EventEmitter<any>();
     @Output() public chipClick              : EventEmitter<any> = new EventEmitter<any>();
     @Output() public selectionChanged       : EventEmitter<any> = new EventEmitter<any>();
@@ -78,13 +78,13 @@ export class ChipsInputComponent implements OnInit {
     }
 
     public fetchForSelected(value: any[]) {
-        let params = {};
+        let params: any = {};
         params[this.searchParamForSelected] = value;
         return this.fetchData(params);
     }
 
     public fetchForList(value: string) {
-        let params = {};
+        let params: any = {};
         params[this.searchParamForList] = value;
         return this.fetchData(params);
 
@@ -139,13 +139,14 @@ export class ChipsInputComponent implements OnInit {
 
     public getLabelValue(row: any): string {
         if ((typeof this.labelColumnFn) === 'function') {
+            //@ts-ignore
             return this.labelColumnFn(row);
         } else {
             return row[this.labelColumn]
         }
     }
 
-    public onChipClick(row) {
+    public onChipClick(row: any) {
         if (this.disabled) {
             return;
         }

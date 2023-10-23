@@ -12,7 +12,7 @@ export class ListadoFiltrosComponent implements OnInit {
     public textoBuscar: string = 'Buscar...';
     
     @Input()
-    public dataSource: ListadoDataSource<any>;
+    public dataSource!: ListadoDataSource<any>;
 
     @Input()
     public filtros: any = {};
@@ -37,12 +37,12 @@ export class ListadoFiltrosComponent implements OnInit {
     ngOnInit(): void {
         this.dataSource.filtros = this.filtros;
         this.dataSource.filtros.busqueda = null;
-        Object.assign(this.dataSource.fixedFilters, this.filtrosFijos);
+        Object.assign(this.dataSource?.fixedFilters, this.filtrosFijos);
     }
 
     public buscar() {
         this.clickBuscar.emit();
-        this.dataSource.refreshData();
+        this.dataSource?.refreshData();
     }
 
 }

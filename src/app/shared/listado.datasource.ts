@@ -12,7 +12,7 @@ export class ListadoDataSource<T> extends DataSource<T> {
     public    limit          : number = 10;
     public    pageIndex      : number = 0;
     public    total          : number = 0;
-    public    uri            : string;
+    public    uri            : string = '';
     public    filtros        : any = {}
     public    fixedFilters   : any = {};
     protected defaultFilters : any = {};

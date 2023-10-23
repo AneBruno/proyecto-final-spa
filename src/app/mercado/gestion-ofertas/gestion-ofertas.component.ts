@@ -8,6 +8,8 @@ import { ListadoComponent   } from 'src/app/shared/listados/listado.component';
 import { ApiService         } from 'src/app/shared/services/api.service';
 import { registerLocaleData } from '@angular/common';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/auth/shared/services/user.service';
 
 @Component({
     selector    : 'app-gestion-ofertas',
@@ -18,14 +20,15 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
 
     public idBase               : any; //Id para poder completar la orden con los datos de la posición
     public posicion             : any = null;
-    public fecha                : Date;
+    public fecha?                : Date ;
     public puertos              : any;
     public usuarios             : any;
-    public listaEmpresas        : Array<any>;
-    public posicionesAgrupadas  : Array<any>;
+    public listaEmpresas?        : Array<any>;
+    public posicionesAgrupadas?  : Array<any>;
     public condicionesPago      : Array<any> = [];
     public localidades          : Array<any> = [];
     formularioPosicion:         FormGroup;
+    public currentUser?          : User;
     
 
     public constructor(
@@ -33,7 +36,8 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         private apiService         : ApiService,
         private route              : ActivatedRoute,
         private breakPointObserver : BreakpointObserver,
-        private formBuilder: FormBuilder
+        private formBuilder        : FormBuilder,
+        private userService        : UserService,
         
     ) {
         super();
@@ -53,6 +57,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
     public async ngOnInit(): Promise<void> {
         registerLocaleData( es );
         this.dataSource.autoStart = false;
+        this.currentUser = this.userService.getUser();
 
         await this.loadRelatedData();
 
@@ -62,6 +67,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         };
         //solo las ordenes con estado 1 (activa)
         this.dataSource.fixedFilters.estados = [1];
+        //@ts-ignore
         window['dataSource'] = this.dataSource;
 
         this.dataSource.ordenes = {
@@ -136,7 +142,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         if (localidadIndex === -1) {
             this.localidades.push({localidad_destino: posicion.localidad_destino});
         }
-        this.listaEmpresas = this.empresasToString([posicion.empresa]);
+        this.listaEmpresas = this.empresasToString([posicion.empresa])??[];
         this.posicionesAgrupadas = posicion.posiciones;
         this.idBase = posicion.id;
         console.log("this.posicion", this.posicion);
@@ -150,13 +156,13 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             forma_pago_posicion: this.posicion.forma_pago,
             cosecha_posicion : this.posicion.cosecha.descripcion,
             volumen_posicion: this.posicion.volumen,
-            usuario_carga_posicion: this.usuarios.find(usuario => usuario.id == this.posicion.usuario_carga_id).nombreCompleto
+            usuario_carga_posicion: this.usuarios.find((usuario: any) => usuario.id == this.posicion.usuario_carga_id).nombreCompleto
 
 
         });
     }
 
-    public completarFiltrosPorDefecto(posicion) {
+    public completarFiltrosPorDefecto(posicion: any) {
         this.dataSource.fixedFilters = {};
         this.dataSource.fixedFilters.producto_id = this.posicion.producto.id;
         this.dataSource.fixedFilters.fecha = moment().format('YYYY-MM-DD');
@@ -192,7 +198,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
 
 
     private getPosicionByRazonSocialAndPrecio(razonSocial: string) {
-        return this.posicionesAgrupadas.reduce((previousPosicion, currentPosicion) => {
+        return this.posicionesAgrupadas?.reduce((previousPosicion, currentPosicion) => {
             if (previousPosicion.empresa.razon_social !== razonSocial) {
                 return currentPosicion;
             }
@@ -204,4 +210,13 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
             return previousPosicion.precio > currentPosicion.precio ? previousPosicion : currentPosicion;
         });
     }
+
+    public isInterno(): any {
+        if(this.currentUser?.rol_id === 1 || this.currentUser?.rol_id===3){
+          return true;
+        }else{
+          return false;
+        }
+      }
 }
+

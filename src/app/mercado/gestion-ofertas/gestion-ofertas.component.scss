@@ -4,6 +4,7 @@ table {width:100%;}
 .formulario-posicion {
     margin-left: 20px; 
 }
+
   
 .menu-wrapper {
     padding: 10px 25px;
@@ -39,7 +40,8 @@ body {  max-width:100%; }
     
     .posicion-datos {
         padding: 16px;
-        background-color: rgb(255, 255, 255);
+        background-color: transparent;
+        border:none;
         display: block;
 
     }
@@ -48,6 +50,7 @@ body {  max-width:100%; }
 .posicion-datos [row] {
     display: block;
     overflow: auto;
+    
 }
 .posicion-datos [info] {
     display: block;

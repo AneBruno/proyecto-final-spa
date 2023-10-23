@@ -36,7 +36,7 @@ export class DatepickerInputComponent implements OnInit {
     public showCleanButton : boolean = false;
 
     @Input()
-    public appearance : string = 'fill';
+    public appearance : any = 'fill';
 
 
     constructor() { }

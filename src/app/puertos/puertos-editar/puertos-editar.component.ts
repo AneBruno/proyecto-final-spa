@@ -10,7 +10,7 @@ import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localiza
 })
 export class PuertosEditarComponent extends FormBaseLocalizacionComponent implements OnInit {
     
-    public id                : number;
+    //public id                : number;
     public title             : string = 'Agregar puerto';
     public sessionToken      : string = '';
     public timeout           : any;

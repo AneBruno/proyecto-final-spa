@@ -26,9 +26,13 @@ export class DatePickerComponent implements OnInit {
     @Input()
     public minDate: any = null;
 
+    public control: any;
+
     public constructor(
         public controlContainer: ControlContainer
-    ) { }
+    ) {
+        this.control = controlContainer.control;
+    }
 
     ngOnInit(): void {
     }

@@ -52,7 +52,7 @@ export class PuertosListadoComponent extends ListadoComponent implements OnInit 
         });
     }
 
-    public eliminar(orden) {
+    public eliminar(orden:any) {
         const nuevoEstado = orden.estado === 'HABILITADO' ? 'DESHABILITADO' : 'HABILITADO';
 
         this.confirm.ask('Deshabilitará el puerto. Continuar?').subscribe(() => {
@@ -62,7 +62,7 @@ export class PuertosListadoComponent extends ListadoComponent implements OnInit 
         });
     }
 
-    public getDeshabilitarButtonText(orden) {
+    public getDeshabilitarButtonText(orden: any) {
         return orden.estado === 'HABILITADO' ? 'Deshabilitar' : 'Habilitar';
     }
 }

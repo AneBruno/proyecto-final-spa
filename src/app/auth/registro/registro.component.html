@@ -11,25 +11,25 @@
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Nombre</mat-label>
                     <input formControlName="nombre" matInput required>
-                    <mat-error *ngIf="form.get('nombre').hasError('required')">Campo requerido</mat-error>
+                    <mat-error *ngIf="form.get('nombre')?.hasError('required')">Campo requerido</mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Apellido</mat-label>
                     <input formControlName="apellido" matInput required>
-                    <mat-error *ngIf="form.get('apellido').hasError('required')">Campo requerido</mat-error>
+                    <mat-error *ngIf="form.get('apellido')?.hasError('required')">Campo requerido</mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Teléfono</mat-label>
                     <input formControlName="telefono" matInput required>
-                    <mat-error *ngIf="form.get('telefono').hasError('required')">Campo requerido</mat-error>
+                    <mat-error *ngIf="form.get('telefono')?.hasError('required')">Campo requerido</mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Email</mat-label>
                     <input formControlName="email" matInput required>
-                    <mat-error *ngIf="form.get('email').hasError('email')">Email inválido</mat-error>
+                    <mat-error *ngIf="form.get('email')?.hasError('email')">Email inválido</mat-error>
                 </mat-form-field>
 
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
@@ -38,8 +38,8 @@
                     <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
                         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-                    <mat-error *ngIf="form.get('password').hasError('required')">Campo requerido</mat-error>
-                    <mat-error *ngIf="form.get('password').hasError('minLength')">
+                    <mat-error *ngIf="form.get('password')?.hasError('required')">Campo requerido</mat-error>
+                    <mat-error *ngIf="form.get('password')?.hasError('minLength')">
                         Al menos 8 caracteres
                     </mat-error>
                 </mat-form-field>
@@ -47,7 +47,7 @@
                 <mat-form-field fxFlex="100" fxFlex.gt-md="100" appearance="outline" class="custom-mat-form-field">
                     <mat-label>Empresa para la que opera</mat-label>
                     <input formControlName="empresa_registro" matInput required>
-                    <mat-error *ngIf="form.get('empresa_registro').hasError('required')">Campo requerido</mat-error>
+                    <mat-error *ngIf="form.get('empresa_registro')?.hasError('required')">Campo requerido</mat-error>
                 </mat-form-field>
 
                 <button fxFlex="100" class="submit-button" color="primary" mat-raised-button  type="submit">

@@ -8,7 +8,7 @@ import { AccessGroup     } from '../models/acceso.model';
 
 @Injectable()
 export class NavigationService {
-    private currentSection : BehaviorSubject<AccessGroup> = new BehaviorSubject<AccessGroup>(null);
+    private currentSection : BehaviorSubject<AccessGroup> = new BehaviorSubject<AccessGroup>({});
     private history        : string[] = []
     public  current$       : Observable<AccessGroup> = this.currentSection.asObservable();
 

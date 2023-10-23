@@ -15,6 +15,9 @@ import { HistorialNegociosComponent } from './historial-negocios/historial-negoc
 import { IndicadoresComponent } from './indicadores/indicadores.component';
 import { HistorialConsultarComponent } from './historial-negocios/historial-consultar/historial-consultar.component';
 import { IndicadorOrdenesComponent } from './indicadores/indicador-ordenes/indicador-ordenes.component';
+import { IndicadorPosicionesComponent } from './indicadores/indicador-posiciones/indicador-posiciones.component';
+import { IndicadorClientesComponent } from './indicadores/indicador-clientes/indicador-clientes.component';
+import { IndicadorVendedoresComponent } from './indicadores/indicador-vendedores/indicador-vendedores.component';
 
 const routes: Routes = [
     { path: 'condicionesPago',                                  component: CondicionesPagoListarComponent   },
@@ -44,7 +47,10 @@ const routes: Routes = [
     { path: 'historial/consulta/:orden' ,                        component: HistorialConsultarComponent      },
             
     { path: 'indicadores',                                       component: IndicadoresComponent      },
-    { path: 'indicadores/ordenes',                               component: IndicadorOrdenesComponent      }
+    { path: 'indicadores/ordenes',                               component: IndicadorOrdenesComponent      },
+    { path: 'indicadores/posiciones',                            component: IndicadorPosicionesComponent   },
+    { path: 'indicadores/clientes',                              component: IndicadorClientesComponent   },
+    { path: 'indicadores/clientes-vendedores',                   component: IndicadorVendedoresComponent   }
 
 ];
 

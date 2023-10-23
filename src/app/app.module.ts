@@ -3,11 +3,6 @@ import { Injector                } from '@angular/core';
 import { FlexLayoutModule        } from '@angular/flex-layout';
 import { BrowserModule           } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { SocialLoginModule       } from 'angularx-social-login';
-import { SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider     } from 'angularx-social-login';
-
 import { AppRoutingModule        } from './app-routing.module';
 import { AppComponent            } from './app.component';
 import { environment             } from 'src/environments/environment';
@@ -15,9 +10,7 @@ import { SharedModule            } from './shared/shared.module';
 import { AuthModule              } from './auth/auth.module';
 import { DashboardResolver       } from './shared/resolvers/dashboard.resolver';
 import { LocatorService          } from './shared/services/locator.service';
-
-// deprecate use it
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
     declarations: [
@@ -27,29 +20,14 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
-        SocialLoginModule,
         AuthModule,
-        NgxsReduxDevtoolsPluginModule.forRoot({
-            disabled: environment.production
-        }),
         SharedModule.forRoot(),
         AuthModule.forRoot(),
-        FlexLayoutModule
+        FlexLayoutModule,
+        CanvasJSAngularChartsModule
     ],
     providers: [
         DashboardResolver,
-        {
-            provide: 'SocialAuthServiceConfig',
-            useValue: {
-                autoLogin: false,
-                providers: [
-                    {
-                        id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider(environment.socialiteApiKey),
-                    },
-                ],
-            } as SocialAuthServiceConfig,
-        }
     ],
     schemas: [
         NO_ERRORS_SCHEMA,
