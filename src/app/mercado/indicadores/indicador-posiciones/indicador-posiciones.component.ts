@@ -12,15 +12,17 @@ import * as XLSX from 'xlsx';
 })
 export class IndicadorPosicionesComponent extends ListadoComponent implements OnInit {
 
-  public chartOptions         : any;
+  public chartOptions          : any;
+  public cantTotal             : number= 0;
   public dConfirmada           : { x: Date, y: number }[] = [];
   public dActiva               : { x: Date, y: number }[] = [];
   public dEliminada            : { x: Date, y: number }[] = [];
-  public productos            : Array<any> = [];
-  public puertos              : Array<any> = [];
-  public formas_pago          : Array<any> = [];
-  public cosechas             : Array<any> = [];
-  public empresas             : Array<any> = [];
+  public productos             : Array<any> = [];
+  public puertos               : Array<any> = [];
+  public formas_pago           : Array<any> = [];
+  public cosechas              : Array<any> = [];
+  public empresas              : Array<any> = [];
+  public posiciones            : Array<any>=[];
 
   //Filtros
   public filtroPeriodo       : string= '%Y-%m';
@@ -39,6 +41,7 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
    }
 
   ngOnInit(): void {
+    this.obtenerDatos(); 
     this.dataSource.uri = '/indicadores/mercado/posiciones';
     this.dataSource.afterFetch.subscribe((data) => {
       this.dConfirmada.length=0;
@@ -97,7 +100,6 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
         }  
       } 
     });
-    this.obtenerDatos(); 
     this.setTable();
     this.actualizarDatos();
   }
@@ -160,8 +162,7 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
       ordenes: {
           razon_social:'ASC'
       }
-    }).toPromise();
-    
+    }).toPromise();    
   }
 
   public onClearFilters() {
@@ -235,7 +236,10 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
     this.chartOptions = {
       animationEnabled: true,
       title:{
-      text: "Posiciones de compra por período"
+      text: "Posiciones de compra por período",
+      fontFamily: "Poppins", 
+      fontSize: 22,
+      fontWeight: 500
       },
       axisX:{
       title:"Períodos",
@@ -292,7 +296,10 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
     this.chartOptions = {
       animationEnabled: true,
       title:{
-      text: "Posiciones de compra por período"
+      text: "Posiciones de compra por período",
+      fontFamily: "Poppins", 
+      fontSize: 22,
+      fontWeight: 500
       },
       axisX:{
       title:"Períodos",
@@ -347,7 +354,10 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
     this.chartOptions = {
       animationEnabled: true,
       title:{
-      text: "Posiciones de compra por período"
+      text: "Posiciones de compra por período",
+      fontFamily: "Poppins", 
+      fontSize: 22,
+      fontWeight: 500
       },
       axisX:{
       title:"Períodos",

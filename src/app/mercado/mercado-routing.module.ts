@@ -18,6 +18,7 @@ import { IndicadorOrdenesComponent } from './indicadores/indicador-ordenes/indic
 import { IndicadorPosicionesComponent } from './indicadores/indicador-posiciones/indicador-posiciones.component';
 import { IndicadorClientesComponent } from './indicadores/indicador-clientes/indicador-clientes.component';
 import { IndicadorVendedoresComponent } from './indicadores/indicador-vendedores/indicador-vendedores.component';
+import { IndicadorNegociosComponent } from './indicadores/indicador-negocios/indicador-negocios.component';
 
 const routes: Routes = [
     { path: 'condicionesPago',                                  component: CondicionesPagoListarComponent   },
@@ -50,7 +51,8 @@ const routes: Routes = [
     { path: 'indicadores/ordenes',                               component: IndicadorOrdenesComponent      },
     { path: 'indicadores/posiciones',                            component: IndicadorPosicionesComponent   },
     { path: 'indicadores/clientes',                              component: IndicadorClientesComponent   },
-    { path: 'indicadores/clientes-vendedores',                   component: IndicadorVendedoresComponent   }
+    { path: 'indicadores/clientes-vendedores',                   component: IndicadorVendedoresComponent   },
+    { path: 'indicadores/negocios',                              component: IndicadorNegociosComponent   }
 
 ];
 

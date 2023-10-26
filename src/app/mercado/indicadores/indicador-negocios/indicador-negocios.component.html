@@ -1,0 +1,21 @@
+<app-listado-sin-filtros>
+    <titulo>Indicadores - Negocios cerrados</titulo>
+    <!--<botones>
+        <button mat-flat-button color="primary" class="rounded-button">
+            <mat-icon>file_download</mat-icon>
+            Descargar</button>
+    </botones>-->
+    <contenido>
+        <div *ngIf="this.ordenes2.length >0" style="float: left; width: 50%;">
+            <canvasjs-chart [options]="chartOptionsPieProducto" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+        </div>
+        <div *ngIf="this.ordenes2.length >0" style="float: left; width: 50%;">
+            <canvasjs-chart [options]="chartOptionsPiePago" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+        </div>
+        <div style="clear: both;"></div>
+        <div *ngIf="this.ordenes2.length >0">
+            <canvasjs-chart [options]="chartOptionsPiePuerto" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>
+        </div>
+        
+    </contenido>
+</app-listado-sin-filtros>

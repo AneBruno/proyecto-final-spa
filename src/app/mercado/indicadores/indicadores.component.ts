@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { UserService } from 'src/app/auth/shared/services/user.service';
 import { ListadoDataSource            } from 'src/app/shared/listado.datasource';
 import { ListadoComponent } from 'src/app/shared/listados/listado.component';
 import { User } from 'src/app/shared/models/user.model';
 import { ApiService } from 'src/app/shared/services/api.service';
-import {MatTableModule} from '@angular/material/table';
 import { Item } from 'src/app/shared/models/indicadores.model';
 import { Router } from '@angular/router';
 
@@ -21,7 +19,8 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
     { id: 1, nombre: 'Órdenes de venta' },
     { id: 2, nombre: 'Posiciones de compra' },
     { id: 3, nombre: 'Clientes compradores' },
-    { id: 4, nombre: 'Clientes vendedores' }
+    { id: 4, nombre: 'Clientes vendedores' },
+    { id: 5, nombre: 'Negocios cerrados' }
   ];
   public currentUser?         : User;
   public fechaActual          : Date     = new Date();
@@ -45,10 +44,6 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
   }
 
   public async ngOnInit(): Promise<void> {
-    //this.dataSource.uri = '/indicadores/mercado/ordenes';
-    /*this.dataSource.afterFetch.subscribe((data) => {
-      console.log('afterFetch this.dataSource.currentData', this.dataSource.currentData);
-    });*/
     this.currentUser  = this.userService.getUser();
     this.obtenerDatos(); 
     this.setTable();
@@ -57,18 +52,11 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
   }
 
   public actualizarDatos() {
-    this.configurarFiltros();
     this.dataSource.refreshData();
   }
 
   private setTable(): void {
     this.addColumn('nombre',    'Nombre',    '100px');
-    /*this.addColumn('periodo',    'Período',    '100px');
-    this.addColumn('Total',      'Total',      '100px');
-    this.addColumn('Activa',     'Activa',     '100px');
-    this.addColumn('Confirmada', 'Confirmada', '100px');
-    this.addColumn('Eliminada',  'Eliminada',  '100px');*/
-
   }
 
   public async obtenerDatos(){
@@ -76,21 +64,6 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
     this.ordenes      = await this.apiService.getData('/mercado/ordenes').toPromise();
     this.posiciones   = await this.apiService.getData('/mercado/posiciones').toPromise();
   }
-
-  public configurarFiltros() {
-    /*if (this.fechaDesde) {
-        this.dataSource.filtros.fecha_desde = moment(this.fechaDesde).format('YYYY-MM-DD');
-    }
-
-    if (this.fechaHasta) {
-        this.dataSource.filtros.fecha_hasta = moment(this.fechaHasta).format('YYYY-MM-DD');
-    }*/
-  }
-
-  public onClearFilters() {
-    this.fechaDesde = undefined;
-    this.fechaHasta = undefined;
-  }  
 
   redirectToDetails(id: number): void {
     let url: string = '';
@@ -103,6 +76,8 @@ export class IndicadoresComponent extends ListadoComponent implements OnInit {
       url = `/app/mercado/indicadores/clientes`;
     }else if(id===4){
       url = `/app/mercado/indicadores/clientes-vendedores`;
+    }else if(id===5){
+      url= `/app/mercado/indicadores/negocios`;
     }
     this.router.navigate([url]);
   }
