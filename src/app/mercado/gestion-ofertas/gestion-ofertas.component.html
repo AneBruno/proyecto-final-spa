@@ -2,7 +2,7 @@
     <titulo>Oportunidades de negocio</titulo>
     <filtros fxLayout="column" fxLayoutAlign="start stretch">
 
-        <mat-form-field appearance="legacy" >
+        <!--<mat-form-field appearance="legacy" >
             <mat-label>Puerto de destino</mat-label>
             <mat-select multiple [(ngModel)]="dataSource.filtros.puerto_id" (selectionChange)="dataSource.refreshData()">
                 <mat-option *ngFor="let puerto of puertos" [value]="puerto.id">{{puerto.nombre}}</mat-option>
@@ -23,7 +23,7 @@
                 <mat-option value="USD">USD</mat-option>
                 <mat-option value="AR$">AR$</mat-option>
             </mat-select>
-        </mat-form-field>
+        </mat-form-field>-->
 
         <app-search-input fxFlex="100" [label]="'Precio desde'" [(value)]="dataSource.filtros.precioDesde" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>
         <app-search-input fxFlex="100" [label]="'Precio hasta'" [(value)]="dataSource.filtros.precioHasta" (change)="dataSource.refreshData()" (click)="$event.stopPropagation()"></app-search-input>

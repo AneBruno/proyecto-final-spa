@@ -65,8 +65,11 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         this.dataSource.queryParams = {
             with_relation : 'puerto,producto,empresa,estado,usuarioCarga,condicionPago'
         };
+        let prod_id = this.posicion.producto_id;
+        console.log("prod_id", prod_id);
         //solo las ordenes con estado 1 (activa)
         this.dataSource.fixedFilters.estados = [1];
+        this.dataSource.fixedFilters.producto_id =[prod_id];
         //@ts-ignore
         window['dataSource'] = this.dataSource;
 
@@ -117,13 +120,13 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         let clave    = await this.obtenerClavePosicion();
         const relations = 'usuarioCarga';
         let posicion = await this.apiService.getData('/mercado/panel/' + clave, { with_relation: relations }).toPromise();
-        //console.log(posicion);
         this.completarPosicion(posicion);
-        this.completarFiltrosPorDefecto(posicion);
+        this.completarFiltrosPorDefecto();
     }
 
     private async completarPosicion(posicion: any) {
         this.posicion = {
+            producto_id           : posicion.producto.id,
             producto              : posicion.producto.nombre,
             precio_moneda         : posicion.moneda + ' ' + posicion.precio,
             precio                : posicion.precio,
@@ -162,16 +165,16 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         });
     }
 
-    public completarFiltrosPorDefecto(posicion: any) {
+    public completarFiltrosPorDefecto() {
         this.dataSource.fixedFilters = {};
         this.dataSource.fixedFilters.producto_id = this.posicion.producto.id;
         this.dataSource.fixedFilters.fecha = moment().format('YYYY-MM-DD');
 
         this.dataSource.setDefaultFilters({
-            puerto_id               : [posicion.puerto.id],
-            condicion_pago_id       : [posicion.condicion_pago.id],
+            //puerto_id               : [posicion.puerto.id],
+            //condicion_pago_id       : [posicion.condicion_pago.id],
             precioDesde             : 0,
-            moneda                  : this.posicion.moneda,
+            //moneda                  : this.posicion.moneda,
         });
 
     }
@@ -197,20 +200,7 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
     }
 
 
-    private getPosicionByRazonSocialAndPrecio(razonSocial: string) {
-        return this.posicionesAgrupadas?.reduce((previousPosicion, currentPosicion) => {
-            if (previousPosicion.empresa.razon_social !== razonSocial) {
-                return currentPosicion;
-            }
-
-            if (currentPosicion.empresa.razon_social !== razonSocial) {
-                return previousPosicion;
-            }
-
-            return previousPosicion.precio > currentPosicion.precio ? previousPosicion : currentPosicion;
-        });
-    }
-
+   
     public isInterno(): any {
         if(this.currentUser?.rol_id === 1 || this.currentUser?.rol_id===3){
           return true;
