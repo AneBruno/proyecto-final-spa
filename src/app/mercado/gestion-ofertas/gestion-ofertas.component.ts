@@ -65,11 +65,10 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         this.dataSource.queryParams = {
             with_relation : 'puerto,producto,empresa,estado,usuarioCarga,condicionPago'
         };
-        let prod_id = this.posicion.producto_id;
-        console.log("prod_id", prod_id);
-        //solo las ordenes con estado 1 (activa)
         this.dataSource.fixedFilters.estados = [1];
-        this.dataSource.fixedFilters.producto_id =[prod_id];
+        this.dataSource.fixedFilters.producto_id =[this.posicion.producto_id];
+        this.dataSource.fixedFilters.condicion_pago_id = [this.posicion.forma_pago_id];
+        this.dataSource.fixedFilters.puerto_id = [this.posicion.puerto_id];
         //@ts-ignore
         window['dataSource'] = this.dataSource;
 
@@ -116,7 +115,6 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         }).toPromise();
         this.condicionesPago = await this.apiService.getData('/mercado/condiciones-pago').toPromise();
         this.usuarios = await this.apiService.getData('/usuarios').toPromise();
-        //console.log(this.usuarios);
         let clave    = await this.obtenerClavePosicion();
         const relations = 'usuarioCarga';
         let posicion = await this.apiService.getData('/mercado/panel/' + clave, { with_relation: relations }).toPromise();
@@ -128,12 +126,18 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         this.posicion = {
             producto_id           : posicion.producto.id,
             producto              : posicion.producto.nombre,
+            prod                  : posicion.producto,
             precio_moneda         : posicion.moneda + ' ' + posicion.precio,
             precio                : posicion.precio,
             puerto                : posicion.puerto.nombre,
+            puert                 : posicion.puerto,
+            puerto_id             : posicion.puerto.id,
             moneda                : posicion.moneda,
             forma_pago            : posicion.condicion_pago.descripcion,
+            forma_pago_id         : posicion.condicion_pago.id,
+            formap                : posicion.condicion_pago,
             cosecha               : posicion.cosecha,
+            cosecha_id            : posicion.cosecha.id,
             empresa               : posicion.empresa,
             observaciones         : posicion.observaciones,
             usuario_carga_id      : posicion.usuario_carga_id,
@@ -168,12 +172,14 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
     public completarFiltrosPorDefecto() {
         this.dataSource.fixedFilters = {};
         this.dataSource.fixedFilters.producto_id = this.posicion.producto.id;
+        /*this.dataSource.fixedFilters.puerto_id = this.posicion.puerto.id;
+        this.dataSource.fixedFilters.condicion_pago_id = this.posicion.condicion_pago.id;*/
         this.dataSource.fixedFilters.fecha = moment().format('YYYY-MM-DD');
 
         this.dataSource.setDefaultFilters({
-            //puerto_id               : [posicion.puerto.id],
-            //condicion_pago_id       : [posicion.condicion_pago.id],
-            precioDesde             : 0,
+            //puerto_id               : this.posicion.puerto.id,
+            //condicion_pago_id       : this.posicion.condicion_pago.id,
+            precioDesde             : 0
             //moneda                  : this.posicion.moneda,
         });
 
@@ -198,15 +204,13 @@ export class GestionOfertasComponent extends ListadoComponent implements OnInit 
         this.dataSource.filtros[campo] = moment(date).format('YYYY-MM-DD');
         this.dataSource.refreshData();
     }
-
-
    
     public isInterno(): any {
-        if(this.currentUser?.rol_id === 1 || this.currentUser?.rol_id===3){
+        if(this.currentUser?.rol_id===3){
           return true;
         }else{
           return false;
         }
-      }
+    }
 }
 

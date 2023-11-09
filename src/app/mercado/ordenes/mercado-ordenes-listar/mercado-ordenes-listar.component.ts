@@ -247,4 +247,20 @@ export class MercadoOrdenesListarComponent extends ListadoComponent implements O
         }
       }
 
+      public isInterno(): any {
+        if(this.currentUser?.rol_id===3){
+          return true;
+        }else{
+          return false;
+        }
+    }
+
+    public isCliente(): any {
+        if(this.currentUser?.rol_id===4){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

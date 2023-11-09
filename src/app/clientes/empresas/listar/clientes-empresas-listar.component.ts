@@ -50,7 +50,7 @@ export class ClientesEmpresasListarComponent extends ListadoComponent implements
         this.addColumn('cuit',         'Cuit',         '150px').renderFn(row => row.cuit);
         this.addColumn('razon_social', 'Razón social',      '').renderFn(row => row.razon_social);
         this.addColumn('telefono', 'Teléfono',      '').renderFn(row => row.telefono? row.telefono : '-');
-        this.addColumn('comercial_asignado', 'Usuario asociado',      '').renderFn(row => row.comercial_asignado.nombreCompleto );
+        this.addColumn('comercial_asignado', 'Usuario asociado',      '').renderFn(row => row.comercial_asignado? row.comercial_asignado.nombreCompleto : '-' );
         this.addColumn('comision', 'Comisión',      '').renderFn(row => row.comision? row.comision+' %' : '-');
         this.addColumn('habilitada',   'Habilitada',   '100px').renderFn(row => row.habilitada ? 'No' : 'Si').setAlign('center');
         this.addColumn('_acciones',    'Acciones',      '60px').setAsMenu().setAlign('right');

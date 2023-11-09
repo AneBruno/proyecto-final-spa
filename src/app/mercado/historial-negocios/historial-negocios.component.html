@@ -1,5 +1,10 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
     <titulo>Historial de negocios</titulo>
+    <botones>
+      <button mat-flat-button color="primary" class="rounded-button" (click)="exportToXLSX()">
+          <mat-icon>file_download</mat-icon>
+          Descargar</button>
+    </botones>
     <filtros fxLayout="column" fxLayoutAlign="start stretch">
 
         <mat-form-field appearance="legacy">

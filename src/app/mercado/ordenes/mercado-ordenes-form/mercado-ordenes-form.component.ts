@@ -5,7 +5,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import * as moment from "moment";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { UserService } from "src/app/auth/shared/services/user.service";
 import { FormBaseLocalizacionComponent } from "src/app/shared/form-base-localizacion.component";
+import { User } from "src/app/shared/models/user.model";
 
 
 
@@ -23,30 +25,33 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     @Output() formChange = new EventEmitter<any>();
 
 
-    public productos: any[] = [];
-    public condiciones_pago$? : Observable<any[]>;
-    public empresas: any[] = [];
-    public puertos: any[] = [];
-    public posicion: any;
-    public consulta: boolean = false;
-    public empresa_id?: number;
-    public campoVendedorModificado: boolean = false;
-    private empresa_id_to: any;
-    private producto_id_to: any;
-    public minDate: any = moment().format();
+    public productos                : any[] = [];
+    public condiciones_pago$?       : Observable<any[]>;
+    public empresas                 : any[] = [];
+    public puertos                  : any[] = [];
+    public posicion                 : any;
+    public consulta                 : boolean = false;
+    public empresa_id?              : number;
+    public campoVendedorModificado  : boolean = false;
+    private empresa_id_to           : any;
+    private producto_id_to          : any;
+    public minDate                  : any = moment().format();
     public direccionCompletaDestino?: string;
-    readonlyMode: boolean = false;
-    public isLoading                    : boolean = false;
+    readonlyMode                    : boolean = false;
+    public isLoading                : boolean = false;
+    public currentUser?             : User;
 
 
     public constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private userService: UserService
     ) {
         super();
     }
 
     public ngOnInit(): void {
+        this.currentUser = this.userService.getUser();
         this.watchInputs();
         this.createForm();
         this.loadRelatedData();
@@ -192,19 +197,37 @@ export class MercadoOrdenesFormComponent extends FormBaseLocalizacionComponent i
     }
 
     public buscarEmpresas(busqueda?: any) {
-        let filtros: any = {};
-        filtros.perfil = "VENDEDOR";
-        if (busqueda) {
-            filtros.busqueda = busqueda;
-        }
-        this.apiService.getData('/clientes/empresas', {
-            filtros: filtros,
-            ordenes: {
-                razon_social: 'ASC'
+        if(this.currentUser?.rol_id != 4){
+            let filtros: any = {};
+            filtros.perfil = "VENDEDOR";
+            if (busqueda) {
+                filtros.busqueda = busqueda;
             }
-        }).subscribe(data => {
-            this.empresas = data;
-        });
+            this.apiService.getData('/clientes/empresas', {
+                filtros: filtros,
+                ordenes: {
+                    razon_social: 'ASC'
+                }
+            }).subscribe(data => {
+                this.empresas = data;
+            });
+        }else {
+            let filtros: any = {};
+            filtros.perfil = "VENDEDOR";
+            filtros.usuario_comercial_id = this.currentUser.id;
+            if (busqueda) {
+                filtros.busqueda = busqueda;
+            }
+            this.apiService.getData('/clientes/empresas', {
+                filtros: filtros,
+                ordenes: {
+                    razon_social: 'ASC'
+                }
+            }).subscribe(data => {
+                this.empresas = data;
+            });
+        }
+        
     }
 
     public producto_id_selected(ev: MatAutocompleteSelectedEvent) {

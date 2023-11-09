@@ -1,7 +1,7 @@
 <app-listado-filtrado [dataSource]="dataSource" (onClearFilters)="onClearFilters()">
     <titulo>Posiciones de compra</titulo>
     <botones>
-        <button mat-flat-button routerLink="agregar" class="rounded-button" color="primary">Agregar</button>
+        <button mat-flat-button *ngIf="this.isInterno()||this.isCliente()" routerLink="agregar" class="rounded-button" color="primary">Agregar</button>
     </botones>
     <filtros fxLayout="column">
 
@@ -61,6 +61,7 @@
           <mat-label>Estado</mat-label>
           <mat-select multiple [(ngModel)]="filtroEstado" (selectionChange)="selecetionChangeMultiple($event,'estado')">
               <mat-option value="activa">Activas</mat-option>
+              <mat-option value="cerrada">Cerrada</mat-option>
               <mat-option value="eliminada">Eliminadas</mat-option>
           </mat-select>
         </mat-form-field>
@@ -104,9 +105,9 @@
 
         <mat-menu #menu="matMenu">
             <ng-template matMenuContent let-aliasMenuItems="row">
-                <button mat-menu-item routerLink="copiar/{{aliasMenuItems.id}}">Copiar</button>
+                <button mat-menu-item *ngIf="this.isInterno()" routerLink="copiar/{{aliasMenuItems.id}}">Copiar</button>
                 <button mat-menu-item routerLink="consulta/{{aliasMenuItems.id}}">Consultar</button>
-                <button mat-menu-item *ngIf="!(aliasMenuItems.estado == 'ELIMINADA')"(click)="estadoPosicion(aliasMenuItems.id, 'ELIMINADA')">Eliminar</button>
+                <button mat-menu-item *ngIf="!(aliasMenuItems.estado == 'ELIMINADA')&&this.isInterno()"(click)="estadoPosicion(aliasMenuItems.id, 'ELIMINADA')">Eliminar</button>
             </ng-template>
         </mat-menu>
     </contenido>

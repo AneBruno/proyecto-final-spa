@@ -9,6 +9,8 @@ import { FormBaseLocalizacionComponent } from 'src/app/shared/form-base-localiza
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/auth/shared/services/user.service';
 
 @Component({
     selector    :   'app-mercado-posiciones-editar',
@@ -31,17 +33,20 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
     private empresa_id_to            : any;
     public minDate                   : any = moment().format();
     public isLoading                 : boolean = false;
+    public currentUser?               : User;
 
 
     public constructor(
-        private router    : Router,
-        private route     : ActivatedRoute,
-        private _location : Location
+        private router      : Router,
+        private route       : ActivatedRoute,
+        private _location   : Location,
+        private userService : UserService
     ) {
         super();
     }
 
     public ngOnInit(): void {
+        this.currentUser = this.userService.getUser();
         this.createForm();
         this.loadRelatedData();
         this.watchRoute();
@@ -167,19 +172,37 @@ export class MercadoPosicionesEditarComponent extends FormBaseLocalizacionCompon
     }
 
     public buscarEmpresas(busqueda?: any) {
-        let filtros: any = {};
-        filtros.perfil = "COMPRADOR";
-        if (busqueda) {
-            filtros.busqueda = busqueda;
-        }
-        this.apiService.getData('/clientes/empresas', {
-            filtros: filtros,
-            ordenes: {
-                razon_social:'ASC'
+        if(this.currentUser?.rol_id != 4){
+            let filtros: any = {};
+            filtros.perfil = "COMPRADOR";
+            if (busqueda) {
+                filtros.busqueda = busqueda;
             }
-        }).subscribe(data => {
-            this.empresas = data;
-        });
+            this.apiService.getData('/clientes/empresas', {
+                filtros: filtros,
+                ordenes: {
+                    razon_social:'ASC'
+                }
+            }).subscribe(data => {
+                this.empresas = data;
+            });
+        } else {
+            let filtros: any = {};
+            filtros.perfil = "COMPRADOR";
+            filtros.usuario_comercial_id = this.currentUser.id;
+            if (busqueda) {
+                filtros.busqueda = busqueda;
+            }
+            this.apiService.getData('/clientes/empresas', {
+                filtros: filtros,
+                ordenes: {
+                    razon_social:'ASC'
+                }
+            }).subscribe(data => {
+                this.empresas = data;
+            });
+        }
+        
     }
 
     public producto_id_keyup(ev: any) {

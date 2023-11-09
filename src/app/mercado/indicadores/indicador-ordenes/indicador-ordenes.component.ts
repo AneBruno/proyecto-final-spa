@@ -153,21 +153,21 @@
         data: [{
         type: "line",
         showInLegend: true,
-        name: "Negocios cerrados",
+        name: "Órdenes cerradas",
         color: 'green',
         xValueFormatString: "YYYY-MM",
         dataPoints:   this.dConfirmada
         },{
           type: "line",
           showInLegend: true,
-          name: "Sin cerrar",
+          name: "Órdenes sin cerrar",
           xValueFormatString: "YYYY-MM",
           color: 'blue',
           dataPoints:   this.dActiva
           },{
             type: "line",
             showInLegend: true,
-            name: "Canceladas",
+            name: "Órdenes canceladas",
             xValueFormatString: "YYYY-MM",
             color: 'red',
             dataPoints:   this.dEliminada
@@ -212,7 +212,7 @@
         data: [{
         type: "line",
         showInLegend: true,
-        name: "Negocios cerrados",
+        name: "Órdenes cerradas",
         color: 'green',
         xValueFormatString: "YYYY",
         dataPoints: this.dConfirmada
@@ -220,7 +220,7 @@
         {
           type: "line",
           showInLegend: true,
-          name: "Sin cerrar",
+          name: "Órdenes sin cerrar",
           xValueFormatString: "YYYY",
           color: 'blue',
           dataPoints: this.dActiva
@@ -228,7 +228,7 @@
           {
             type: "line",
             showInLegend: true,
-            name: "Eliminadas",
+            name: "Órdenes eliminadas",
             color: 'red',
             xValueFormatString: "YYYY",
             dataPoints: this.dEliminada
@@ -255,7 +255,7 @@
         
         },
         axisY: {
-        title: "Órdenes de ventaa"
+        title: "Órdenes de venta"
         },
         toolTip: {
         shared: true
@@ -274,14 +274,14 @@
         data: [{
         type: "line",
         showInLegend: true,
-        name: "Negocios cerrados",
+        name: "Órdenes cerradas",
         xValueFormatString: "DD/MM",
         color: 'green',
         dataPoints:   this.dConfirmada
         },{
         type: "line",
         showInLegend: true,
-        name: "Sin cerrar",
+        name: "Órdenes sin cerrar",
         xValueFormatString: "DD/MM",
         color: 'blue',
         dataPoints:   this.dActiva
@@ -289,7 +289,7 @@
         {
           type: "line",
           showInLegend: true,
-          name: "Canceladas",
+          name: "Órdenes canceladas",
           xValueFormatString: "DD/MM",
           color: 'red',
           dataPoints:   this.dEliminada
@@ -302,13 +302,13 @@
     private setTable(): void {
       this.addColumn('periodo',    'Período',    '100px');
       //this.addColumn('Activa',     'Activas',     '100px');
-      this.addColumn('Confirmada', 'Negocios cerrados', '60px');
+      this.addColumn('Confirmada', 'Órdenes cerradas', '60px');
       this.addColumn('porcentaje_confirmada',      '%',      '120px');
 
-      this.addColumn('Activa', 'Sin cerrar', '60px');
+      this.addColumn('Activa', 'Órdenes sin cerrar', '60px');
       this.addColumn('porcentaje_activa',      '%',      '120px');
 
-      this.addColumn('Eliminada',  'Eliminadas',  '60px');
+      this.addColumn('Eliminada',  'Órdenes eliminadas',  '60px');
       this.addColumn('porcentaje_eliminada',      '%',      '120px');
       this.addColumn('Total',      'Total',      '50px');
 

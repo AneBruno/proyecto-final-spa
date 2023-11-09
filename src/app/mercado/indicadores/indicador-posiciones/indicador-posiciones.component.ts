@@ -128,13 +128,13 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
   private setTable(): void {
     this.addColumn('periodo',    'Período',    '100px');
     //this.addColumn('Activa',     'Activas',     '100px');
-    this.addColumn('Confirmada', 'Negocios cerradas', '60px');
+    this.addColumn('Confirmada', 'Posiciones cerradas', '60px');
     this.addColumn('porcentaje_confirmada',      '%',      '120px');
     
-    this.addColumn('Activa', 'Sin cerrar', '60px');
+    this.addColumn('Activa', 'Posiciones sin cerrar', '60px');
     this.addColumn('porcentaje_activa',      '%',      '120px');
 
-    this.addColumn('Eliminada',  'Eliminadas',  '60px');
+    this.addColumn('Eliminada',  'Posiciones eliminadas',  '60px');
     this.addColumn('porcentaje_eliminada',      '%',      '120px');
     this.addColumn('Total',      'Total',      '50px');
 
@@ -268,21 +268,21 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
       data: [{
       type: "line",
       showInLegend: true,
-      name: "Negocios cerrados",
+      name: "Posiciones cerradas",
       color: 'green',
       xValueFormatString: "YYYY-MM",
       dataPoints:   this.dConfirmada
       },{
         type: "line",
         showInLegend: true,
-        name: "Sin cerrar",
+        name: "Posiciones sin cerrar",
         xValueFormatString: "YYYY-MM",
         color: 'blue',
         dataPoints:   this.dActiva
         },{
           type: "line",
           showInLegend: true,
-          name: "Canceladas",
+          name: "Posiciones canceladas",
           xValueFormatString: "YYYY-MM",
           color: 'red',
           dataPoints:   this.dEliminada
@@ -327,21 +327,21 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
       data: [{
       type: "line",
       showInLegend: true,
-      name: "Negocios cerrados",
+      name: "Posiciones cerradas",
       xValueFormatString: "YYYY",
       dataPoints: this.dConfirmada
       },
       {
         type: "line",
         showInLegend: true,
-        name: "Sin cerrar",
+        name: "Posiciones sin cerrar",
         xValueFormatString: "YYYY",
         dataPoints: this.dActiva
         },
         {
           type: "line",
           showInLegend: true,
-          name: "Eliminadas",
+          name: "Posiciones eliminadas",
           xValueFormatString: "YYYY",
           dataPoints: this.dEliminada
           }
@@ -386,14 +386,14 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
       data: [{
       type: "line",
       showInLegend: true,
-      name: "Negocios cerrados",
+      name: "Posiciones cerradas",
       xValueFormatString: "DD/MM",
       color: 'green',
       dataPoints:   this.dConfirmada
       },{
       type: "line",
       showInLegend: true,
-      name: "Sin cerrar",
+      name: "Posiciones sin cerrar",
       xValueFormatString: "DD/MM",
       color: 'blue',
       dataPoints:   this.dActiva
@@ -401,7 +401,7 @@ export class IndicadorPosicionesComponent extends ListadoComponent implements On
       {
         type: "line",
         showInLegend: true,
-        name: "Canceladas",
+        name: "Posiciones canceladas",
         xValueFormatString: "DD/MM",
         color: 'red',
         dataPoints:   this.dEliminada

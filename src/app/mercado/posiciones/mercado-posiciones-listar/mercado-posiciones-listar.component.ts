@@ -7,6 +7,7 @@ import { ListadoComponent             } from 'src/app/shared/listados/listado.co
 import { ApiService                   } from 'src/app/shared/services/api.service';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
 import { UserService } from 'src/app/auth/shared/services/user.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
     selector    :   'app-mercado-posiciones-listar',
@@ -24,6 +25,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     }) filtroFechaHasta?: MatInput;
 
     public filtros              : any = {};
+    public currentUser?          : User;
     public formasPago           : Array<any> = [];
     public puertos              : Array<any> = [];
     public productos             : Array<any> = [];
@@ -44,9 +46,9 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
     //Filtros Multiples
     public filtroProductos!    : Array<any>; 
     public filtroPuertos!      : Array<any>;  
-    public filtroEstado!       : Array<any>; 
+    public filtroEstado        : Array<any> = ['activa', 'cerrada'];
     public filtroFormaPago!    : Array<any>;
-    public filtroEmpresa!    : Array<any>;
+    public filtroEmpresa!      : Array<any>;
 
 
     public constructor(
@@ -55,6 +57,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         public  authService : AuthService,
         private confirm     : ConfirmService,
         private user        : UserService,
+        private userService : UserService,
     ) {
         super();
     }
@@ -67,6 +70,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         //this.filtros.empresa_id = [];
         this.rol_id_usuario       = (await this.user.fetchUserAsync()).rol.id;
         this.id_usuario           = (await this.user.fetchUserAsync()).id;
+        this.currentUser = this.userService.getUser();
 
         await this.loadRelatedData();
         
@@ -124,7 +128,7 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
             }
         }).subscribe(data => {
             this.empresas = data;
-        });
+        });        
     }
 
     public calculaDestino(row:any) {
@@ -148,6 +152,10 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
       if (this.fechaHasta) {
           this.dataSource.filtros.fecha_hasta = moment(this.fechaHasta).format('YYYY-MM-DD');
       }
+      if (this.filtroEstado){
+        this.dataSource.filtros.estado = this.filtroEstado;
+      }
+
   }
 
 
@@ -156,9 +164,10 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         this.fechaHasta = undefined;
         this.filtroProductos    = [];
         this.filtroPuertos      = [];
-        this.filtroEstado       = [];
+        this.filtroEstado       = ['activa', 'cerrada'];
         this.filtroFormaPago    = [];
         this.filtroEmpresa      = [];
+        this.actualizarDatos();
     }      
 
     public estadoPosicion(id:number, estado:string){
@@ -208,5 +217,21 @@ export class MercadoPosicionesListarComponent extends ListadoComponent implement
         }
         // Si no se cumple ninguna condición, no se aplica ninguna clase especial
         return '';
-      }
+    }
+
+    public isInterno(): any {
+        if(this.currentUser?.rol_id===3){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public isCliente(): any {
+        if(this.currentUser?.rol_id===4){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

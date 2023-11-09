@@ -17,7 +17,11 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
   public currentUser?         : User;
   public chartOptions         : any;
   public chartOptions2        : any;
-  public chartOptions3         : any;
+  //public chartOptions3      : any;
+  public chartOptions4        : any;
+  public chartOptions5        : any;
+  public chartOptions6        : any;
+  public chartOptions7        : any;
   public productos            : Array<any> = [];
   public puertos              : Array<any> = [];
   public formas_pago          : Array<any> = [];
@@ -27,6 +31,12 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
   public data_negocios        : { x: Date, y: number, z: string }[] = [];
   public data_sin_cerrar      : { x: Date, y: number, z: string }[] = [];
   public data_eliminada       : { x: Date, y: number, z: string }[] = [];
+  public data_montos_usd      : { x: number, y: string}[] = [];
+  public data_montos_comis_usd : { x: number, y: string }[] = [];
+  public data_montos_ars      : { x: number, y: string}[] = [];
+  public data_montos_comis_ars: { x: number, y: string }[] = [];
+  public empresas             : Array<any> = [];
+  public empresas_compradoras : Array<any> = [];
 
   //Filtros
   public filtroPeriodo?       : string= '%Y-%m';
@@ -64,7 +74,7 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
         })
         this.dibujarGraficoDiario(); 
         this.dibujarGraficoDiarioSinCerrar();
-        this.dibujarGraficoDiarioEliminadas();
+        //this.dibujarGraficoDiarioEliminadas();
       }
       if(this.filtroPeriodo ==='%Y-%m'){
         this.dataSource.currentData.forEach((elemento)=>{
@@ -80,18 +90,30 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
         })
         this.dibujarGraficoMensual(); 
         this.dibujarGraficoMensualSinCerrar();
-        this.dibujarGraficoMensualEliminadas();
+        //this.dibujarGraficoMensualEliminadas();
       }
       if(this.filtroPeriodo ==='%Y'){
         this.dataSource.currentData.forEach((elemento)=>{
           const periodo = elemento.periodo;
           this.data_negocios.push({ x: new Date(periodo, 0), y: +elemento.Cerrada, z: elemento.razon_social });  
           this.data_sin_cerrar.push({ x: new Date(periodo, 0), y: +elemento.Activa, z: elemento.razon_social }); 
-          this.data_eliminada.push({ x: new Date(periodo, 0), y: +elemento.Eliminada, z: elemento.razon_social }); 
+          this.data_eliminada.push({ x: new Date(periodo, 0), y: +elemento.Eliminada, z: elemento.razon_social });
+          this.data_montos_usd.push({  x: +elemento.Monto_USD, y: elemento.razon_social}); 
+          this.data_montos_comis_usd.push({ x: +elemento.Monto_comis_USD, y: elemento.razon_social}); 
+          this.data_montos_ars.push({  x: +elemento.Monto_ARS, y: elemento.razon_social}); 
+          this.data_montos_comis_ars.push({ x: +elemento.Monto_comis_ARS, y: elemento.razon_social}); 
         })
         this.dibujarGraficoAnual(); 
         this.dibujarGraficoAnualSinCerrar();
-        this.dibujarGraficoAnualEliminadas();
+        console.log("this.data_montos_usd", this.data_montos_usd);
+        console.log("this.data_montos_comis_usd", this.data_montos_comis_usd);
+        console.log("this.data_montos_ars", this.data_montos_ars);
+        console.log("this.data_montos_comis_ars", this.data_montos_comis_ars);
+        this.dibujarBarras();
+        this.dibujarBarrasComisiones();
+        this.dibujarBarrasARS();
+        this.dibujarBarrasComisionesARS();
+        //this.dibujarGraficoAnualEliminadas();
       } 
     });
     this.currentUser  = this.userService.getUser();
@@ -111,29 +133,36 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
       if(this.filtroPeriodo ==='%Y-%m%-%d' ){
         this.dibujarGraficoDiario(); 
         this.dibujarGraficoDiarioSinCerrar();
-        this.dibujarGraficoDiarioEliminadas();
+        //this.dibujarGraficoDiarioEliminadas();
       }
       if(this.filtroPeriodo ==='%Y-%m' ){
         this.dibujarGraficoMensual();
         this.dibujarGraficoMensualSinCerrar();
-        this.dibujarGraficoMensualEliminadas();
+        //this.dibujarGraficoMensualEliminadas();
       }
       if(this.filtroPeriodo ==='%Y' ){
         this.dibujarGraficoAnual();
         this.dibujarGraficoAnualSinCerrar();
-        this.dibujarGraficoAnualEliminadas();
+        //this.dibujarGraficoAnualEliminadas();
+        this.dibujarBarras();
+        this.dibujarBarrasComisiones();
+        this.dibujarBarrasARS();
+        this.dibujarBarrasComisionesARS();
       }
     }
   }
 
   private setTable(): void {
-    this.addColumn('periodo',    'Periodo',    '100px');
+    this.addColumn('periodo',    'Periodo',    '80px');
     this.addColumn('razon_social',    'Razón social',    '100px');
-    this.addColumn('Cerrada',    'Negocios cerrados',    '90px');
-    this.addColumn('Montos','Monto total', '100px').renderFn(row => 'USD '+row.Monto_USD+'-ARS '+row.Monto_ARS );
-    this.addColumn('Activa',    'Sin cerrar',    '100px');
-    this.addColumn('Eliminada',    'Eliminadas',    '100px');
-    this.addColumn('Total',    'Total de Posiciones',    '100px');
+    this.addColumn('Negocios_cerrados',    'Negocios cerrados',    '40px');
+    this.addColumn('Monto_USD','Comprado (USD)', '90px').renderFn(row => 'USD '+row.Monto_USD ).setAlign('center');
+    this.addColumn('Monto_comis_USD','Comisiones (USD)', '90px').renderFn(row => 'USD '+row.Monto_comis_USD).setAlign('center');
+    this.addColumn('Monto_ARS','Comprado (ARS)', '80px').renderFn(row => 'ARS '+row.Monto_ARS ).setAlign('center');
+    this.addColumn('Monto_comis_ARS','Comisiones (ARS)', '110px').renderFn(row => 'ARS '+row.Monto_comis_ARS).setAlign('center');
+    this.addColumn('Activa',    'Sin cerrar',    '40px');
+    //this.addColumn('Eliminada',    'Eliminadas',    '40px');
+    this.addColumn('Total',    'Total de Posiciones',    '40px');
    
 
   }
@@ -604,7 +633,109 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
     }
   }
 
-  public dibujarGraficoAnualEliminadas() {
+  public dibujarBarras (){
+    let chart: any;
+    const dataPoints = this.data_montos_usd.map(item => ({
+      label: item.y,  // Usamos el valor 'y' como etiqueta
+      y: item.x  // Usamos el valor 'x' como valor
+    }));
+    this.chartOptions4 = {
+      title:{
+        text: "Montos comprados en USD por empresa",
+        fontFamily: "Poppins", 
+        fontSize: 22,
+        fontWeight: 500
+      },
+      animationEnabled: true,
+      axisY: {
+        includeZero: true
+      },
+      data: [{
+        type: "bar",
+        dataPoints: dataPoints
+      }]
+    }	
+  }
+
+  public dibujarBarrasComisiones (){
+    let chart: any;
+    const dataPoints = this.data_montos_comis_usd.map(item => ({
+      label:  item.y,  // Usamos el valor 'y' como etiqueta
+      y:  item.x  // Usamos el valor 'x' como valor
+    }));
+    this.chartOptions5 = {
+      title:{
+        text: "Comisiones en USD por empresa",
+        fontFamily: "Poppins", 
+        fontSize: 22,
+        fontWeight: 500
+      },
+      animationEnabled: true,
+      axisX: {
+        text: 'USD'
+      },
+      axisY: {
+        includeZero: true
+      },
+      data: [{
+        type: "bar",
+        dataPoints: dataPoints
+      }]
+    }	
+  }
+
+  public dibujarBarrasARS (){
+    let chart: any;
+    const dataPoints = this.data_montos_ars.map(item => ({
+      label: item.y,  // Usamos el valor 'y' como etiqueta
+      y: item.x  // Usamos el valor 'x' como valor
+    }));
+    this.chartOptions6 = {
+      title:{
+        text: "Montos comprados en ARS por empresa",
+        fontFamily: "Poppins", 
+        fontSize: 22,
+        fontWeight: 500
+      },
+      animationEnabled: true,
+      axisY: {
+        includeZero: true
+      },
+      data: [{
+        type: "bar",
+        dataPoints: dataPoints
+      }]
+    }	
+  }
+
+  public dibujarBarrasComisionesARS (){
+    let chart: any;
+    const dataPoints = this.data_montos_comis_ars.map(item => ({
+      label:  item.y,  // Usamos el valor 'y' como etiqueta
+      y:  item.x  // Usamos el valor 'x' como valor
+    }));
+    this.chartOptions7 = {
+      title:{
+        text: "Comisiones en ARS por empresa",
+        fontFamily: "Poppins", 
+        fontSize: 22,
+        fontWeight: 500
+      },
+      animationEnabled: true,
+      axisX: {
+        text: 'ARS'
+      },
+      axisY: {
+        includeZero: true
+      },
+      data: [{
+        type: "bar",
+        dataPoints: dataPoints
+      }]
+    }	
+  }
+
+  /*public dibujarGraficoAnualEliminadas() {
     let chart: any;
     this.chartOptions3 = {
       animationEnabled: true,
@@ -666,9 +797,9 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
         this.chartOptions3.data.push(seriesPorRazonSocial[razonSocial]);
       }
     }
-  }
+  }*/
 
-  public dibujarGraficoMensualEliminadas(){
+  /*public dibujarGraficoMensualEliminadas(){
     let chart: any ;
     this.chartOptions3 = {
       animationEnabled: true,
@@ -729,9 +860,9 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
         this.chartOptions3.data.push(seriesPorRazonSocial[razonSocial]);
       }
     }
-  }
+  }*/
 
-  public dibujarGraficoDiarioEliminadas(){
+  /*public dibujarGraficoDiarioEliminadas(){
     let chart: any ;
     this.chartOptions3 = {
       animationEnabled: true,
@@ -790,5 +921,6 @@ export class IndicadorClientesComponent extends ListadoComponent implements OnIn
         this.chartOptions3.data.push(seriesPorRazonSocial[razonSocial]);
       }
     }
-  }
+  }*/
+
 }

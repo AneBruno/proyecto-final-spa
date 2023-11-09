@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import { MatInput } from '@angular/material/input';
 import { ConfirmService } from 'src/app/shared/services/confirm.service';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-historial-negocios',
@@ -200,11 +201,47 @@ export class HistorialNegociosComponent extends ListadoComponent implements OnIn
   }
 
   public isInterno(): any {
-    if(this.currentUser?.rol_id === 1 || this.currentUser?.rol_id===3){
+    if(this.currentUser?.rol_id===3){
       return true;
     }else{
       return false;
     }
   }
 
+  exportToXLSX() {
+    // Obtén la referencia a la tabla HTML
+    const table = document.querySelector('.mat-table');
+  
+    // Array para almacenar los datos de la tabla, incluyendo el encabezado
+    const data: any = [];
+  
+    // Obtén las filas de la tabla
+    const rows = table?.querySelectorAll('.mat-header-row, .mat-row');
+  
+    // Itera a través de las filas
+    rows?.forEach((row) => {
+      const rowData: any = [];
+  
+      // Obtén las celdas de cada fila (ya sea th o td)
+      const cells = row.querySelectorAll('.mat-cell, .mat-header-cell');
+  
+      cells.forEach((cell) => {
+        rowData.push(cell.textContent); // Usa textContent en lugar de innerText
+      });
+  
+      data.push(rowData);
+    });
+  
+    // Crea una hoja de cálculo de datos
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+  
+    // Crea un libro de Excel
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Historial de negocios');
+  
+    // Guarda el archivo en formato .xlsx
+    XLSX.writeFile(wb, 'historial-negocios.xlsx');
+  }
+  
+  
 }

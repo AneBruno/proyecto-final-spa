@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
@@ -18,7 +18,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
     protected get dataUrl(): string {
         return `/mercado/ordenes/${this.orden_id}:cerrarSlip`;
     }
-
+        public errorMessage                  : string = ''; 
         public title                         : string = "Cerrar negocio"
         public posicion                      : any;
         public clave?                        : String;
@@ -71,7 +71,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
     private async createForm() {
         this.orden_id = this.route.snapshot.params.orden;
         this.form = this.fb.group({
-
+            //password: new FormControl('', [Validators.required, this.minLength(8)]),
             //posicion de compra
             producto_posicion              : new FormControl({ value: '',    disabled: false  }),
             empresa_posicion               : new FormControl({ value: '',    disabled: false  }),
@@ -101,7 +101,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
 
             //datos de cierre
             precio_cierre_slip             : new FormControl({ value: '',    disabled: false  }),
-            toneladas_cierre               : new FormControl({ value: '',    disabled: false  }),
+            toneladas_cierre               : new FormControl({ value: '',    disabled: false  })
             
             
         });
@@ -151,7 +151,7 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
 
         //datos cierre
         this.form?.get('precio_cierre_slip')?.setValue(this.posicion.precio);
-        this.form?.get('toneladas_cierre')?.setValue(this.posicion.volumen);
+        //this.form?.get('toneladas_cierre')?.setValue(this.posicion.volumen);
     }
 
     public infoEmpresaPosicion(posicion: any) {
@@ -168,11 +168,25 @@ export class CerrarSlipComponent extends FormBaseComponent implements OnInit {
         // Asignar el valor transformado de vuelta al campo de entrada.
         this.form?.get('toneladas_cierre')?.setValue(volumen);
 
-        this.enviarDatos().subscribe((data: any) => {
-        this.messages.show('Datos guardados correctamente').subscribe(() => {
-                this.isLoading = false; // Ocultar el spinner cuando finalice la carga
-                this.router.navigateByUrl(`/app/mercado/panel`);
-            });
-        });
+        this.enviarDatos().subscribe(
+            (data: any) => {
+                this.messages.show('Datos guardados correctamente').subscribe(() => {
+                    this.isLoading = false;
+                    this.router.navigateByUrl(`/app/mercado/panel`);
+                });
+            },
+            (error: any) => {
+                this.isLoading = false; 
+                //console.error('Error al enviar datos:', error);
+                this.errorMessage = 'Las toneladas ingresadas no pueden exceder las toneladas de la orden de venta.';
+                this.messages.show(this.errorMessage);
+            }
+        );      
+    }
+
+    public validar(toneladas_cierre: number) {
+        if(toneladas_cierre > this.orden.volumen){
+
+        }
     }
 }
